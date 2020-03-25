@@ -1,0 +1,323 @@
+000     INDF
+001     TMR0
+002     PCL
+003     STATUS
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     FSR
+004-005 @WRITE_PROGRAM_MEMORY8.P1
+005.0   RA0
+005     PORTA
+005.1   RA1
+005.2   RA2
+005.3   RA3
+005.4   RA4
+006.0   RB0
+006     PORTB
+006.1   RB1
+006.2   RB2
+006.3   RB3
+006.4   RB4
+006.5   RB5
+006.6   RB6
+006.7   RB7
+007     PORTC
+007.0   RC0
+007.1   RC1
+007.2   RC2
+007.3   RC3
+007.4   RC4
+007.5   RC5
+007.6   RC6
+007.7   RC7
+008     PORTD
+008     PSP_DATA
+008.0   RD0
+008.1   RD1
+008.2   RD2
+008.3   RD3
+008.4   RD4
+008.5   RD5
+008.6   RD6
+008.7   RD7
+009.0   RE0
+009     PORTE
+009.1   RE1
+009.2   RE2
+00A     PCLATH
+00B.0   RBIF
+00B     INTCON
+00B.1   INTF
+00B.2   TMR0IF
+00B.3   RBIE
+00B.4   INTE
+00B.5   TMR0IE
+00B.6   PEIE
+00B.7   GIE
+00C     PIR1
+00C.0   tmr1if
+00C.1   tmr2if
+00C.2   ccp1if
+00C.3   sspif
+00C.4   txif
+00C.5   rcif
+00C.6   adif
+00C.7   pspif
+00D.0   ccp2if
+00D     PIR2
+00D.3   bclif
+00D.4   eeif
+00D.6   cmif
+00E     TMR1L
+00F     TMR1H
+010     T1CON
+010.0   TMR1ON
+010.1   TMR1CS
+010.2   T1SYNC
+010.3   T1OSCEN
+010.4   T1CKPS0
+010.5   T1CKPS1
+011     TMR2
+012     T2CON
+012.0   T2CKPS0
+012.1   T2CKPS1
+012.2   TMR2ON
+012.3   TOUTPS0
+012.4   TOUTPS1
+012.5   TOUTPS2
+012.6   TOUTPS3
+013     SSPBUF
+014     SSPCON
+014.0   SSPM0
+014.1   SSPM1
+014.2   SSPM2
+014.3   SSPM3
+014.4   CKP
+014.5   SSPEN
+014.6   SSPOV
+014.7   WCOL
+015     CCP_1
+015     CCPR1L
+015     CCP_1_LOW
+016     CCPR1H
+016     CCP_1_HIGH
+017     CCP1CON
+017.0   CCP1M0
+017.1   CCP1M1
+017.2   CCP1M2
+017.3   CCP1M3
+017.4   CCP1Y
+017.5   CCP1X
+018.0   RX9D
+018     RCSTA
+018.1   OERR
+018.2   FERR
+018.3   ADDEN
+018.4   CREN
+018.5   SREN
+018.6   RX9
+018.7   SPEN
+019     TXREG
+01A     RCREG
+01B     CCP_2_LOW
+01B     CCP_2
+01B     CCPR2L
+01C     CCPR2H
+01C     CCP_2_HIGH
+01D.0   CCP2M0
+01D     CCP2CON
+01D.1   CCP2M1
+01D.2   CCP2M2
+01D.3   CCP2M3
+01D.4   CCP2Y
+01D.5   CCP2X
+01E     ADRESH
+01F.0   ADON
+01F     ADCON0
+01F.2   ADGO
+01F.3   CHS0
+01F.4   CHS1
+01F.5   CHS2
+01F.6   ADCS0
+01F.7   ADCS1
+020-029 num
+02A-02D count
+02E.0   flag
+02F     ghima.data
+02F     @PSTRINGC7_868.@SCRATCH1
+030     ghima.@SCRATCH1
+030     @PSTRINGC7_868.@SCRATCH2
+031     @PSTRINGC7_868.@SCRATCH3
+032     hienthi.data
+032     @PSTRINGC7_868.@SCRATCH4
+033     @delay_ms1.P1
+033     hienthi.@SCRATCH1
+034     @delay_us1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+081     OPTION_REG
+081.0   PS0
+081.1   PS1
+081.2   PS2
+081.3   PSA
+081.4   T0SE
+081.5   T0CS
+081.6   INTEDG
+081.7   RBPU
+085     TRISA
+085.0   TRISA0
+085.1   TRISA1
+085.2   TRISA2
+085.3   TRISA3
+085.4   TRISA4
+085.5   TRISA5
+086.0   TRISB0
+086     TRISB
+086.1   TRISB1
+086.2   TRISB2
+086.3   TRISB3
+086.4   TRISB4
+086.5   TRISB5
+086.6   TRISB6
+086.7   TRISB7
+087     TRISC
+087.0   TRISC0
+087.1   TRISC1
+087.2   TRISC2
+087.3   TRISC3
+087.4   TRISC4
+087.5   TRISC5
+087.6   TRISC6
+087.7   TRISC7
+088.0   TRISD0
+088     TRISD
+088.1   TRISD1
+088.2   TRISD2
+088.3   TRISD3
+088.4   TRISD4
+088.5   TRISD5
+088.6   TRISD6
+088.7   TRISD7
+089     TRISE
+089.0   TRISE0
+089.1   TRISE1
+089.2   TRISE2
+08C     PIE1
+08C.0   tmr1ie
+08C.1   tmr2ie
+08C.2   ccp1ie
+08C.3   sspie
+08C.4   txie
+08C.5   rcie
+08C.6   adie
+08C.7   pspie
+08D     PIE2
+08D.0   ccp2ie
+08D.3   bclie
+08D.4   eeie
+08D.6   cmie
+08E     PCON
+08E.0   BOD
+08E.1   POR
+091.0   SEN
+091     SSPCON2
+091.1   RSEN
+091.2   PEN
+091.3   RCEN
+091.4   ACKEN
+091.5   ACKDT
+091.6   ACKSTAT
+091.7   GCEN
+092     PR2
+093     SSPADD
+094.0   STAT_BF
+094     SSPSTAT
+094.1   STAT_UA
+094.2   STAT_RW
+094.3   STAT_S
+094.4   STAT_P
+094.5   STAT_DA
+094.6   STAT_CKE
+094.7   STAT_SMP
+098     TXSTA
+098.0   TX9D
+098.1   TRMT
+098.2   BRGH
+098.4   SYNC
+098.5   TXEN
+098.6   TX9
+098.7   CSRC
+099     SPBRG
+09C.6   C1OUT
+09C.7   C2OUT
+09E     ADRESL
+09F.0   PCFG0
+09F     ADCON1
+09F.1   PCFG1
+09F.2   PCFG2
+09F.3   PCFG3
+09F.6   ADCS2
+09F.7   ADFM
+10C     EEDATA
+10D     EEADR
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+10E     EEDATH
+10F     EEADRH
+18C     EECON1
+18C.0   RD
+18C.1   WR
+18C.2   WREN
+18C.3   WRERR
+18C.7   EEPGD
+18D     EECON2
+
+ROM Allocation:
+000004  @const876.call
+000009  @delay_ms1
+00001D  @delay_us1
+00002C  ghima
+00003D  initLCD
+000052  hienthi
+000063  @PSTRINGC7_868
+0000BB  @cinit1
+0000BB  MAIN
+0000CA  @cinit2
+
+Project Directory:
+    D:\ThapChuong\
+
+Project Files:
+    main.c                                                  [25-Mar-20 22:51  CRC=B11ABF23]
+    main.h                                                  [23-Mar-20 20:25  CRC=D8102B21]
+    ..\Program Files (x86)\PICC\Devices\16F877A.h           [18-Apr-14 16:56  CRC=4F277C97]
+    ..\Program Files (x86)\PICC\Devices\def_16f877a.h       [27-Apr-19 15:32  CRC=334B119E]
+    def_lcd.c                                               [23-Mar-20 15:54  CRC=81DA80DB]
+
+Source signature=0F527A2F
+
+Units:
+    main (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Compile Mode:       CCS5
+
+Output Files:
+    XREF file:   main.xsym
+    Errors:      main.err
+    Ext Symbols: main.esym
+    INHX8:       main.hex
+    Symbols:     main.sym
+    List:        main.lst
+    Debug/COFF:  main.cof
+    Project:     main.ccspjt
+    Call Tree:   main.tre
+    Statistics:  main.STA
