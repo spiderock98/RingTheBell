@@ -14,7 +14,7 @@ void zeroCross()
 {
   digitalWrite(LAMP, LOW);
 
-  delayMicroseconds(200 * dim_val);
+  delayMicroseconds(200 * dimVal);
 
   digitalWrite(LAMP, HIGH);
 }

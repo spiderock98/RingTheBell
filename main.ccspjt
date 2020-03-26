@@ -1,11 +1,11 @@
 [ProjectLog]
-Days=2
+Days=3
 D1=25-03-2020
 D1_L=7
 D1_L1=[81813]Project Opened.
 D1_L2=[81822]Started Editing.
 D1_L3=[82100]Stopped Editing.
-TotalEdit=6
+TotalEdit=40
 TotalDebug=0
 D1_E=5
 D1_D=0
@@ -23,11 +23,23 @@ D2_L3=[3744]Project Closed.
 D2_L4=[32007]Project Opened.
 D2_L5=[37574]Started Editing.
 D2_L6=[38893]Stopped Editing.
+D3=27-03-2020
+D3_L=8
+D3_L1=[2946]Started Editing.
+D3_L2=[3617]Stopped Editing.
+D3_L3=[3759]Started Editing.
+D3_L4=[4150]Stopped Editing.
+D3_L5=[4208]Started Editing.
+D3_L6=[4729]Stopped Editing.
+D3_E=34
+D3_D=0
+D3_L7=[5937]Started Editing.
+D3_L8=[7306]Stopped Editing.
 
 [Opened Files]
 1=main.c
 2=
-3=
+3=c:\Program Files (x86)\PICC\Drivers\math.h
 4=
 [PROJECT]
 Target=main.hex

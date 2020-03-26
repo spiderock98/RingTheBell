@@ -1,4 +1,5 @@
->>> Warning 202 "main.c" Line 9(6,10): Variable never used:   flag
-      Memory usage:   ROM=5%      RAM=10% - 12%
-      0 Errors,  1 Warnings.
+>>> Warning 202 "main.c" Line 17(6,15): Variable never used:   countTime
+>>> Warning 202 "main.c" Line 21(6,18): Variable never used:   anglePercent
+      Memory usage:   ROM=23%      RAM=15% - 24%
+      0 Errors,  2 Warnings.
 Build Successful.

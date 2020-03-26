@@ -1,8 +1,8 @@
-C L "MAIN" 0 11 7 "FUNCTION"
-D G "__PCM__" 0 183 ""5.025""
-D G "__DEVICE__" 0 183 "877"
-D G "__DATE__" 0 183 ""26-Mar-20""
-D G "__TIME__" 0 183 ""11:18:10"" "Standard Header file for the PIC16F877A device ////////////////"
+C L "MAIN" 0 9 7 "FUNCTION"
+D G "__PCM__" 0 260 ""5.025""
+D G "__DEVICE__" 0 260 "877"
+D G "__DATE__" 0 260 ""27-Mar-20""
+D G "__TIME__" 0 260 ""02:23:50"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -833,42 +833,71 @@ C L "initLCD" 4 6 1 "FUNCTION"
 C L "initLCD" 4 6 1 "FUNCTION"
 C L "initLCD" 4 6 1 "FUNCTION"
 C L "initLCD" 4 6 11 "FUNCTION"
-D G "triac1" 0 4 "RB7"
-D G "triac2" 0 5 "RB6"
-D G "relay" 0 6 "RB5"
-V G "count" 0 8 "sint32" `871 
-V G "flag" 0 9 "int1" `872 
-C L "ccp1_isr" 0 11 8 "FUNCTION"
-F G "ccp1_isr" 0 28 "void()" `873 
-C L "ccp1_isr" 0 11 1 "FUNCTION"
-F G "thuan" 0 41 "void()" `874 
-F G "nghich" 0 46 "void()" `875 
-F G "dung" 0 51 "void()" `876 
-F G "khoidong" 0 57 "void()" `877 
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-C L "khoidong" 0 11 1 "FUNCTION"
-F G "MAIN" 0 137 "void()" `881 
-C L "MAIN" 0 11 1 "FUNCTION"
-C L "MAIN" 0 11 1 "FUNCTION"
-C L "MAIN" 0 11 1 "FUNCTION"
-C L "MAIN" 0 11 1 "FUNCTION"
-C L "MAIN" 0 11 1 "FUNCTION"
+V L "x" 5 1 "float" `872 
+F G "FLOOR" 5 2 "float(float x)" `871 
+V L "y" 5 3 "float" `873 
+V L "res" 5 3 "float" `874 
+V L "l" 5 4 "int16" `875 
+V L "s" 5 5 "int1" `876 
+D G "triac1" 0 5 "RB7"
+D G "triac2" 0 6 "RB6"
+D G "relay" 0 7 "RB5"
+V G "angleStarter" 0 10 "float" `890 
+V G "angleRingTheBell" 0 11 "float" `891 
+V G "valTimer0SetStarter" 0 13 "int32" `892 
+V G "valTimer0SetRingTheBell" 0 14 "int32" `898 
+V G "count" 0 16 "sint32" `899 
+V G "countTime" 0 17 "int8" `900 
+V G "flagForward" 0 18 "int1" `901 
+V G "flagStarter" 0 19 "int1" `902 
+V G "flagSTOP" 0 20 "int8" `903 
+V G "anglePercent" 0 21 "int8" `904 
+F G "ext_isr" 0 25 "void()" `905  "cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet"
+C L "ext_isr" 0 9 1 "FUNCTION"
+F G "timer0_isr" 0 45 "void()" `906  "++countTime;"
+C L "timer0_isr" 0 9 6 "FUNCTION"
+C L "timer0_isr" 0 9 1 "FUNCTION"
+F G "ccp1_isr" 0 66 "void()" `907  "encoder"
+C L "ccp1_isr" 0 9 1 "FUNCTION"
+F G "FORWARD" 0 80 "void()" `908 
+F G "REVERSE" 0 85 "void(sint32 ,sint32 )" `909 
+F G "STOP" 0 90 "void(sint32 )" `910 
+F G "starter" 0 96 "void()" `911 
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+C L "starter" 0 9 1 "FUNCTION"
+F G "RingTheBell" 0 178 "void()" `915 
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+C L "RingTheBell" 0 9 1 "FUNCTION"
+F G "MAIN" 0 215 "void()" `916 
+C L "MAIN" 0 9 1 "FUNCTION"
+C L "MAIN" 0 9 1 "FUNCTION"
+C L "MAIN" 0 9 1 "FUNCTION"
+C L "MAIN" 0 9 1 "FUNCTION"
+C L "MAIN" 0 9 1 "FUNCTION"
+C L "MAIN" 0 9 1 "FUNCTION"
+C L "MAIN" 0 9 1 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0
