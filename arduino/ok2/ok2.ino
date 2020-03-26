@@ -28,18 +28,6 @@ void nghich()
   digitalWrite(triac2, 1);
   //Serial.println("NGHICH");
 }
-void thuanPWM()
-{
-  analogWrite(triac1, 128);
-  digitalWrite(triac2, 0);
-  // Serial.println("THUAN PWM");
-}
-void nghichPWM()
-{
-  digitalWrite(triac1, 0);
-  digitalWrite(triac2, 1);
-  // Serial.println("NGHICH PWM");
-}
 void dung()
 {
   digitalWrite(LED_BUILTIN, 0);

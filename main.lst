@@ -1,19 +1,64 @@
-CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
+CCS PCM C Compiler, Version 5.025, 42287               26-Mar-20 11:18
 
                Filename:   D:\ThapChuong\main.lst
 
-               ROM used:   241 words (3%)
+               ROM used:   449 words (5%)
                            Largest free fragment is 2048
-               RAM used:   20 (5%) at main() level
-                           26 (7%) worst case
-               Stack used: 2 locations
+               RAM used:   37 (10%) at main() level
+                           46 (12%) worst case
+               Stack used: 3 locations (2 in main + 1 for interrupts)
                Stack size: 8
 
 *
-0000:  MOVLW  00
+0000:  MOVLW  01
 0001:  MOVWF  0A
-0002:  GOTO   0BB
+0002:  GOTO   11C
 0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  BCF    03.7
+0016:  BCF    03.5
+0017:  MOVLW  8C
+0018:  MOVWF  04
+0019:  BTFSS  00.2
+001A:  GOTO   01D
+001B:  BTFSC  0C.2
+001C:  GOTO   02E
+001D:  MOVF   22,W
+001E:  MOVWF  04
+001F:  MOVF   23,W
+0020:  MOVWF  77
+0021:  MOVF   24,W
+0022:  MOVWF  78
+0023:  MOVF   25,W
+0024:  MOVWF  79
+0025:  MOVF   26,W
+0026:  MOVWF  7A
+0027:  MOVF   20,W
+0028:  MOVWF  0A
+0029:  SWAPF  21,W
+002A:  MOVWF  03
+002B:  SWAPF  7F,F
+002C:  SWAPF  7F,W
+002D:  RETFIE
+002E:  BCF    0A.3
+002F:  BCF    0A.4
+0030:  GOTO   031
 .................... #include <main.h> 
 .................... #include <16F877A.h> 
 .................... //////////// Standard Header file for the PIC16F877A device //////////////// 
@@ -27,100 +72,129 @@ CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
 .................... //// form are not restricted in any way.                               //// 
 .................... /////////////////////////////////////////////////////////////////////////// 
 .................... #device PIC16F877A 
-0004:  DATA E4,32
-0005:  DATA ED,37
-0006:  DATA 20,36
-0007:  DATA 63,32
-0008:  DATA 00,00
 *
-0063:  MOVF   0B,W
-0064:  MOVWF  2F
-0065:  BCF    0B.7
-0066:  BSF    03.5
-0067:  BSF    03.6
-0068:  BSF    0C.7
-0069:  BSF    0C.0
-006A:  NOP
-006B:  NOP
-006C:  BCF    03.5
-006D:  BCF    03.6
-006E:  BTFSC  2F.7
-006F:  BSF    0B.7
-0070:  BSF    03.6
-0071:  MOVF   0C,W
-0072:  ANDLW  7F
-0073:  BTFSC  03.2
-0074:  GOTO   0B7
-0075:  BCF    03.6
-0076:  MOVWF  2F
-0077:  BSF    03.6
-0078:  MOVF   0D,W
-0079:  BCF    03.6
-007A:  MOVWF  30
-007B:  BSF    03.6
-007C:  MOVF   0F,W
-007D:  BCF    03.6
-007E:  MOVWF  31
-007F:  MOVF   2F,W
-0080:  MOVWF  32
-0081:  CALL   052
-0082:  MOVF   30,W
-0083:  BSF    03.6
-0084:  MOVWF  0D
-0085:  BCF    03.6
-0086:  MOVF   31,W
-0087:  BSF    03.6
-0088:  MOVWF  0F
-0089:  BCF    03.6
-008A:  MOVF   0B,W
-008B:  MOVWF  32
-008C:  BCF    0B.7
-008D:  BSF    03.5
-008E:  BSF    03.6
-008F:  BSF    0C.7
-0090:  BSF    0C.0
-0091:  NOP
-0092:  NOP
-0093:  BCF    03.5
-0094:  BCF    03.6
-0095:  BTFSC  32.7
-0096:  BSF    0B.7
-0097:  BSF    03.6
-0098:  RLF    0C,W
-0099:  RLF    0E,W
-009A:  ANDLW  7F
-009B:  BTFSC  03.2
-009C:  GOTO   0B7
-009D:  BCF    03.6
-009E:  MOVWF  2F
-009F:  BSF    03.6
-00A0:  MOVF   0D,W
-00A1:  BCF    03.6
-00A2:  MOVWF  30
-00A3:  BSF    03.6
-00A4:  MOVF   0F,W
-00A5:  BCF    03.6
-00A6:  MOVWF  31
-00A7:  MOVF   2F,W
-00A8:  MOVWF  32
-00A9:  CALL   052
-00AA:  MOVF   30,W
-00AB:  BSF    03.6
-00AC:  MOVWF  0D
-00AD:  BCF    03.6
-00AE:  MOVF   31,W
-00AF:  BSF    03.6
-00B0:  MOVWF  0F
-00B1:  INCF   0D,F
+0091:  BTFSC  03.1
+0092:  GOTO   096
+0093:  MOVLW  43
+0094:  MOVWF  04
+0095:  BCF    03.7
+0096:  MOVF   3E,W
+0097:  XORWF  42,W
+0098:  ANDLW  80
+0099:  MOVWF  48
+009A:  BTFSS  3E.7
+009B:  GOTO   0A7
+009C:  COMF   3B,F
+009D:  COMF   3C,F
+009E:  COMF   3D,F
+009F:  COMF   3E,F
+00A0:  INCF   3B,F
+00A1:  BTFSC  03.2
+00A2:  INCF   3C,F
+00A3:  BTFSC  03.2
+00A4:  INCF   3D,F
+00A5:  BTFSC  03.2
+00A6:  INCF   3E,F
+00A7:  BTFSS  42.7
+00A8:  GOTO   0B4
+00A9:  COMF   3F,F
+00AA:  COMF   40,F
+00AB:  COMF   41,F
+00AC:  COMF   42,F
+00AD:  INCF   3F,F
+00AE:  BTFSC  03.2
+00AF:  INCF   40,F
+00B0:  BTFSC  03.2
+00B1:  INCF   41,F
 00B2:  BTFSC  03.2
-00B3:  INCF   0F,F
-00B4:  BCF    03.6
-00B5:  GOTO   063
-00B6:  BSF    03.6
-00B7:  BCF    03.6
-00B8:  BCF    0A.3
-00B9:  BCF    0A.4
-00BA:  GOTO   0EE (RETURN)
+00B3:  INCF   42,F
+00B4:  CLRF   77
+00B5:  CLRF   78
+00B6:  CLRF   79
+00B7:  CLRF   7A
+00B8:  CLRF   43
+00B9:  CLRF   44
+00BA:  CLRF   45
+00BB:  CLRF   46
+00BC:  MOVF   42,W
+00BD:  IORWF  41,W
+00BE:  IORWF  40,W
+00BF:  IORWF  3F,W
+00C0:  BTFSC  03.2
+00C1:  GOTO   0F2
+00C2:  MOVLW  20
+00C3:  MOVWF  47
+00C4:  BCF    03.0
+00C5:  RLF    3B,F
+00C6:  RLF    3C,F
+00C7:  RLF    3D,F
+00C8:  RLF    3E,F
+00C9:  RLF    43,F
+00CA:  RLF    44,F
+00CB:  RLF    45,F
+00CC:  RLF    46,F
+00CD:  MOVF   42,W
+00CE:  SUBWF  46,W
+00CF:  BTFSS  03.2
+00D0:  GOTO   0DB
+00D1:  MOVF   41,W
+00D2:  SUBWF  45,W
+00D3:  BTFSS  03.2
+00D4:  GOTO   0DB
+00D5:  MOVF   40,W
+00D6:  SUBWF  44,W
+00D7:  BTFSS  03.2
+00D8:  GOTO   0DB
+00D9:  MOVF   3F,W
+00DA:  SUBWF  43,W
+00DB:  BTFSS  03.0
+00DC:  GOTO   0EC
+00DD:  MOVF   3F,W
+00DE:  SUBWF  43,F
+00DF:  MOVF   40,W
+00E0:  BTFSS  03.0
+00E1:  INCFSZ 40,W
+00E2:  SUBWF  44,F
+00E3:  MOVF   41,W
+00E4:  BTFSS  03.0
+00E5:  INCFSZ 41,W
+00E6:  SUBWF  45,F
+00E7:  MOVF   42,W
+00E8:  BTFSS  03.0
+00E9:  INCFSZ 42,W
+00EA:  SUBWF  46,F
+00EB:  BSF    03.0
+00EC:  RLF    77,F
+00ED:  RLF    78,F
+00EE:  RLF    79,F
+00EF:  RLF    7A,F
+00F0:  DECFSZ 47,F
+00F1:  GOTO   0C4
+00F2:  BTFSS  48.7
+00F3:  GOTO   0FF
+00F4:  COMF   77,F
+00F5:  COMF   78,F
+00F6:  COMF   79,F
+00F7:  COMF   7A,F
+00F8:  INCF   77,F
+00F9:  BTFSC  03.2
+00FA:  INCF   78,F
+00FB:  BTFSC  03.2
+00FC:  INCF   79,F
+00FD:  BTFSC  03.2
+00FE:  INCF   7A,F
+00FF:  MOVF   43,W
+0100:  MOVWF  00
+0101:  INCF   04,F
+0102:  MOVF   44,W
+0103:  MOVWF  00
+0104:  INCF   04,F
+0105:  MOVF   45,W
+0106:  MOVWF  00
+0107:  INCF   04,F
+0108:  MOVF   46,W
+0109:  MOVWF  00
+010A:  RETURN
 ....................  
 .................... #list 
 ....................  
@@ -471,41 +545,41 @@ CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
 ....................  
 .................... #use delay(crystal=20000000) 
 *
-0009:  MOVLW  33
-000A:  MOVWF  04
-000B:  BCF    03.7
-000C:  MOVF   00,W
-000D:  BTFSC  03.2
-000E:  GOTO   01C
-000F:  MOVLW  06
-0010:  MOVWF  78
-0011:  CLRF   77
-0012:  DECFSZ 77,F
-0013:  GOTO   012
-0014:  DECFSZ 78,F
-0015:  GOTO   011
-0016:  MOVLW  7B
-0017:  MOVWF  77
-0018:  DECFSZ 77,F
-0019:  GOTO   018
-001A:  DECFSZ 00,F
-001B:  GOTO   00F
-001C:  RETURN
-001D:  MOVLW  03
-001E:  SUBWF  34,F
-001F:  BTFSS  03.0
-0020:  GOTO   02B
-0021:  MOVLW  34
-0022:  MOVWF  04
-0023:  BCF    03.7
-0024:  MOVF   00,W
-0025:  BTFSC  03.2
-0026:  GOTO   02B
-0027:  GOTO   029
-0028:  GOTO   029
-0029:  DECFSZ 00,F
-002A:  GOTO   028
-002B:  RETURN
+0048:  MOVLW  41
+0049:  MOVWF  04
+004A:  BCF    03.7
+004B:  MOVF   00,W
+004C:  BTFSC  03.2
+004D:  GOTO   05B
+004E:  MOVLW  06
+004F:  MOVWF  78
+0050:  CLRF   77
+0051:  DECFSZ 77,F
+0052:  GOTO   051
+0053:  DECFSZ 78,F
+0054:  GOTO   050
+0055:  MOVLW  7B
+0056:  MOVWF  77
+0057:  DECFSZ 77,F
+0058:  GOTO   057
+0059:  DECFSZ 00,F
+005A:  GOTO   04E
+005B:  RETURN
+005C:  MOVLW  03
+005D:  SUBWF  42,F
+005E:  BTFSS  03.0
+005F:  GOTO   06A
+0060:  MOVLW  42
+0061:  MOVWF  04
+0062:  BCF    03.7
+0063:  MOVF   00,W
+0064:  BTFSC  03.2
+0065:  GOTO   06A
+0066:  GOTO   068
+0067:  GOTO   068
+0068:  DECFSZ 00,F
+0069:  GOTO   067
+006A:  RETURN
 ....................  
 ....................  
 .................... #include "def_lcd.c" 
@@ -518,116 +592,116 @@ CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
 .................... //                         "                    ", 
 .................... //                         "Sensor 1:           ", 
 .................... //                         "Sensor 2:           "}; 
-.................... char num[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; 
+.................... char arrNumber[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; 
 *
-00CB:  MOVLW  30
-00CC:  BCF    03.5
-00CD:  MOVWF  20
-00CE:  MOVLW  31
-00CF:  MOVWF  21
-00D0:  MOVLW  32
-00D1:  MOVWF  22
-00D2:  MOVLW  33
-00D3:  MOVWF  23
-00D4:  MOVLW  34
-00D5:  MOVWF  24
-00D6:  MOVLW  35
-00D7:  MOVWF  25
-00D8:  MOVLW  36
-00D9:  MOVWF  26
-00DA:  MOVLW  37
-00DB:  MOVWF  27
-00DC:  MOVLW  38
-00DD:  MOVWF  28
-00DE:  MOVLW  39
-00DF:  MOVWF  29
+012E:  MOVLW  30
+012F:  BCF    03.5
+0130:  MOVWF  27
+0131:  MOVLW  31
+0132:  MOVWF  28
+0133:  MOVLW  32
+0134:  MOVWF  29
+0135:  MOVLW  33
+0136:  MOVWF  2A
+0137:  MOVLW  34
+0138:  MOVWF  2B
+0139:  MOVLW  35
+013A:  MOVWF  2C
+013B:  MOVLW  36
+013C:  MOVWF  2D
+013D:  MOVLW  37
+013E:  MOVWF  2E
+013F:  MOVLW  38
+0140:  MOVWF  2F
+0141:  MOVLW  39
+0142:  MOVWF  30
 ....................  
 .................... void ghima(int8 data) 
 .................... { 
 ....................   LCD = data; 
 *
-002C:  MOVF   2F,W
-002D:  MOVWF  08
+006B:  MOVF   37,W
+006C:  MOVWF  08
 ....................   RS = 0; 
-002E:  BCF    07.3
+006D:  BCF    07.3
 ....................   RW = 0; 
-002F:  BCF    07.4
+006E:  BCF    07.4
 ....................   E = 1; 
-0030:  BSF    07.5
+006F:  BSF    07.5
 ....................   E = 0; 
-0031:  BCF    07.5
+0070:  BCF    07.5
 ....................   delay_us(1500); 
-0032:  MOVLW  01
-0033:  MOVWF  33
-0034:  CALL   009
-0035:  MOVLW  02
-0036:  MOVWF  30
-0037:  MOVLW  F9
-0038:  MOVWF  34
-0039:  CALL   01D
-003A:  DECFSZ 30,F
-003B:  GOTO   037
-003C:  RETURN
+0071:  MOVLW  01
+0072:  MOVWF  41
+0073:  CALL   048
+0074:  MOVLW  02
+0075:  MOVWF  38
+0076:  MOVLW  F9
+0077:  MOVWF  42
+0078:  CALL   05C
+0079:  DECFSZ 38,F
+007A:  GOTO   076
+007B:  RETURN
 .................... } 
 .................... void hienthi(int8 data) 
 .................... { 
 ....................   LCD = data; 
 *
-0052:  MOVF   32,W
-0053:  MOVWF  08
+010B:  MOVF   40,W
+010C:  MOVWF  08
 ....................   RS = 1; 
-0054:  BSF    07.3
+010D:  BSF    07.3
 ....................   RW = 0; 
-0055:  BCF    07.4
+010E:  BCF    07.4
 ....................   E = 1; 
-0056:  BSF    07.5
+010F:  BSF    07.5
 ....................   E = 0; 
-0057:  BCF    07.5
+0110:  BCF    07.5
 ....................   delay_us(1500); 
-0058:  MOVLW  01
-0059:  MOVWF  33
-005A:  CALL   009
-005B:  MOVLW  02
-005C:  MOVWF  33
-005D:  MOVLW  F9
-005E:  MOVWF  34
-005F:  CALL   01D
-0060:  DECFSZ 33,F
-0061:  GOTO   05D
-0062:  RETURN
+0111:  MOVLW  01
+0112:  MOVWF  41
+0113:  CALL   048
+0114:  MOVLW  02
+0115:  MOVWF  41
+0116:  MOVLW  F9
+0117:  MOVWF  42
+0118:  CALL   05C
+0119:  DECFSZ 41,F
+011A:  GOTO   116
+011B:  RETURN
 .................... } 
 ....................  
 .................... void initLCD() 
 .................... { 
 ....................   TRISD = 0; 
 *
-003D:  BSF    03.5
-003E:  CLRF   08
+007C:  BSF    03.5
+007D:  CLRF   08
 ....................   TRISC3 = TRISC4 = TRISC5 = 0; 
-003F:  BCF    07.5
-0040:  BCF    07.4
-0041:  BCF    07.3
+007E:  BCF    07.5
+007F:  BCF    07.4
+0080:  BCF    07.3
 ....................  
 ....................   ghima(0x38); //giao tiep 8bit, hien thi 2 dong, kich thuoc 5x7 
-0042:  MOVLW  38
-0043:  BCF    03.5
-0044:  MOVWF  2F
-0045:  CALL   02C
+0081:  MOVLW  38
+0082:  BCF    03.5
+0083:  MOVWF  37
+0084:  CALL   06B
 ....................   ghima(0x0C); //bat man hinh 
-0046:  MOVLW  0C
-0047:  MOVWF  2F
-0048:  CALL   02C
+0085:  MOVLW  0C
+0086:  MOVWF  37
+0087:  CALL   06B
 ....................   ghima(0x01); //xoa man hinh 
-0049:  MOVLW  01
-004A:  MOVWF  2F
-004B:  CALL   02C
+0088:  MOVLW  01
+0089:  MOVWF  37
+008A:  CALL   06B
 ....................   ghima(0x80); // dua con tro ve du dong 1 
-004C:  MOVLW  80
-004D:  MOVWF  2F
-004E:  CALL   02C
-004F:  BCF    0A.3
-0050:  BCF    0A.4
-0051:  GOTO   0E1 (RETURN)
+008B:  MOVLW  80
+008C:  MOVWF  37
+008D:  CALL   06B
+008E:  BCF    0A.3
+008F:  BCF    0A.4
+0090:  GOTO   144 (RETURN)
 ....................  
 ....................   // int8 i, j; 
 ....................   // for (i = 0; i < 4; i++) 
@@ -644,8 +718,9 @@ CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
 .................... } 
 ....................  
 ....................  
-.................... // #define triac1 5 
-.................... // #define triac2 6 
+.................... #define triac1 RB7 
+.................... #define triac2 RB6 
+.................... #define relay RB5 
 ....................  
 .................... signed int32 count = 0; 
 .................... int1 flag = true; 
@@ -657,113 +732,329 @@ CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
 .................... //    { 
 .................... //       //clockwise 
 .................... //       ++count; 
-.................... //       // if (count >= 100) 
-.................... //       //    flag = false; 
-.................... //       // else 
-.................... //       //    flag = true; 
-.................... //       RC2 = 1; 
 .................... //    } 
 .................... //    else 
 .................... //    { 
 .................... //       --count; 
-.................... //       RC2 = 0; 
-.................... //       // flag = false; 
 .................... //    } 
 .................... //    clear_interrupt(INT_EXT); 
 .................... // } 
 ....................  
-.................... // void thuan() 
-.................... // { 
-.................... //    digitalWrite(triac1, 1); 
-.................... //    digitalWrite(triac2, 0); 
-.................... //    Serial.println("THUAN"); 
-.................... // } 
-.................... // void nghich() 
-.................... // { 
-.................... //    digitalWrite(triac1, 0); 
-.................... //    digitalWrite(triac2, 1); 
-.................... //    Serial.println("NGHICH"); 
-.................... // } 
+.................... #INT_CCP1 
+.................... void ccp1_isr() 
+.................... { 
+....................    if (RB1) 
+*
+0031:  BTFSS  06.1
+0032:  GOTO   03C
+....................    { 
+....................       //clockwise 
+....................       ++count; 
+0033:  MOVLW  01
+0034:  ADDWF  31,F
+0035:  BTFSC  03.0
+0036:  INCF   32,F
+0037:  BTFSC  03.2
+0038:  INCF   33,F
+0039:  BTFSC  03.2
+003A:  INCF   34,F
+....................    } 
+003B:  GOTO   044
+....................    else 
+....................    { 
+....................       --count; 
+003C:  MOVLW  FF
+003D:  ADDWF  31,F
+003E:  BTFSS  03.0
+003F:  ADDWF  32,F
+0040:  BTFSS  03.0
+0041:  ADDWF  33,F
+0042:  BTFSS  03.0
+0043:  ADDWF  34,F
+....................    } 
+0044:  BCF    0C.2
+0045:  BCF    0A.3
+0046:  BCF    0A.4
+0047:  GOTO   01D
+.................... } 
 ....................  
-.................... // void khoidong() 
-.................... // { 
-.................... //    while (count <= 400) 
-.................... //       thuan(); 
-.................... //    while (count >= 0) 
-.................... //       dung(); 
-.................... //    while (count >= -400) 
-.................... //       nghich(); 
-.................... //    while (count <= 0) 
-.................... //       dung(); 
-.................... //    while (count <= 800) 
-.................... //       thuan(); 
-.................... //    while (count >= 0) 
-.................... //       dung(); 
-.................... //    while (count >= -800) 
-.................... //       nghich(); 
-.................... //    while (count <= 0) 
-.................... //       dung(); 
-.................... //    while (count <= 1200) 
-.................... //       thuan(); 
-.................... //    dung(); 
-.................... // } 
+.................... void thuan() 
+.................... { 
+....................    triac1 = 1; 
+....................    triac2 = 0; 
+.................... } 
+.................... void nghich() 
+.................... { 
+....................    triac1 = 0; 
+....................    triac2 = 1; 
+.................... } 
+.................... void dung() 
+.................... { 
+....................    triac1 = 1; 
+....................    triac2 = 1; 
+.................... } 
+....................  
+.................... void khoidong() 
+.................... { 
+....................    while (count <= 400) 
+....................       thuan(); 
+....................    dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count >= 0) 
+....................       dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count >= -400) 
+....................       nghich(); 
+....................    dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count <= 0) 
+....................       dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count <= 800) 
+....................       thuan(); 
+....................    dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count >= 0) 
+....................       dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count >= -800) 
+....................       nghich(); 
+....................    dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count <= 0) 
+....................       dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+....................  
+....................    while (count <= 1200) 
+....................       thuan(); 
+....................    dung(); 
+....................  
+....................    ghima(0x01); // clear 
+....................    ghima(0x80); // set 0,0 
+....................    hienthi(arrNumber[count / 10]); 
+....................    hienthi(arrNumber[count % 10]); 
+.................... } 
 ....................  
 .................... void main() 
 *
-00BB:  MOVF   03,W
-00BC:  ANDLW  1F
-00BD:  MOVWF  03
-00BE:  CLRF   2D
-00BF:  CLRF   2C
-00C0:  CLRF   2B
-00C1:  CLRF   2A
-00C2:  BSF    2E.0
-00C3:  BSF    03.5
-00C4:  BSF    1F.0
-00C5:  BSF    1F.1
-00C6:  BSF    1F.2
-00C7:  BCF    1F.3
-00C8:  MOVLW  07
-00C9:  MOVWF  1C
-00CA:  BCF    03.7
+011C:  MOVF   03,W
+011D:  ANDLW  1F
+011E:  MOVWF  03
+011F:  CLRF   34
+0120:  CLRF   33
+0121:  CLRF   32
+0122:  CLRF   31
+0123:  BSF    35.0
+0124:  MOVLW  FF
+0125:  MOVWF  36
+0126:  BSF    03.5
+0127:  BSF    1F.0
+0128:  BSF    1F.1
+0129:  BSF    1F.2
+012A:  BCF    1F.3
+012B:  MOVLW  07
+012C:  MOVWF  1C
+012D:  BCF    03.7
 .................... { 
 ....................    initLCD(); 
 *
-00E0:  GOTO   03D
+0143:  GOTO   07C
 ....................  
-....................    // clear_interrupt(INT_EXT); 
-....................    // enable_interrupts(INT_EXT); 
-....................    // ext_int_edge(H_TO_L); 
-....................    // enable_interrupts(GLOBAL); 
+....................    ghima(0x01); // clear 
+0144:  MOVLW  01
+0145:  MOVWF  37
+0146:  CALL   06B
+....................    ghima(0x80); // set 0,0 
+0147:  MOVLW  80
+0148:  MOVWF  37
+0149:  CALL   06B
+....................    hienthi(arrNumber[count / 10]); 
+014A:  BCF    03.1
+014B:  MOVF   34,W
+014C:  MOVWF  3E
+014D:  MOVF   33,W
+014E:  MOVWF  3D
+014F:  MOVF   32,W
+0150:  MOVWF  3C
+0151:  MOVF   31,W
+0152:  MOVWF  3B
+0153:  CLRF   42
+0154:  CLRF   41
+0155:  CLRF   40
+0156:  MOVLW  0A
+0157:  MOVWF  3F
+0158:  CALL   091
+0159:  MOVF   7A,W
+015A:  MOVWF  3A
+015B:  MOVF   79,W
+015C:  MOVWF  39
+015D:  MOVF   78,W
+015E:  MOVWF  38
+015F:  MOVF   77,W
+0160:  MOVWF  37
+0161:  MOVLW  27
+0162:  ADDWF  77,W
+0163:  MOVWF  04
+0164:  BCF    03.7
+0165:  BTFSC  78.0
+0166:  BSF    03.7
+0167:  MOVF   00,W
+0168:  MOVWF  3B
+0169:  MOVWF  40
+016A:  CALL   10B
+....................    hienthi(arrNumber[count % 10]); 
+016B:  BSF    03.1
+016C:  MOVLW  37
+016D:  MOVWF  04
+016E:  BCF    03.7
+016F:  MOVF   34,W
+0170:  MOVWF  3E
+0171:  MOVF   33,W
+0172:  MOVWF  3D
+0173:  MOVF   32,W
+0174:  MOVWF  3C
+0175:  MOVF   31,W
+0176:  MOVWF  3B
+0177:  CLRF   42
+0178:  CLRF   41
+0179:  CLRF   40
+017A:  MOVLW  0A
+017B:  MOVWF  3F
+017C:  CALL   091
+017D:  MOVF   3A,W
+017E:  MOVWF  3E
+017F:  MOVF   39,W
+0180:  MOVWF  3D
+0181:  MOVF   38,W
+0182:  MOVWF  3C
+0183:  MOVF   37,W
+0184:  MOVWF  3B
+0185:  MOVLW  27
+0186:  ADDWF  37,W
+0187:  MOVWF  04
+0188:  BCF    03.7
+0189:  BTFSC  38.0
+018A:  BSF    03.7
+018B:  MOVF   00,W
+018C:  MOVWF  3F
+018D:  MOVWF  40
+018E:  CALL   10B
+....................  
+....................    TRISB0 = TRISB1 = TRISC2 = 1; //input 
+018F:  BSF    03.5
+0190:  BSF    07.2
+0191:  BSF    06.1
+0192:  BSF    06.0
+....................    TRISB5 = TRISB6 = TRISB7 = 0; //output 
+0193:  BCF    06.7
+0194:  BCF    06.6
+0195:  BCF    06.5
+....................    TRISA = 0; 
+0196:  CLRF   05
+....................  
+....................    clear_interrupt(INT_EXT); 
+0197:  BCF    03.5
+0198:  BCF    0B.1
+....................    enable_interrupts(INT_EXT); 
+0199:  BSF    0B.4
+....................    ext_int_edge(H_TO_L); 
+019A:  BSF    03.5
+019B:  BCF    01.6
+....................  
+....................    setup_ccp1(CCP_CAPTURE_FE); 
+019C:  BCF    03.5
+019D:  BSF    36.2
+019E:  MOVF   36,W
+019F:  BSF    03.5
+01A0:  MOVWF  07
+01A1:  BCF    03.5
+01A2:  CLRF   17
+01A3:  MOVLW  04
+01A4:  MOVWF  17
+....................    setup_timer_1(T1_INTERNAL); 
+01A5:  MOVLW  85
+01A6:  MOVWF  10
+....................    enable_interrupts(INT_CCP1); 
+01A7:  BSF    03.5
+01A8:  BSF    0C.2
+....................  
+....................    enable_interrupts(GLOBAL); 
+01A9:  MOVLW  C0
+01AA:  BCF    03.5
+01AB:  IORWF  0B,F
+....................  
+....................    while (count < 50) 
+01AC:  BTFSC  34.7
+01AD:  GOTO   1BB
+01AE:  MOVF   34,F
+01AF:  BTFSS  03.2
+01B0:  GOTO   1BE
+01B1:  MOVF   33,F
+01B2:  BTFSS  03.2
+01B3:  GOTO   1BE
+01B4:  MOVF   32,F
+01B5:  BTFSS  03.2
+01B6:  GOTO   1BE
+01B7:  MOVF   31,W
+01B8:  SUBLW  31
+01B9:  BTFSS  03.0
+01BA:  GOTO   1BE
+....................    { 
+....................       PORTA = 0xFF; 
+01BB:  MOVLW  FF
+01BC:  MOVWF  05
+01BD:  GOTO   1AC
+....................    } 
+....................    PORTA = 0; 
+01BE:  CLRF   05
 ....................  
 ....................    // PORT_B_PULLUPS(0xff); 
 ....................  
-....................    // TRISB0 = TRISB1 = 1;                   //input 
-....................    // TRISB2 = TRISB3 = TRISB4 = TRISC2 = 0; //output 
-....................    TRISD1 = 0; 
-00E1:  BSF    03.5
-00E2:  BCF    08.1
-....................  
 ....................    while (TRUE) 
 ....................    { 
-....................       ghima(0x80); 
-00E3:  MOVLW  80
-00E4:  BCF    03.5
-00E5:  MOVWF  2F
-00E6:  CALL   02C
-....................       hienthi("demo lcd"); 
-00E7:  MOVLW  04
-00E8:  BSF    03.6
-00E9:  MOVWF  0D
-00EA:  MOVLW  00
-00EB:  MOVWF  0F
-00EC:  BCF    03.6
-00ED:  GOTO   063
-00EE:  BSF    03.5
-00EF:  GOTO   0E3
-....................       // hienthi(num[count / 10]); 
-....................       // hienthi(num[count % 10]); 
-....................  
+01BF:  GOTO   1BF
+....................       // ghima(0x80); // set 0,0 
+....................       // hienthi(arrNumber[count / 10]); 
+....................       // hienthi(arrNumber[count % 10]); 
 ....................       // if (flag) 
 ....................       // { 
 ....................       //    RB2 = RB3 = RB4 = 1; 
@@ -774,7 +1065,7 @@ CCS PCM C Compiler, Version 5.025, 30622               25-Mar-20 22:51
 ....................       // } 
 ....................    } 
 .................... } 
-00F0:  SLEEP
+01C0:  SLEEP
 
 Configuration Fuses:
    Word  1: 3F32   HS NOWDT PUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

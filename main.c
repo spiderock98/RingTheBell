@@ -1,92 +1,204 @@
 #include <main.h>
 #include "def_lcd.c"
 
-// #define triac1 5
-// #define triac2 6
+#define triac1 RB7
+#define triac2 RB6
+#define relay RB5
 
 signed int32 count = 0;
 int1 flag = true;
 
-// #INT_EXT
-// void ext_isr()
-// {
-//    if (RB1)
-//    {
-//       //clockwise
-//       ++count;
-//       // if (count >= 100)
-//       //    flag = false;
-//       // else
-//       //    flag = true;
-//       RC2 = 1;
-//    }
-//    else
-//    {
-//       --count;
-//       RC2 = 0;
-//       // flag = false;
-//    }
-//    clear_interrupt(INT_EXT);
-// }
+#INT_EXT
+void ext_isr()
+{
+   if (RB1)
+   {
+      //clockwise
+      ++count;
+   }
+   else
+   {
+      --count;
+   }
+   clear_interrupt(INT_EXT);
+}
 
-// void thuan()
-// {
-//    digitalWrite(triac1, 1);
-//    digitalWrite(triac2, 0);
-//    Serial.println("THUAN");
-// }
-// void nghich()
-// {
-//    digitalWrite(triac1, 0);
-//    digitalWrite(triac2, 1);
-//    Serial.println("NGHICH");
-// }
+#INT_CCP1
+void ccp1_isr()
+{
+   if (RB1)
+   {
+      //clockwise
+      ++count;
+   }
+   else
+   {
+      --count;
+   }
+}
 
-// void khoidong()
-// {
-//    while (count <= 400)
-//       thuan();
-//    while (count >= 0)
-//       dung();
-//    while (count >= -400)
-//       nghich();
-//    while (count <= 0)
-//       dung();
-//    while (count <= 800)
-//       thuan();
-//    while (count >= 0)
-//       dung();
-//    while (count >= -800)
-//       nghich();
-//    while (count <= 0)
-//       dung();
-//    while (count <= 1200)
-//       thuan();
-//    dung();
-// }
+void FORWARD()
+{
+   triac1 = 1;
+   triac2 = 0;
+}
+void REVERSE()
+{
+   triac1 = 0;
+   triac2 = 1;
+}
+void STOP()
+{
+   triac1 = 1;
+   triac2 = 1;
+}
+
+void starter()
+{
+   while (count <= 400)
+      FORWARD();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count >= 0)
+      STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count >= -400)
+      REVERSE();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count <= 0)
+      STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count <= 800)
+      FORWARD();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count >= 0)
+      STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count >= -800)
+      REVERSE();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count <= 0)
+      STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count <= 1200)
+      FORWARD();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+}
+
+void RingTheBell()
+{
+   while (count >= 400)
+      STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count >= -800)
+      REVERSE();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count <= -400)
+      STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   while (count <= 800)
+      FORWARD();
+   STOP();
+
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+}
 
 void main()
 {
    initLCD();
 
-   // clear_interrupt(INT_EXT);
-   // enable_interrupts(INT_EXT);
-   // ext_int_edge(H_TO_L);
-   // enable_interrupts(GLOBAL);
+   ghima(0x01); // clear
+   ghima(0x80); // set 0,0
+   hienthi(arrNumber[count / 10]);
+   hienthi(arrNumber[count % 10]);
+
+   TRISB0 = TRISB1 = TRISC2 = 1; //input
+   TRISB5 = TRISB6 = TRISB7 = 0; //output
+
+   clear_interrupt(INT_EXT);
+   enable_interrupts(INT_EXT);
+   ext_int_edge(H_TO_L);
+
+   setup_ccp1(CCP_CAPTURE_FE);
+   setup_timer_1(T1_INTERNAL);
+   enable_interrupts(INT_CCP1);
+
+   enable_interrupts(GLOBAL);
 
    // PORT_B_PULLUPS(0xff);
 
-   // TRISB0 = TRISB1 = 1;                   //input
-   // TRISB2 = TRISB3 = TRISB4 = TRISC2 = 0; //output
-   TRISD1 = 0;
-
    while (TRUE)
    {
-      ghima(0x80);
-      hienthi("demo lcd");
-      // hienthi(num[count / 10]);
-      // hienthi(num[count % 10]);
-
+      // ghima(0x80); // set 0,0
+      // hienthi(arrNumber[count / 10]);
+      // hienthi(arrNumber[count % 10]);
       // if (flag)
       // {
       //    RB2 = RB3 = RB4 = 1;

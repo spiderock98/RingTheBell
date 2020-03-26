@@ -1,6 +1,4 @@
->>> Warning 202 "D:\ThapChuong\def_lcd.c" Line 10(6,9): Variable never used:   num
->>> Warning 202 "main.c" Line 7(14,19): Variable never used:   count
->>> Warning 202 "main.c" Line 8(6,10): Variable never used:   flag
-      Memory usage:   ROM=3%      RAM=5% - 7%
-      0 Errors,  3 Warnings.
+>>> Warning 202 "main.c" Line 9(6,10): Variable never used:   flag
+      Memory usage:   ROM=5%      RAM=10% - 12%
+      0 Errors,  1 Warnings.
 Build Successful.

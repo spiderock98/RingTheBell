@@ -1,11 +1,11 @@
 [ProjectLog]
-Days=1
+Days=2
 D1=25-03-2020
 D1_L=7
 D1_L1=[81813]Project Opened.
 D1_L2=[81822]Started Editing.
 D1_L3=[82100]Stopped Editing.
-TotalEdit=5
+TotalEdit=6
 TotalDebug=0
 D1_E=5
 D1_D=0
@@ -13,10 +13,22 @@ D1_L4=[82100]Project Closed.
 D1_L5=[82214]Project Opened.
 D1_L6=[82245]Project Closed.
 D1_L7=[82249]Project Opened.
+D2=26-03-2020
+D2_L=6
+D2_L1=[2725]Started Editing.
+D2_L2=[3025]Stopped Editing.
+D2_E=1
+D2_D=0
+D2_L3=[3744]Project Closed.
+D2_L4=[32007]Project Opened.
+D2_L5=[37574]Started Editing.
+D2_L6=[38893]Stopped Editing.
 
 [Opened Files]
 1=main.c
 2=
+3=
+4=
 [PROJECT]
 Target=main.hex
 Processor_Text=PIC16F877A

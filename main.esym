@@ -1,8 +1,8 @@
-C L "MAIN" 0 4 6 "FUNCTION"
-D G "__PCM__" 0 104 ""5.025""
-D G "__DEVICE__" 0 104 "877"
-D G "__DATE__" 0 104 ""25-Mar-20""
-D G "__TIME__" 0 104 ""22:51:26"" "Standard Header file for the PIC16F877A device ////////////////"
+C L "MAIN" 0 11 7 "FUNCTION"
+D G "__PCM__" 0 183 ""5.025""
+D G "__DEVICE__" 0 183 "877"
+D G "__DATE__" 0 183 ""26-Mar-20""
+D G "__TIME__" 0 183 ""11:18:10"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -297,7 +297,7 @@ v L "mode" 2 365 "int8" `196
 f G "read_adc" 2 365 "int8(int8 mode)" `195 
 f G "read_adc" 2 366 "int16()" `197 
 v L "mode" 2 367 "int8" `199 
-f G "read_adc" 2 367 "int16(int8 mode)" `198 
+f B "read_adc" 2 367 "int16(int8 mode)" `198 
 f B "adc_done" 2 368 "int8()" `200  "Constants used for SETUP_ADC() are:"
 d G "ADC_OFF" 2 370 "0" "ADC Off"
 d G "ADC_CLOCK_DIV_2" 2 371 "0x10000"
@@ -480,7 +480,7 @@ v L "bit" 2 470 "int8" `339
 f G "bit_test" 2 470 "int8(int16 var,int8 bit)" `337 
 v L "var" 2 471 "int32" `335 
 v L "bit" 2 471 "int8" `342 
-f G "bit_test" 2 471 "int8(int32 var,int8 bit)" `340  "#use delay() Prototypes:"
+f B "bit_test" 2 471 "int8(int32 var,int8 bit)" `340  "#use delay() Prototypes:"
 v L "count" 2 474 "int8" `344 
 f B "delay_cycles" 2 474 "void(int8 count)" `343 
 v L "time" 2 475 "int16" `346 
@@ -499,7 +499,7 @@ v L "stream" 2 482 "int8" `358
 f G "puts" 2 482 "void(*int8 string,int8 stream)" `356 
 f B "getch" 2 483 "int8()" `359 
 v L "stream" 2 484 "int8" `361 
-f G "getch" 2 484 "int8(int8 stream)" `360 
+f B "getch" 2 484 "int8(int8 stream)" `360 
 v L "string" 2 485 "*int8" `363 
 f B "gets" 2 485 "void(*int8 string)" `362 
 v L "string" 2 486 "*int8" `365 
@@ -544,7 +544,7 @@ v L "stream" 2 509 "int8" `405
 f G "i2c_start" 2 509 "void(int8 stream)" `404 
 v L "stream" 2 510 "int8" `407 
 v L "restart" 2 510 "int8" `408 
-f G "i2c_start" 2 510 "void(int8 stream,int8 restart)" `406 
+f B "i2c_start" 2 510 "void(int8 stream,int8 restart)" `406 
 f B "i2c_stop" 2 511 "void()" `409 
 v L "stream" 2 512 "int8" `411 
 f G "i2c_stop" 2 512 "void(int8 stream)" `410 
@@ -556,7 +556,7 @@ v L "addr" 2 515 "int8" `417
 f G "i2c_slaveaddr" 2 515 "void(int8 stream,int8 addr)" `415 
 f B "i2c_poll" 2 516 "int8()" `418 
 v L "stream" 2 517 "int8" `420 
-f G "i2c_poll" 2 517 "int8(int8 stream)" `419 
+f B "i2c_poll" 2 517 "int8(int8 stream)" `419 
 v L "baud" 2 518 "int32" `422 
 f B "i2c_init" 2 518 "void(int32 baud)" `421 
 v L "stream" 2 519 "int8" `424 
@@ -601,7 +601,7 @@ v L "baud" 2 536 "int32" `462
 f B "spi_speed" 2 536 "void(int32 baud)" `461 
 v L "stream" 2 537 "int8" `464 
 v L "baud" 2 537 "int32" `465 
-f G "spi_speed" 2 537 "void(int8 stream,int32 baud)" `463 
+f B "spi_speed" 2 537 "void(int8 stream,int32 baud)" `463 
 v L "stream" 2 538 "int8" `467 
 v L "baud" 2 538 "int32" `468 
 v L "clock" 2 538 "int32" `469 
@@ -635,10 +635,10 @@ v L "bits" 2 551 "int8" `496
 f G "spi_xfer_in" 2 551 "int8(int8 stream,int8 bits)" `494 
 v L "stream" 2 552 "int8" `495 
 v L "bits" 2 552 "int8" `499 
-f G "spi_xfer_in" 2 552 "int16(int8 stream,int8 bits)" `497 
+f B "spi_xfer_in" 2 552 "int16(int8 stream,int8 bits)" `497 
 v L "stream" 2 553 "int8" `495 
 v L "bits" 2 553 "int8" `502 
-f G "spi_xfer_in" 2 553 "int32(int8 stream,int8 bits)" `500  "#use rtos() Prototypes:"
+f B "spi_xfer_in" 2 553 "int32(int8 stream,int8 bits)" `500  "#use rtos() Prototypes:"
 f B "rtos_run" 2 556 "void()" `503 
 f B "rtos_yield" 2 557 "void()" `504 
 v L "task" 2 558 "int8" `506 
@@ -664,7 +664,7 @@ v L "stat" 2 568 "*int8" `525
 f B "rtos_stats" 2 568 "void(int8 task,*int8 stat)" `523  "#use timer() Prototypes:"
 f B "get_ticks" 2 571 "int8()" `526 
 f G "get_ticks" 2 572 "int16()" `527 
-f G "get_ticks" 2 573 "int32()" `528 
+f B "get_ticks" 2 573 "int32()" `528 
 v L "stream" 2 574 "int8" `530 
 f G "get_ticks" 2 574 "int8(int8 stream)" `529 
 v L "stream" 2 575 "int8" `532 
@@ -691,7 +691,7 @@ v L "stream" 2 586 "int8" `552
 f G "pwm_on" 2 586 "void(int8 stream)" `551 
 f B "pwm_off" 2 587 "void()" `553 
 v L "stream" 2 588 "int8" `555 
-f G "pwm_off" 2 588 "void(int8 stream)" `554 
+f B "pwm_off" 2 588 "void(int8 stream)" `554 
 v L "duty" 2 589 "int16" `557 
 f B "pwm_set_duty" 2 589 "void(int16 duty)" `556 
 v L "stream" 2 590 "int8" `559 
@@ -709,7 +709,7 @@ v L "frequency" 2 594 "int32" `570
 f G "pwm_set_frequency" 2 594 "void(int8 stream,int32 frequency)" `568  "#use capture() Prototypes:"
 f B "get_capture_time" 2 597 "int16()" `571 
 v L "stream" 2 598 "int8" `573 
-f G "get_capture_time" 2 598 "int16(int8 stream)" `572 
+f B "get_capture_time" 2 598 "int16(int8 stream)" `572 
 f B "get_capture_event" 2 599 "int8()" `574 
 v L "stream" 2 600 "int8" `576 
 f G "get_capture_event" 2 600 "int8(int8 stream)" `575  "Enviroment Prototypes:"
@@ -823,7 +823,7 @@ D G "RW" 4 2 "RC4"
 D G "E" 4 3 "RC5"
 D G "LCD" 4 4 "PORTD"
 C L "jump_to_isr" 4 6 4 "FUNCTION"
-V G "num" 4 10 "int8[1]" `865 
+V G "arrNumber" 4 10 "int8[1]" `865 
 V L "data" 4 12 "int8" `867 
 F G "ghima" 4 13 "void(int8 data)" `866 
 V L "data" 4 21 "int8" `869 
@@ -833,11 +833,42 @@ C L "initLCD" 4 6 1 "FUNCTION"
 C L "initLCD" 4 6 1 "FUNCTION"
 C L "initLCD" 4 6 1 "FUNCTION"
 C L "initLCD" 4 6 11 "FUNCTION"
-V G "count" 0 7 "sint32" `871 
-V G "flag" 0 8 "int1" `872 
-C L "MAIN" 0 4 43 "FUNCTION"
-F G "MAIN" 0 69 "void()" `873 
-C L "MAIN" 0 4 7 "FUNCTION"
+D G "triac1" 0 4 "RB7"
+D G "triac2" 0 5 "RB6"
+D G "relay" 0 6 "RB5"
+V G "count" 0 8 "sint32" `871 
+V G "flag" 0 9 "int1" `872 
+C L "ccp1_isr" 0 11 8 "FUNCTION"
+F G "ccp1_isr" 0 28 "void()" `873 
+C L "ccp1_isr" 0 11 1 "FUNCTION"
+F G "thuan" 0 41 "void()" `874 
+F G "nghich" 0 46 "void()" `875 
+F G "dung" 0 51 "void()" `876 
+F G "khoidong" 0 57 "void()" `877 
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+C L "khoidong" 0 11 1 "FUNCTION"
+F G "MAIN" 0 137 "void()" `881 
+C L "MAIN" 0 11 1 "FUNCTION"
+C L "MAIN" 0 11 1 "FUNCTION"
+C L "MAIN" 0 11 1 "FUNCTION"
+C L "MAIN" 0 11 1 "FUNCTION"
+C L "MAIN" 0 11 1 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0
