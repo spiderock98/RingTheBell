@@ -2,9 +2,14 @@
 #include "def_lcd.c"
 #include "floor.c"
 
-#define triac1 RB7
-#define triac2 RB6
-#define relay RB5
+#define triac1 RC6
+#define triac1Out PIN_C6
+
+#define triac2 RC7
+#define triac2Out PIN_C7
+
+#define relay RC1
+#define relayOut PIN_C1
 
 // set angle (10 levels). more angle, weaker motor
 float32 angleStarter = 1;
@@ -17,7 +22,7 @@ signed int32 count = 0;
 int8 countTime = 0;
 int1 flagForward = true;
 int1 flagStarter = true;
-int flagSTOP = false;
+int1 flagSTOP = false;
 int8 anglePercent = 0;
 
 #INT_EXT
@@ -25,10 +30,13 @@ void ext_isr()
 {
    // cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet
 
-   if (flagForward)
-      triac1 = 0;
-   else
-      triac2 = 0;
+   // if (flagForward)
+   //    triac1 = 0;
+   // else
+   //    triac2 = 0;
+
+   output_low(triac1Out);
+   output_low(triac2Out);
 
    if (flagStarter)
       set_timer0(valTimer0SetStarter);
@@ -53,9 +61,11 @@ void timer0_isr()
    //    PORTA = 0;
    // }
    if (flagForward && !flagSTOP)
-      triac1 = 1;
+      // triac1 = 1;
+      output_high(triac1Out);
    else if (!flagForward && !flagSTOP)
-      triac2 = 1;
+      // triac2 = 1;
+      output_high(triac2Out);
 
    // set_timer0(200.00);
    disable_interrupts(INT_TIMER0);
@@ -64,8 +74,12 @@ void timer0_isr()
 #INT_CCP1
 void ccp1_isr()
 {
-   // encoder
-   if (RB1)
+   // PORTA = 0xFF;
+   // delay_ms(500);
+   // PORTA = 0;
+
+   // encoder pulse counter
+   if (RC0)
    {
       //clockwise
       ++count;
@@ -74,23 +88,28 @@ void ccp1_isr()
    {
       --count;
    }
+   clear_interrupt(INT_CCP1);
 }
 
 void FORWARD()
 {
-   triac2 = 0;
+   // triac2 = 0;
+   output_low(triac2Out);
    flagForward = true;
    flagSTOP = false;
 }
 void REVERSE()
 {
-   triac1 = 0;
+   // triac1 = 0;
+   output_low(triac1Out);
    flagForward = flagSTOP = false;
 }
 void STOP()
 {
    flagSTOP = true;
-   triac1 = triac2 = 0;
+   // triac1 = triac2 = 0;
+   output_low(triac1Out);
+   output_low(triac2Out);
 }
 
 void starter()
@@ -214,15 +233,16 @@ void RingTheBell()
 
 void main()
 {
-   initLCD();
+   // initLCD();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
+   // ghima(0x01); // clear
+   // ghima(0x80); // set 0,0
+   // hienthi(arrNumber[count / 10]);
+   // hienthi(arrNumber[count % 10]);
 
-   TRISB0 = TRISB1 = TRISC2 = 1; //input
-   TRISB5 = TRISB6 = TRISB7 = 0; //output
+   TRISB0 = TRISC0 = TRISC2 = 1; //input
+   TRISC6 = TRISC7 = TRISC1 = 0; //output
+   TRISB6 = 0;
    TRISA = 0;
 
    clear_interrupt(INT_EXT);
@@ -234,15 +254,18 @@ void main()
    enable_interrupts(INT_CCP1);
 
    setup_timer_0(RTCC_INTERNAL | RTCC_DIV_256); //51.2us
-   set_timer0(200);                             //10.086ms
+   // set_timer0(59);                             //10.086ms
    enable_interrupts(INT_TIMER0);
 
    enable_interrupts(GLOBAL);
+
+   starter();
 
    // PORT_B_PULLUPS(0xff);
 
    while (TRUE)
    {
+      //RingTheBell();
       // ghima(0x80); // set 0,0
       // hienthi(arrNumber[count / 10]);
       // hienthi(arrNumber[count % 10]);

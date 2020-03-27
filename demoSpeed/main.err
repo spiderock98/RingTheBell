@@ -1,0 +1,8 @@
+>>> Warning 216 "main.c" Line 68(1,2): Interrupts disabled during call to prevent re-entrancy:  (@ADDFF)
+>>> Warning 216 "main.c" Line 68(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIVFF)
+>>> Warning 216 "main.c" Line 68(1,2): Interrupts disabled during call to prevent re-entrancy:  (FLOOR)
+>>> Warning 216 "main.c" Line 68(1,2): Interrupts disabled during call to prevent re-entrancy:  (@FTOSD)
+>>> Warning 202 "main.c" Line 11(6,18): Variable never used:   anglePercent
+      Memory usage:   ROM=20%      RAM=6% - 29%
+      0 Errors,  5 Warnings.
+Build Successful.

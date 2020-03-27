@@ -2,6 +2,10 @@
     "files.associations": {
         "main.h": "c",
         "chrono": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "__bit_reference": "c",
+        "algorithm": "c",
+        "bitset": "c",
+        "unordered_map": "c"
     }
 }

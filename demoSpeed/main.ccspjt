@@ -1,0 +1,48 @@
+[PROJECT]
+Target=main.hex
+Processor_Text=PIC16F877A
+CCSVerions=5.025
+Compiler=PCM
+CCSVersion=5.025
+[Target Data]
+FileList=main.c
+[Directories]
+Include=
+[D:\ThapChuong\demoSpeed\main]
+Type=4
+[mru-list]
+1=main.c
+
+[ProjectLog]
+Days=1
+D1=27-03-2020
+D1_L=16
+D1_L1=[45351]Project Opened.
+D1_L2=[45377]Started Editing.
+D1_L3=[45981]Stopped Editing.
+D1_L4=[59176]Project Opened.
+D1_L5=[59812]Project Opened.
+D1_L6=[62234]Started Editing.
+D1_L7=[62545]Stopped Editing.
+D1_L8=[64450]Started Editing.
+D1_L9=[64773]Stopped Editing.
+TotalEdit=2
+TotalDebug=0
+D1_E=2
+D1_D=0
+D1_L10=[64776]Project Closed.
+D1_L11=[65214]Project Opened.
+D1_L12=[65291]Project Closed.
+D1_L13=[65383]Project Opened.
+D1_L14=[65414]Started Editing.
+D1_L15=[65753]Stopped Editing.
+D1_L16=[66622]Project Closed.
+
+[Opened Files]
+1=main.c
+2=
+[main.c]
+Type=4
+[Units]
+Count=1
+1=main (main)

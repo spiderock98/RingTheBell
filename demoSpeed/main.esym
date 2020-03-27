@@ -1,8 +1,8 @@
-C L "MAIN" 0 14 8 "FUNCTION"
-D G "__PCM__" 0 287 ""5.025""
-D G "__DEVICE__" 0 287 "877"
-D G "__DATE__" 0 287 ""27-Mar-20""
-D G "__TIME__" 0 287 ""21:42:54"" "Standard Header file for the PIC16F877A device ////////////////"
+C L "MAIN" 0 6 1 "FUNCTION"
+D G "__PCM__" 0 70 ""5.025""
+D G "__DEVICE__" 0 70 "877"
+D G "__DATE__" 0 70 ""27-Mar-20""
+D G "__TIME__" 0 70 ""18:30:09"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -818,92 +818,28 @@ C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
-D G "RS" 4 1 "RC3"
-D G "RW" 4 2 "RC4"
-D G "E" 4 3 "RC5"
-D G "LCD" 4 4 "PORTD"
-C L "jump_to_isr" 4 6 4 "FUNCTION"
-V G "arrNumber" 4 10 "int8[1]" `865 
-V L "data" 4 12 "int8" `867 
-F G "ghima" 4 13 "void(int8 data)" `866 
-V L "data" 4 21 "int8" `869 
-F G "hienthi" 4 22 "void(int8 data)" `868 
-F G "initLCD" 4 32 "void()" `870 
-C L "initLCD" 4 6 1 "FUNCTION"
-C L "initLCD" 4 6 1 "FUNCTION"
-C L "initLCD" 4 6 1 "FUNCTION"
-C L "initLCD" 4 6 11 "FUNCTION"
-V L "x" 5 1 "float" `872 
-F G "FLOOR" 5 2 "float(float x)" `871 
-V L "y" 5 3 "float" `873 
-V L "res" 5 3 "float" `874 
-V L "l" 5 4 "int16" `875 
-V L "s" 5 5 "int1" `876 
-D G "triac1" 0 5 "RC6"
-D G "triac1Out" 0 6 "PIN_C6"
-D G "triac2" 0 8 "RC7"
-D G "triac2Out" 0 9 "PIN_C7"
-D G "relay" 0 11 "RC1"
-D G "relayOut" 0 12 "PIN_C1"
-V G "angleStarter" 0 15 "float" `890 
-V G "angleRingTheBell" 0 16 "float" `891 
-V G "valTimer0SetStarter" 0 18 "int32" `892 
-V G "valTimer0SetRingTheBell" 0 19 "int32" `898 
-V G "count" 0 21 "sint32" `899 
-V G "countTime" 0 22 "int8" `900 
-V G "flagForward" 0 23 "int1" `901 
-V G "flagStarter" 0 24 "int1" `902 
-V G "flagSTOP" 0 25 "int1" `903 
-V G "anglePercent" 0 26 "int8" `904 
-F G "ext_isr" 0 30 "void()" `905  "cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet"
-C L "ext_isr" 0 14 4 "FUNCTION"
-C L "ext_isr" 0 14 1 "FUNCTION"
-F G "timer0_isr" 0 53 "void()" `907  "++countTime;"
-C L "timer0_isr" 0 14 6 "FUNCTION"
-C L "timer0_isr" 0 14 1 "FUNCTION"
-C L "timer0_isr" 0 14 1 "FUNCTION"
-C L "timer0_isr" 0 14 1 "FUNCTION"
-F G "ccp1_isr" 0 76 "void()" `908  "PORTA = 0xFF;"
-C L "ccp1_isr" 0 14 3 "FUNCTION"
-C L "ccp1_isr" 0 14 1 "FUNCTION"
-F G "FORWARD" 0 95 "void()" `909 
-F G "REVERSE" 0 102 "void()" `910  "triac1 = 0;"
-F G "STOP" 0 108 "void()" `911 
-C L "STOP" 0 14 1 "FUNCTION"
-F G "starter" 0 116 "void()" `912 
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-C L "starter" 0 14 1 "FUNCTION"
-F G "RingTheBell" 0 198 "void()" `916 
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-C L "RingTheBell" 0 14 1 "FUNCTION"
-F G "MAIN" 0 235 "void()" `917  "initLCD();"
-C L "MAIN" 0 14 4 "FUNCTION"
-C L "MAIN" 0 14 1 "FUNCTION"
-C L "MAIN" 0 14 1 "FUNCTION"
-C L "MAIN" 0 14 2 "FUNCTION"
-C L "MAIN" 0 14 1 "FUNCTION"
+V L "x" 4 1 "float" `866 
+F G "FLOOR" 4 2 "float(float x)" `865 
+V L "y" 4 3 "float" `867 
+V L "res" 4 3 "float" `868 
+V L "l" 4 4 "int16" `869 
+V L "s" 4 5 "int1" `870 
+D G "triac1" 0 4 "RC6"
+V G "angleStarter" 0 7 "float" `884 
+V G "valTimer0SetStarter" 0 8 "int32" `885 
+V G "countTime" 0 10 "int8" `891 
+V G "anglePercent" 0 11 "int8" `892 
+F G "EXT_isr" 0 15 "void()" `893  "cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet"
+C L "EXT_isr" 0 6 1 "FUNCTION"
+F G "TIMER0_isr" 0 28 "void()" `894 
+F G "TIMER1_isr" 0 36 "void()" `895 
+C L "TIMER1_isr" 0 6 1 "FUNCTION"
+F G "MAIN" 0 50 "void()" `896 
+C L "MAIN" 0 6 1 "FUNCTION"
+C L "MAIN" 0 6 1 "FUNCTION"
+C L "MAIN" 0 6 1 "FUNCTION"
+C L "MAIN" 0 6 1 "FUNCTION"
+C L "MAIN" 0 6 1 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0
