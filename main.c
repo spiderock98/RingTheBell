@@ -51,15 +51,6 @@ void ext_isr()
 #INT_TIMER0
 void timer0_isr()
 {
-   // ++countTime;
-   // if (countTime == 100)
-   // {
-   //    countTime = 0;
-   //    //set_timer0((int32)59.00);
-   //    PORTA = 0xFF;
-   //    delay_ms(500);
-   //    PORTA = 0;
-   // }
    if (flagForward && !flagSTOP)
       // triac1 = 1;
       output_high(triac1Out);
@@ -93,19 +84,23 @@ void ccp1_isr()
 
 void FORWARD()
 {
+   output_high(relayOut);
    // triac2 = 0;
    output_low(triac2Out);
+
    flagForward = true;
    flagSTOP = false;
 }
 void REVERSE()
 {
+   output_high(relayOut);
    // triac1 = 0;
    output_low(triac1Out);
    flagForward = flagSTOP = false;
 }
 void STOP()
 {
+   output_low(relayOut);
    flagSTOP = true;
    // triac1 = triac2 = 0;
    output_low(triac1Out);
@@ -118,78 +113,33 @@ void starter()
       FORWARD();
    STOP();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
-
    while (count >= 0)
       STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 
    while (count >= -400)
       REVERSE();
    STOP();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
-
    while (count <= 0)
       STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 
    while (count <= 800)
       FORWARD();
    STOP();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
-
    while (count >= 0)
       STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 
    while (count >= -800)
       REVERSE();
    STOP();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
-
    while (count <= 0)
       STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 
    while (count <= 1200)
       FORWARD();
    STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 
    flagStarter = false;
 }
@@ -199,36 +149,16 @@ void RingTheBell()
    while (count >= 400)
       STOP();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
-
    while (count >= -800)
       REVERSE();
    STOP();
 
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
-
    while (count <= -400)
       STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 
    while (count <= 800)
       FORWARD();
    STOP();
-
-   ghima(0x01); // clear
-   ghima(0x80); // set 0,0
-   hienthi(arrNumber[count / 10]);
-   hienthi(arrNumber[count % 10]);
 }
 
 void main()
@@ -242,8 +172,6 @@ void main()
 
    TRISB0 = TRISC0 = TRISC2 = 1; //input
    TRISC6 = TRISC7 = TRISC1 = 0; //output
-   TRISB6 = 0;
-   TRISA = 0;
 
    clear_interrupt(INT_EXT);
    enable_interrupts(INT_EXT);
@@ -265,17 +193,6 @@ void main()
 
    while (TRUE)
    {
-      //RingTheBell();
-      // ghima(0x80); // set 0,0
-      // hienthi(arrNumber[count / 10]);
-      // hienthi(arrNumber[count % 10]);
-      // if (flag)
-      // {
-      //    RB2 = RB3 = RB4 = 1;
-      // }
-      // else
-      // {
-      //    RB2 = RB3 = RB4 = 0;
-      // }
+      RingTheBell();
    }
 }
