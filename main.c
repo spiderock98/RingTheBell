@@ -52,10 +52,8 @@ void ext_isr()
 void timer0_isr()
 {
    if (flagForward && !flagSTOP)
-      // triac1 = 1;
       output_high(triac1Out);
    else if (!flagForward && !flagSTOP)
-      // triac2 = 1;
       output_high(triac2Out);
 
    // set_timer0(200.00);
@@ -65,27 +63,16 @@ void timer0_isr()
 #INT_CCP1
 void ccp1_isr()
 {
-   // PORTA = 0xFF;
-   // delay_ms(500);
-   // PORTA = 0;
-
-   // encoder pulse counter
    if (RC0)
-   {
-      //clockwise
       ++count;
-   }
    else
-   {
       --count;
-   }
-   clear_interrupt(INT_CCP1);
+   // clear_interrupt(INT_CCP1);
 }
 
 void FORWARD()
 {
    output_high(relayOut);
-   // triac2 = 0;
    output_low(triac2Out);
 
    flagForward = true;
@@ -94,7 +81,6 @@ void FORWARD()
 void REVERSE()
 {
    output_high(relayOut);
-   // triac1 = 0;
    output_low(triac1Out);
    flagForward = flagSTOP = false;
 }
@@ -102,7 +88,6 @@ void STOP()
 {
    output_low(relayOut);
    flagSTOP = true;
-   // triac1 = triac2 = 0;
    output_low(triac1Out);
    output_low(triac2Out);
 }
