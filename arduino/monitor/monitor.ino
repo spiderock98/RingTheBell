@@ -1,14 +1,4 @@
-#include <Keypad.h>
-#include <Wire.h>
-#include <ds3231.h>
-#include <LiquidCrystal_I2C.h>
-#include <EEPROM.h>
-
-#if defined(ARDUINO) && ARDUINO >= 100
-#define printByte(args) write(args);
-#else
-#define printByte(args) print(args, BYTE);
-#endif
+#include "main.h"
 
 struct ts t;
 
@@ -66,7 +56,8 @@ bool isSpecialChar(char key)
 
 enum addressCol
 {
-  DayOfWeek = 5,
+  TimeInDay = 0,
+  DayOfWeek = 6,
   HOUR = 0,
   MIN = 3,
   RELAY1 = 9,
@@ -91,7 +82,7 @@ enum addressCol
 
 // }
 
-volatile int8_t chosenDayOfWeek = 1, iAddressEEProm = -7;
+volatile int8_t chosenDayOfWeek = -1, iAddressEEProm = -7;
 byte arrTick[256];
 bool flagSetting = false;
 
@@ -138,9 +129,6 @@ void initRepeaterInterface()
 
 //TODO: ghi arr vào eeprom confirm
 
-// void repeaterSetter()
-// {
-// }
 void repeaterSetValue()
 {
   // int index = -1;
@@ -319,25 +307,29 @@ lbDuration:
     goto lbDuration;
 
   //TODO: Confirmed setting
+  for (int i = iAddressEEProm; iAddressEEProm + 7 - i;)
+  {
+    EEPROM.update(i, arrTick[i]);
+    ++i;
+  }
   flagSetting = false;
   delay(1000);
   ++chosenDayOfWeek;
   iAddressEEProm += 7;
-  if (chosenDayOfWeek == 9)
+  if (chosenDayOfWeek == 21)
   {
     //TODO: return home screen
     lcd.clear();
-    chosenDayOfWeek = 1;
-    iAddressEEProm = 0;
+    chosenDayOfWeek = -1;
+    iAddressEEProm = -7;
     return;
   }
-
   repeaterInterface();
 }
 
 void repeaterInterface()
 {
-  lcd.setCursor(1, 0);
+  lcd.setCursor(3, 0);
   lcd.print("Th");
   lcd.printByte(2);
   lcd.setCursor(8, 0);
@@ -357,56 +349,155 @@ void repeaterInterface()
 
   switch (chosenDayOfWeek)
   {
+  case 0:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("2");
+    initRepeaterInterface();
+    break;
+  case 1:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("2");
+    initRepeaterInterface();
+    break;
   case 2:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("2");
     initRepeaterInterface();
     break;
   case 3:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("3");
     initRepeaterInterface();
     break;
   case 4:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("3");
+    initRepeaterInterface();
+    break;
+  case 5:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("3");
+    initRepeaterInterface();
+    break;
+  case 6:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("4");
     initRepeaterInterface();
     break;
-  case 5:
+  case 7:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("4");
+    initRepeaterInterface();
+    break;
+  case 8:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("4");
+    initRepeaterInterface();
+    break;
+  case 9:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("5");
     initRepeaterInterface();
     break;
-  case 6:
+  case 10:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("5");
+    initRepeaterInterface();
+    break;
+  case 11:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("5");
+    initRepeaterInterface();
+    break;
+  case 12:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("6");
     initRepeaterInterface();
     break;
-  case 7:
+  case 13:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("6");
+    initRepeaterInterface();
+    break;
+  case 14:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("6");
+    initRepeaterInterface();
+    break;
+  case 15:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("7");
     initRepeaterInterface();
     break;
-  case 8:
+  case 16:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("7");
+    initRepeaterInterface();
+    break;
+  case 17:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("7");
+    initRepeaterInterface();
+    break;
+  case 18:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Sa");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("CN");
+    initRepeaterInterface();
+    break;
+  case 19:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Tr");
+    lcd.setCursor(addressCol::DayOfWeek, 0);
+    lcd.print("CN");
+    initRepeaterInterface();
+    break;
+  case 20:
+    lcd.setCursor(addressCol::TimeInDay, 0);
+    lcd.print("Ch");
     lcd.setCursor(addressCol::DayOfWeek, 0);
     lcd.print("CN");
     initRepeaterInterface();
     break;
   }
 }
-
-// void loadEEPROM(addressCol timeStick)
-// {
-//   switch (timeStick)
-//   {
-//   case DayOfWeek:
-//     /* code */
-//     break;
-
-//   default:
-//     break;
-//   }
-// }
 
 byte char2byte(char key)
 {
@@ -451,14 +542,13 @@ void keypadEvent(KeypadEvent key)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;
-      if (chosenDayOfWeek == 9)
+      if (chosenDayOfWeek == 21)
       {
         //TODO: return home screen
         lcd.clear();
-        chosenDayOfWeek = 1;
-        iAddressEEProm = 0;
+        chosenDayOfWeek = -1;
+        iAddressEEProm = -7;
       }
-
       repeaterInterface();
     }
     else if (key == 'B')
