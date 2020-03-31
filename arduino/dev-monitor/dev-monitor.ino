@@ -31,7 +31,6 @@ void loop()
 
   if (t.min - lastMin)
   {
-    // Serial.print("here");
     alarm();
     lastMin = t.min;
   }
@@ -42,7 +41,7 @@ void keypadEvent(KeypadEvent key)
   switch (keypad.getState())
   {
   case PRESSED:
-    if ((key == 'A') && !flagRepeatSetting)
+    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;
@@ -53,6 +52,7 @@ void keypadEvent(KeypadEvent key)
         flagRepeatView = false;
         chosenDayOfWeek = -1;
         iAddressEEProm = -7;
+        return;
       }
       repeaterInterface();
     }
@@ -63,10 +63,8 @@ void keypadEvent(KeypadEvent key)
     }
 
     // duyệt custom events
-    else if ((key == 'D'))
+    else if ((key == 'D') && !flagRepeatView && !flagCusSetting)
     {
-      // Serial.print("EEPROM[147]: ");
-      // Serial.println(EEPROM[147]);
       if (EEPROM[147] == 0)
       {
         lcd.clear();
@@ -84,14 +82,14 @@ void keypadEvent(KeypadEvent key)
         iCusAddressEEProm += 10;
         Serial.print("iCusAddressEEProm: ");
         Serial.println(iCusAddressEEProm);
+        Serial.println(iCusEvents);
       } while ((EEPROM[iCusAddressEEProm] == 0) && (iCusAddressEEProm < 1024) && iCusEvents);
 
       if (!iCusEvents)
       {
         iCusEvents = EEPROM[147];
         iCusAddressEEProm = 138;
-        Serial.print("iCusAddressEEProm: ");
-        Serial.println(iCusAddressEEProm);
+        flagCusView = false;
         lcd.clear();
         return;
       }
@@ -108,27 +106,43 @@ void keypadEvent(KeypadEvent key)
     {
       if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView) // just in view can add event
       {
+        // fix when hold d >> you must pass PRESSED D and get these stuff wrong
         iCusAddressEEProm = 138;
+        ++iCusEvents;
+        flagCusView = false;
+
         do
         { // find null event >> avoid EEProm diskfrag
           iCusAddressEEProm += 10;
         } while ((EEPROM[iCusAddressEEProm] != 0) && (iCusAddressEEProm < 1024));
 
         customSetValue();
+
+        // Serial.println(flagCusView);
+        // Serial.println(flagCusSetting);
+        // Serial.println(flagRepeatSetting);
+        // Serial.println(flagRepeatView);
       }
-      else if (flagCusSetting)
-      {
-        flagCusSetting = false;
-        iCusAddressEEProm = 138;
-        //TODO: return home
-        // lcd.clear();
-      }
+      // else if (flagCusSetting)
+      // {
+      //   --iCusEvents;
+      //   flagCusSetting = false;
+      //   iCusAddressEEProm = 138;
+      //   //TODO: return home
+      //   lcd.clear();
+      //   // Serial.println(flagCusView);
+      //   // Serial.println(flagCusSetting);
+      //   // Serial.println(flagRepeatSetting);
+      //   // Serial.println(flagRepeatView);
+      // }
     }
+    // hold #
     else if (key == '#')
     {
       if (flagCusView)
       {
         customDeleteValue();
+        flagCusView = false;
       }
       break;
     }

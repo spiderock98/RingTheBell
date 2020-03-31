@@ -11,7 +11,7 @@ byte rowPins[ROWS] = {6, 7, 8, 9}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagCusView, flagRepeatView;
+extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagCusView;
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
 
@@ -79,8 +79,6 @@ void lcdHomeScreen()
     lcd.print(":");
     lcd.print(t.sec);
     lcd.print(" ");
-
-    // flagRepeatView = false;
 
     // lcd.print(" Next: ");
 }

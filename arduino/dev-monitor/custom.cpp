@@ -36,6 +36,7 @@ lbReConfirm:
         goto lbReConfirm;
 
     flagCusSetting = false;
+    flagCusView = false;
     //TODO: return home
     lcd.clear();
     iCusAddressEEProm = 138;
@@ -339,7 +340,6 @@ lbDuration:
     else
         goto lbDuration;
 
-    //TODO: Confirmed setting
     delay(1000);
 
     lcd.clear();
@@ -376,7 +376,8 @@ lbConfirm:
     flagCusSetting = false;
     //TODO: return home
     lcd.clear();
-    lcdHomeScreen();
+
+    // lcdHomeScreen();
 }
 
 void blankCusInterface()
@@ -391,6 +392,7 @@ void blankCusInterface()
     lcd.printByte(3);
     lcd.print("o MMp");
 }
+
 void _blankCusInterface()
 {
     lcd.noCursor();
@@ -403,13 +405,13 @@ void _blankCusInterface()
     lcd.printByte(3);
     lcd.print("o   p");
 }
+
 void customInterface()
 {
     flagCusView = true;
     flagHomeView = false;
     _blankCusInterface();
     initCustomInterface();
-    //TODO: flagCusView = false >> when home >> iCusAddressEEProm = 138 reset
 }
 
 void initCustomInterface()
