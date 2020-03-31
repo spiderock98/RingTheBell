@@ -11,7 +11,10 @@ byte rowPins[ROWS] = {6, 7, 8, 9}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
+extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagCusView, flagRepeatView;
+
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
+
 void lcdDefaultInterface()
 {
     uint8_t bell[8] = {0x4, 0xe, 0xe, 0xe, 0x1f, 0x0, 0x4};
@@ -24,6 +27,7 @@ void lcdDefaultInterface()
     uint8_t check[8] = {0x00, 0x00, 0x01, 0x03, 0x16, 0x1C, 0x08, 0x00};
     uint8_t u3[8] = {0x0C, 0x04, 0x00, 0x12, 0x12, 0x12, 0x0C, 0x00};
     uint8_t cancel[8] = {0x00, 0x11, 0x1B, 0x0E, 0x0E, 0x1B, 0x11, 0x00};
+    // uint8_t trash[8] = {B01110, B11111, B00000, B11111, B11111, B11111, B11111, B01110};
 
     lcd.init();
     lcd.backlight();
@@ -46,12 +50,227 @@ void lcdDefaultInterface()
         lcd.printByte(0);
         delay(200);
         lcd.printByte(1);
-        delay(200);
+        delay(100);
         ++i;
     }
-    // lcd.noBacklight();
     lcd.clear();
 }
+
+void lcdHomeScreen()
+{
+    lcd.noBlink();
+    lcd.noCursor();
+    lcd.setCursor(0, 0);
+    lcd.print("Th");
+    lcd.printByte(2);
+    lcd.print(" ");
+    lcd.print(t.wday);
+    lcd.print(" ");
+    lcd.print(t.mday);
+    lcd.print("-");
+    lcd.print(t.mon);
+    lcd.print("-");
+    lcd.print(t.year);
+
+    lcd.setCursor(0, 1);
+    lcd.print(t.hour);
+    lcd.print(":");
+    lcd.print(t.min);
+    lcd.print(":");
+    lcd.print(t.sec);
+    lcd.print(" ");
+
+    // flagRepeatView = false;
+
+    // lcd.print(" Next: ");
+}
+
+void alarm()
+{
+    uint8_t currentWeekDay = t.wday;
+    uint8_t currentSecond = t.sec;
+    uint8_t currentMinute = t.min;
+    uint8_t currentHour = t.hour;
+    uint8_t currentMonthDay = t.mday;
+    uint8_t currentMonth = t.mon;
+    int16_t currentYear = t.year;
+
+    switch (currentWeekDay)
+    {
+    case 2: // Mon
+        for (int addr = 0; 21 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Mon");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    case 3: // Tue
+        for (int addr = 21; 42 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Tue");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    case 4: // Wed
+        for (int addr = 42; 63 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Wed");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    case 5: // Thus
+        for (int addr = 63; 84 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Thu");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    case 6: // Fri
+        for (int addr = 84; 105 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Fri");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    case 7: // Sat
+        for (int addr = 105; 126 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Sat");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    case 1: // Sun
+        for (int addr = 126; 147 - addr;)
+        {
+            if (currentHour == EEPROM[addr + 1])
+            {
+                if (currentMinute == EEPROM[addr + 2])
+                {
+                    Serial.println("Sun");
+                    Serial.print(EEPROM[addr + 3]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 4]);
+                    Serial.print("\t");
+                    Serial.print(EEPROM[addr + 5]);
+                    Serial.print("\t");
+                    return;
+                }
+            }
+            addr += 7;
+        }
+        break;
+    default:
+        lcd.clear();
+        lcd.print("Error");
+        break;
+    }
+    int iCusAddr = 138;
+    for (int i = 0; EEPROM[147] - i;)
+    { // loop num of length times
+        do
+        { // pass null event to generate iCusAddr
+            iCusAddr += 10;
+        } while ((EEPROM[iCusAddr] == 0) && (iCusAddr < 1024));
+
+        if (currentMinute == EEPROM[iCusAddr + 5])
+            if (currentHour == EEPROM[iCusAddr + 4])
+                if (currentMonthDay == EEPROM[iCusAddr])
+                    if (currentMonth == EEPROM[iCusAddr + 1])
+                        if ((currentYear / 100) == EEPROM[iCusAddr + 2])
+                            if ((currentYear % 100) == EEPROM[iCusAddr + 3])
+                            {
+                                Serial.println();
+                                Serial.print("Match Event: ");
+                                Serial.print(EEPROM[iCusAddr + 6]);
+                                Serial.print("\t");
+                                Serial.print(EEPROM[iCusAddr + 7]);
+                                Serial.print("\t");
+                                Serial.print(EEPROM[iCusAddr + 8]);
+                                Serial.print("\t");
+                                return;
+                            }
+        ++i;
+    }
+}
+
 bool isSpecialChar(char key)
 {
     if ((key == '*') || (key == '#') || (key == 'A') || (key == 'B') || (key == 'C') || (key == 'D'))
@@ -59,6 +278,7 @@ bool isSpecialChar(char key)
     else
         return false;
 }
+
 byte char2byte(char key)
 {
     return (byte)key - 48;

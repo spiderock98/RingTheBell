@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <EEPROM.h>
 #include "misc.h"
 
 void initCustomInterface();
@@ -7,6 +6,7 @@ void customSetValue();
 void customInterface();
 void blankCusInterface();
 void _blankCusInterface();
+void customDeleteValue();
 
 enum cusAddressCol
 {

@@ -3,10 +3,10 @@
 #include "custom.h"
 
 struct ts t;
-
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
-bool flagRepeatSetting = false, flagCusSetting = false;
+bool flagHomeView = true, flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false;
+uint8_t lastMin = 0;
 
 //TODO: ghi arr vào eeprom confirm
 
@@ -22,22 +22,19 @@ void setup()
 
 void loop()
 {
-  // DS3231_get(&t);
+  DS3231_get(&t);
 
   char key = keypad.getKey();
-  // if (key)
-  // {
-  //   lcd.backlight();
-  //   lcd.setCursor(0, 0);
-  //   lcd.print(char2byte(key));
-  // }
 
-  // lcd.setCursor(0, 1);
-  // lcd.print(t.hour);
-  // lcd.print(":");
-  // lcd.print(t.min);
-  // lcd.print(":");
-  // lcd.print(t.sec);
+  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView)
+    lcdHomeScreen();
+
+  if (t.min - lastMin)
+  {
+    // Serial.print("here");
+    alarm();
+    lastMin = t.min;
+  }
 }
 
 void keypadEvent(KeypadEvent key)
@@ -53,6 +50,7 @@ void keypadEvent(KeypadEvent key)
       {
         //TODO: return home screen
         lcd.clear();
+        flagRepeatView = false;
         chosenDayOfWeek = -1;
         iAddressEEProm = -7;
       }
@@ -60,14 +58,15 @@ void keypadEvent(KeypadEvent key)
     }
     else if (key == 'B')
     {
-      if (!flagRepeatSetting)
+      if (!flagRepeatSetting && flagRepeatView)
         repeaterSetValue();
     }
+
     // duyệt custom events
-    else if ((key == 'D') && !flagCusSetting)
+    else if ((key == 'D'))
     {
-      Serial.print("EEPROM[147]: ");
-      Serial.println(EEPROM[147]);
+      // Serial.print("EEPROM[147]: ");
+      // Serial.println(EEPROM[147]);
       if (EEPROM[147] == 0)
       {
         lcd.clear();
@@ -75,7 +74,7 @@ void keypadEvent(KeypadEvent key)
         lcd.print("Khong co su kien");
         lcd.setCursor(1, 1);
         lcd.print("GIU D de them");
-        delay(2000);
+        delay(2000); // chờ nhấn giữ D
         //TODO: return home screen
         lcd.clear();
         return;
@@ -103,18 +102,11 @@ void keypadEvent(KeypadEvent key)
     }
     break;
 
-    //    case RELEASED:
-    //      if (key == '*') {
-    //        digitalWrite(ledPin, ledPin_state);   // Restore LED state from before it started blinking.
-    //        blink = false;
-    //      }
-    //      break;
-
     // thêm event mới
   case HOLD:
-    if ((key == '#'))
+    if ((key == 'D'))
     {
-      if (!flagCusSetting)
+      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView) // just in view can add event
       {
         iCusAddressEEProm = 138;
         do
@@ -127,9 +119,18 @@ void keypadEvent(KeypadEvent key)
       else if (flagCusSetting)
       {
         flagCusSetting = false;
-        lcd.clear();
+        iCusAddressEEProm = 138;
+        //TODO: return home
+        // lcd.clear();
       }
     }
-    break;
+    else if (key == '#')
+    {
+      if (flagCusView)
+      {
+        customDeleteValue();
+      }
+      break;
+    }
   }
 }

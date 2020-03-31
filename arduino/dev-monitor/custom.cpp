@@ -2,17 +2,53 @@
 
 extern byte arrTick[256], iCusEvents;
 extern volatile int16_t iCusAddressEEProm, numOfEvents;
-extern bool flagCusSetting;
+extern bool flagCusSetting, flagCusView, flagHomeView;
 
+void customDeleteValue()
+{
+    flagCusSetting = true;
+    flagHomeView = false;
+
+    char charVal;
+
+    lcd.clear();
+    lcd.setCursor(1, 0);
+    lcd.print("XOA su kien ?");
+    lcd.setCursor(0, 1);
+    lcd.printByte(4); //checked symbol
+    lcd.print(" A:OK");
+    lcd.setCursor(9, 1);
+    lcd.printByte(5); // cancle symbol
+    lcd.setCursor(10, 1);
+    lcd.print(" D:Huy");
+
+lbReConfirm:
+    charVal = keypad.waitForKey(); //blocking
+    if (charVal == 'D')
+        ;
+    else if (charVal == 'A')
+    {
+        EEPROM.write(iCusAddressEEProm, 0);
+        EEPROM[147] -= 1;
+        --iCusEvents;
+    }
+    else
+        goto lbReConfirm;
+
+    flagCusSetting = false;
+    //TODO: return home
+    lcd.clear();
+    iCusAddressEEProm = 138;
+}
 void customSetValue()
 {
     blankCusInterface();
-    lcd.cursor();
-    lcd.blink();
 
     flagCusSetting = true;
+    flagHomeView = false;
+
     byte decVal;
-    char charVal, key;
+    char charVal;
 
 lbDayOfMonth:
     // hang chuc
@@ -313,9 +349,8 @@ lbDuration:
     lcd.setCursor(0, 1);
     lcd.printByte(4); //checked symbol
     lcd.print(" A:OK");
-
     lcd.setCursor(9, 1);
-    lcd.printByte(5); // cancle symbol
+    lcd.printByte(5); // cancel symbol
     lcd.setCursor(10, 1);
     lcd.print(" D:Huy");
 
@@ -327,52 +362,39 @@ lbConfirm:
     {
         for (int i = iCusAddressEEProm; iCusAddressEEProm + 10 - i;)
         {
-
-            delay(5);
-            // Serial.print("Total: ");
-            // Serial.println(EEPROM[147]);
             EEPROM.update(i, arrTick[i]);
             delay(5);
             ++i;
         }
         EEPROM[147] += 1;
         ++iCusEvents;
-        iCusAddressEEProm = 138;
     }
     else
         goto lbConfirm;
 
+    iCusAddressEEProm = 138;
     flagCusSetting = false;
+    //TODO: return home
     lcd.clear();
+    lcdHomeScreen();
 }
 
 void blankCusInterface()
 {
+    lcd.cursor();
+    lcd.blink();
     lcd.clear();
     lcd.home();
     lcd.print("DD-MM-YYYY HH:MM");
-    // lcd.setCursor(2, 0);
-    // lcd.print('-');
-    // lcd.setCursor(5, 0);
-    // lcd.print('-');
-    // lcd.setCursor(13, 0);
-    // lcd.print(':');
     lcd.setCursor(0, 1);
     lcd.print("A  B  C  K");
-    // lcd.print("A");
-    // lcd.setCursor(3, 1);
-    // lcd.print("B");
-    // lcd.setCursor(6, 1);
-    // lcd.print("C");
-    // lcd.setCursor(9, 1);
-    // lcd.print("K");
     lcd.printByte(3);
     lcd.print("o MMp");
-    // lcd.setCursor(15, 1);
-    // lcd.print("p");
 }
 void _blankCusInterface()
 {
+    lcd.noCursor();
+    lcd.noBlink();
     lcd.clear();
     lcd.home();
     lcd.print("  -  -       :  ");
@@ -383,159 +405,11 @@ void _blankCusInterface()
 }
 void customInterface()
 {
+    flagCusView = true;
+    flagHomeView = false;
     _blankCusInterface();
     initCustomInterface();
-
-    // switch (chosenDayOfWeek)
-    // {
-    // case 0:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("2");
-    //     initRepeaterInterface();
-    //     break;
-    // case 1:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("2");
-    //     initRepeaterInterface();
-    //     break;
-    // case 2:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("2");
-    //     initRepeaterInterface();
-    //     break;
-    // case 3:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("3");
-    //     initRepeaterInterface();
-    //     break;
-    // case 4:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("3");
-    //     initRepeaterInterface();
-    //     break;
-    // case 5:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("3");
-    //     initRepeaterInterface();
-    //     break;
-    // case 6:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("4");
-    //     initRepeaterInterface();
-    //     break;
-    // case 7:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("4");
-    //     initRepeaterInterface();
-    //     break;
-    // case 8:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("4");
-    //     initRepeaterInterface();
-    //     break;
-    // case 9:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("5");
-    //     initRepeaterInterface();
-    //     break;
-    // case 10:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("5");
-    //     initRepeaterInterface();
-    //     break;
-    // case 11:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("5");
-    //     initRepeaterInterface();
-    //     break;
-    // case 12:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("6");
-    //     initRepeaterInterface();
-    //     break;
-    // case 13:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("6");
-    //     initRepeaterInterface();
-    //     break;
-    // case 14:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("6");
-    //     initRepeaterInterface();
-    //     break;
-    // case 15:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("7");
-    //     initRepeaterInterface();
-    //     break;
-    // case 16:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("7");
-    //     initRepeaterInterface();
-    //     break;
-    // case 17:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("7");
-    //     initRepeaterInterface();
-    //     break;
-    // case 18:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Sa");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("Cn");
-    //     initRepeaterInterface();
-    //     break;
-    // case 19:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Tr");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("Cn");
-    //     initRepeaterInterface();
-    //     break;
-    // case 20:
-    //     lcd.setCursor(addressCol::TimeInDay, 0);
-    //     lcd.print("Ch");
-    //     lcd.setCursor(addressCol::DayOfWeek, 0);
-    //     lcd.print("Cn");
-    //     initRepeaterInterface();
-    //     break;
-    // }
+    //TODO: flagCusView = false >> when home >> iCusAddressEEProm = 138 reset
 }
 
 void initCustomInterface()

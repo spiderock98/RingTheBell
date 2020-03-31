@@ -2,10 +2,14 @@
 
 extern byte arrTick[256];
 extern volatile int16_t chosenDayOfWeek, iAddressEEProm;
-extern bool flagRepeatSetting;
+extern bool flagRepeatSetting, flagRepeatView, flagHomeView;
 
 void repeaterInterface()
 {
+    flagRepeatView = true;
+    flagHomeView = false;
+
+    lcd.clear();
     lcd.setCursor(3, 0);
     lcd.print("Th");
     lcd.printByte(2);
@@ -174,6 +178,7 @@ void repeaterInterface()
         initRepeaterInterface();
         break;
     }
+    // flagRepeatView = false;
 }
 
 void initRepeaterInterface()
@@ -221,6 +226,7 @@ void repeaterSetValue()
 {
     // int index = -1;
     flagRepeatSetting = true;
+    flagHomeView = false;
     byte decVal;
     char charVal, key;
 
@@ -401,7 +407,6 @@ lbDuration:
         delay(5);
         ++i;
     }
-    flagRepeatSetting = false;
     delay(1000);
     ++chosenDayOfWeek;
     iAddressEEProm += 7;
@@ -413,5 +418,6 @@ lbDuration:
         iAddressEEProm = -7;
         return;
     }
+    flagRepeatSetting = false;
     repeaterInterface();
 }
