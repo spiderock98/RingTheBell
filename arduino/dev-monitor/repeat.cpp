@@ -4,6 +4,7 @@ extern byte arrTick[256];
 extern volatile int16_t chosenDayOfWeek, iAddressEEProm;
 extern bool flagRepeatSetting, flagRepeatView, flagHomeView;
 
+// UI when press 'A'
 void repeaterInterface()
 {
     flagRepeatView = true;
@@ -28,6 +29,7 @@ void repeaterInterface()
     lcd.setCursor(13, 1);
     lcd.print("ph");
 
+    // 0-1-2 <<>> sángt2-trưat2-chiềut2 etc.
     switch (chosenDayOfWeek)
     {
     case 0:
@@ -35,153 +37,153 @@ void repeaterInterface()
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("2");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 1:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("2");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 2:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("2");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 3:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("3");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 4:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("3");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 5:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("3");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 6:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("4");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 7:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("4");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 8:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("4");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 9:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("5");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 10:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("5");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 11:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("5");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 12:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("6");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 13:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("6");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 14:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("6");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 15:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("7");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 16:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("7");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 17:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("7");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 18:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Sa");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("Cn");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 19:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Tr");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("Cn");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     case 20:
         lcd.setCursor(addressCol::TimeInDay, 0);
         lcd.print("Ch");
         lcd.setCursor(addressCol::DayOfWeek, 0);
         lcd.print("Cn");
-        initRepeaterInterface();
+        EEPr2DailyUI();
         break;
     }
-    // flagRepeatView = false;
 }
 
-void initRepeaterInterface()
+// init arrTick and load eepr data to corres ui times in day arrTick
+void EEPr2DailyUI()
 {
     for (int i = iAddressEEProm; iAddressEEProm + 7 - i;)
     {
@@ -222,16 +224,15 @@ void initRepeaterInterface()
     lcd.blink();
 }
 
+// setter
 void repeaterSetValue()
 {
-    // int index = -1;
     flagRepeatSetting = true;
     flagHomeView = false;
     byte decVal;
     char charVal, key;
 
 lbRelay1:
-    // ++index;
     lcd.setCursor(addressCol::RELAY1, 0);
     charVal = keypad.waitForKey(); // blocking
     decVal = char2byte(charVal);
@@ -254,7 +255,6 @@ lbRelay1:
         goto lbRelay1;
 
 lbRelay2:
-    // ++index;
     lcd.setCursor(addressCol::RELAY2, 0);
     charVal = keypad.waitForKey(); //blocking
     decVal = char2byte(charVal);
@@ -279,7 +279,6 @@ lbRelay2:
         goto lbRelay2;
 
 lbRelay3:
-    // ++index;
     lcd.setCursor(addressCol::RELAY3, 0);
     charVal = keypad.waitForKey(); //blocking
     decVal = char2byte(charVal);
@@ -304,7 +303,6 @@ lbRelay3:
         goto lbRelay3;
 
 lbHour:
-    // ++index;
     // hang chuc
     lcd.setCursor(addressCol::HOUR, 1);
     charVal = keypad.waitForKey(); //blocking
@@ -338,7 +336,6 @@ lbHour:
         goto lbHour;
 
 lbMinute:
-    // ++index;
     // hang chuc
     lcd.setCursor(addressCol::MIN, 1);
     charVal = keypad.waitForKey(); //blocking
@@ -371,7 +368,6 @@ lbMinute:
         goto lbMinute;
 
 lbDuration:
-    // ++index;
     // hang chuc
     lcd.setCursor(addressCol::DURATION, 1);
     charVal = keypad.waitForKey(); //blocking
@@ -400,16 +396,20 @@ lbDuration:
     else
         goto lbDuration;
 
-    //TODO: Confirmed setting
+    // set arrTick to EEPr
     for (int i = iAddressEEProm; iAddressEEProm + 7 - i;)
     {
         EEPROM.update(i, arrTick[i]);
         delay(5);
         ++i;
     }
+
+    // ready for next UI daily
     delay(1000);
     ++chosenDayOfWeek;
     iAddressEEProm += 7;
+
+    // in case we set value in chiều CN
     if (chosenDayOfWeek == 21)
     {
         //TODO: return home screen

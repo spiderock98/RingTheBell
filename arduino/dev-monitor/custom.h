@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "misc.h"
 
-void initCustomInterface();
 void customSetValue();
 void customInterface();
 void blankCusInterface();

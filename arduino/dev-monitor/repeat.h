@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include "misc.h"
 
-void initRepeaterInterface();
+void EEPr2DailyUI();
 void repeaterSetValue();
 void repeaterInterface();
+
+// addr of the collums of some ticks >> for quick print lcd
 enum addressCol
 {
     TimeInDay = 0,

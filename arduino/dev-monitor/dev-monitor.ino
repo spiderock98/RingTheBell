@@ -35,37 +35,34 @@ void setup()
 
 void loop()
 {
-  // Serial.println(digitalRead(RF1));
-  // Serial.println(digitalRead(RF2));
-  // Serial.println(digitalRead(RF3));
-  delay(1000);
-  // on/off relay with remote controller
+#pragma region on / off relay with remote controller
   if (digitalRead(RF1) & !flagEnRelay1)
   {
     digitalWrite(OUT1, 1);
     flagEnRelay1 = true;
-    lastDuration1 = t.min;
+    lastDuration1 = t.min; // begin timer
   }
   else if (digitalRead(RF2) && !flagEnRelay2)
   {
     digitalWrite(OUT2, 1);
     flagEnRelay2 = true;
-    lastDuration2 = t.min;
+    lastDuration2 = t.min; // begin timer
   }
   else if (digitalRead(RF3) && !flagEnRelay3)
   {
     digitalWrite(OUT3, 1);
     flagEnRelay3 = true;
-    lastDuration3 = t.min;
+    lastDuration3 = t.min; // begin timer
   }
+#pragma endregion
 
-  // hold relay in "compareDuration" minnutes
+  // hold relay in <compareDuration> minutes
   if (flagEnRelay1)
   {
     if ((t.min - lastDuration1) >= compareDuration1)
     {
-      digitalWrite(OUT1, 0);
-      compareDuration1 = 5; // set to default
+      digitalWrite(OUT1, 0);              // then turn off relay
+      compareDuration1 = defaultDuration; // set to default for next RF control
       flagEnRelay1 = false;
     }
   }
@@ -73,14 +70,14 @@ void loop()
     if ((t.min - lastDuration2) >= compareDuration2)
     {
       digitalWrite(OUT2, 0);
-      compareDuration2 = 5; // set to default
+      compareDuration2 = defaultDuration;
       flagEnRelay2 = false;
     }
   if (flagEnRelay3)
     if ((t.min - lastDuration3) >= compareDuration3)
     {
       digitalWrite(OUT3, 0);
-      compareDuration3 = 5; // set to default
+      compareDuration3 = defaultDuration;
       flagEnRelay3 = false;
     }
 
@@ -89,6 +86,7 @@ void loop()
 
   char key = keypad.getKey();
 
+  // loop home screen to update RTC
   if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView)
     lcdHomeScreen();
 
@@ -99,7 +97,7 @@ void loop()
     lastMin = t.min;
   }
 }
-
+// software interrupt event keypad
 void keypadEvent(KeypadEvent key)
 {
   switch (keypad.getState())
@@ -111,9 +109,8 @@ void keypadEvent(KeypadEvent key)
       iAddressEEProm += 7;
       if (chosenDayOfWeek == 21)
       {
-        //TODO: return home screen
         lcd.clear();
-        flagRepeatView = false;
+        flagRepeatView = false; // to return home screen
         chosenDayOfWeek = -1;
         iAddressEEProm = -7;
         return;

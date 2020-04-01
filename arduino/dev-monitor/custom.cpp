@@ -377,10 +377,9 @@ lbConfirm:
     flagCusSetting = false;
     //TODO: return home
     lcd.clear();
-
-    // lcdHomeScreen();
 }
 
+// blank UI for customSetValue() func
 void blankCusInterface()
 {
     lcd.cursor();
@@ -394,6 +393,7 @@ void blankCusInterface()
     lcd.print("o MMp");
 }
 
+// blank UI for customSetValue() func
 void _blankCusInterface()
 {
     lcd.noCursor();
@@ -407,16 +407,13 @@ void _blankCusInterface()
     lcd.print("o   p");
 }
 
+// UI duyệt custom events và nạp EEPr custom section vào arrTick
 void customInterface()
 {
     flagCusView = true;
     flagHomeView = false;
     _blankCusInterface();
-    initCustomInterface();
-}
 
-void initCustomInterface()
-{
     for (int i = iCusAddressEEProm; iCusAddressEEProm + 10 - i;)
     {
         arrTick[i] = EEPROM[i]; // begin declare arrTick from EEPROM

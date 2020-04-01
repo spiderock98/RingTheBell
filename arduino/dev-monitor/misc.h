@@ -13,6 +13,7 @@
 #define OUT1 11
 #define OUT2 12
 #define OUT3 13
+#define defaultDuration 5
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args) write(args);
