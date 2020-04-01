@@ -15,21 +15,21 @@
 ### Linh tinh
 - biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
 
-### Người sử dụng
-#### Chức năng các phím nhấn
-##### sự kiện hàng tuần
+## Người sử dụng
+### Chức năng các phím nhấn
+#### sự kiện hàng tuần
 - ở màn hình chính >> ***phím A*** để chuyển sang màn hình duyệt sự kiện lặp lại mỗi tuần
 - tiếp tục nhấn ***phím A*** để duyệt qua hàng loạt các sự kiện
 - dừng ở sự kiện bất kỳ >> ***phím B*** để đặt lại thời gian, relay, ... tương ứng
-##### sự kiện tuỳ chỉnh
+#### sự kiện tuỳ chỉnh
 - ở màn hình chính >> ***phím D*** để chuyển sang màn hình duyệt sự kiện tuỳ chỉnh
 - tiếp tục nhấn ***phím D*** để duyệt qua hàng loạt các sự kiện
 - ở màn hình chính hoặc trong khi đang duyệt sự kiện tuỳ chỉnh >> ***nhấn giữ phím D*** để thêm sự kiện tuỳ chỉnh mới
 - dừng ở sự kiện bất kỳ >> ***nhấn giữ phím #*** để xoá sự kiện đó
-##### Bổ sung
+#### Bổ sung
 - nguyên tắc chọn relay: ***phím 1 hoặc phím bất kỳ khác 0*** >> bật relay, ***phím 0*** >> tắt relay
 
-#### Lưu ý khi thao tác
+### Lưu ý khi thao tác
 - đặt thời gian theo hệ 24 giờ. VD: 12h00 >> 12:00 giờ trưa, 00h01 >> 12:01 khuya, 16h30 >> 4:30 chiều
 - đọc kỹ phần *Chức năng phím nhấn* phía trên. Tuyệt đối không nhấn phím ngẫu nhiên khi thao tác trên màn hình không liên quan để tránh gây lỗi chương trình. ~~VD: nhấn D ở màn hình duyệt sự kiện là vô nghĩa~~
 - không nhấn phím liên tục, nhấn quá nhanh, nhấn nhiều phím cùng lúc
