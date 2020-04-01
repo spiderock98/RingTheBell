@@ -1,7 +1,7 @@
 #include "misc.h"
 
 const byte ROWS = 4; //four rows
-const byte COLS = 4; //three columns
+const byte COLS = 4; //four columns
 char keys[ROWS][COLS] = {
     {'1', '2', '3', 'A'},
     {'4', '5', '6', 'B'},
@@ -12,6 +12,8 @@ byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagCusView;
+extern byte iCusEvents;
+extern volatile int16_t iCusAddressEEProm;
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
 
@@ -93,6 +95,7 @@ void alarm()
     uint8_t currentMonth = t.mon;
     int16_t currentYear = t.year;
 
+    // sự kiện lặp lại
     switch (currentWeekDay)
     {
     case 2: // Mon
@@ -240,6 +243,8 @@ void alarm()
         lcd.print("Error");
         break;
     }
+
+    // sự kiện 1 lần
     int iCusAddr = 138;
     for (int i = 0; EEPROM[147] - i;)
     { // loop num of length times
@@ -263,6 +268,13 @@ void alarm()
                                 Serial.print("\t");
                                 Serial.print(EEPROM[iCusAddr + 8]);
                                 Serial.print("\t");
+                                // delete this events
+                                EEPROM.write(iCusAddr, 0);
+                                EEPROM[147] -= 1;
+                                iCusEvents = EEPROM[147];
+                                iCusAddressEEProm = 138;
+                                //TODO: home screen
+
                                 return;
                             }
         ++i;

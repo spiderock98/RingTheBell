@@ -30,11 +30,12 @@ lbReConfirm:
     {
         EEPROM.write(iCusAddressEEProm, 0);
         EEPROM[147] -= 1;
-        --iCusEvents;
     }
     else
         goto lbReConfirm;
 
+    iCusEvents = EEPROM[147];
+    iCusAddressEEProm = 138;
     flagCusSetting = false;
     flagCusView = false;
     //TODO: return home
@@ -367,12 +368,12 @@ lbConfirm:
             ++i;
         }
         EEPROM[147] += 1;
-        ++iCusEvents;
     }
     else
         goto lbConfirm;
 
     iCusAddressEEProm = 138;
+    iCusEvents = EEPROM[147];
     flagCusSetting = false;
     //TODO: return home
     lcd.clear();

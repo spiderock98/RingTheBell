@@ -80,6 +80,7 @@ void keypadEvent(KeypadEvent key)
       do
       { // pass null event to generate iCusAddressEEProm
         iCusAddressEEProm += 10;
+        Serial.println();
         Serial.print("iCusAddressEEProm: ");
         Serial.println(iCusAddressEEProm);
         Serial.println(iCusEvents);
