@@ -35,6 +35,6 @@
 - không nhấn phím liên tục, nhấn quá nhanh, nhấn nhiều phím cùng lúc
 - không được đặt sự kiện tuỳ chỉnh trùng khớp thời gian với các sự kiện hàng ngày >> tránh xung đột
 - khi treo màn hình >> nhấn nút reset hệ thống
-- khi đặt sự kiện hàng ngày lưu ý chọn mốc thời gian trong ngày tương ứng với mốc thời gian trên màn hình. ~~VD: Không đặt chuông buổi SÁNG lúc 16h30 CHIỀU~~
+- khi đặt sự kiện hàng ngày lưu ý chọn mốc thời gian trong ngày tương ứng với mốc thời gian trên màn hình. ~~VD: Đặt chuông buổi SÁNG lúc 16h30 CHIỀU là vô lý~~
 - nên kiểm tra qua tất cả các sự kiện để chắc chắn cài đặt sự kiện thành công
 - sau khi hoàn tất mọi cài đặt thời gian thì phải quay lại được màn hình chính >> nếu không quay về được có thể nhấn reset. Sau đó mới đóng nắp tủ điện
