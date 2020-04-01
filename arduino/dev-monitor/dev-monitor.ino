@@ -5,14 +5,27 @@
 struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
-bool flagHomeView = true, flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false;
-uint8_t lastMin = 0;
 
-//TODO: ghi arr vào eeprom confirm
+bool flagHomeView = true, flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false;
+
+uint8_t lastMin = 0;
+uint8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
+uint8_t compareDuration1 = 5, compareDuration2 = 5, compareDuration3 = 5; //minutes
 
 void setup()
 {
   Serial.begin(9600);
+
+  pinMode(OUT1, OUTPUT);
+  pinMode(OUT2, OUTPUT);
+  pinMode(OUT3, OUTPUT);
+  pinMode(RF1, INPUT);
+  pinMode(RF2, INPUT);
+  pinMode(RF3, INPUT);
+
+  digitalWrite(OUT1, 0);
+  digitalWrite(OUT2, 0);
+  digitalWrite(OUT3, 0);
 
   Wire.begin();
   DS3231_init(DS3231_CONTROL_INTCN);
@@ -22,6 +35,56 @@ void setup()
 
 void loop()
 {
+  // Serial.println(digitalRead(RF1));
+  // Serial.println(digitalRead(RF2));
+  // Serial.println(digitalRead(RF3));
+  delay(1000);
+  // on/off relay with remote controller
+  if (digitalRead(RF1) & !flagEnRelay1)
+  {
+    digitalWrite(OUT1, 1);
+    flagEnRelay1 = true;
+    lastDuration1 = t.min;
+  }
+  else if (digitalRead(RF2) && !flagEnRelay2)
+  {
+    digitalWrite(OUT2, 1);
+    flagEnRelay2 = true;
+    lastDuration2 = t.min;
+  }
+  else if (digitalRead(RF3) && !flagEnRelay3)
+  {
+    digitalWrite(OUT3, 1);
+    flagEnRelay3 = true;
+    lastDuration3 = t.min;
+  }
+
+  // hold relay in "compareDuration" minnutes
+  if (flagEnRelay1)
+  {
+    if ((t.min - lastDuration1) >= compareDuration1)
+    {
+      digitalWrite(OUT1, 0);
+      compareDuration1 = 5; // set to default
+      flagEnRelay1 = false;
+    }
+  }
+  if (flagEnRelay2)
+    if ((t.min - lastDuration2) >= compareDuration2)
+    {
+      digitalWrite(OUT2, 0);
+      compareDuration2 = 5; // set to default
+      flagEnRelay2 = false;
+    }
+  if (flagEnRelay3)
+    if ((t.min - lastDuration3) >= compareDuration3)
+    {
+      digitalWrite(OUT3, 0);
+      compareDuration3 = 5; // set to default
+      flagEnRelay3 = false;
+    }
+
+  // loop get time
   DS3231_get(&t);
 
   char key = keypad.getKey();
@@ -29,6 +92,7 @@ void loop()
   if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView)
     lcdHomeScreen();
 
+  // check EEPROM value every 1 minutes
   if (t.min - lastMin)
   {
     alarm();
@@ -41,7 +105,7 @@ void keypadEvent(KeypadEvent key)
   switch (keypad.getState())
   {
   case PRESSED:
-    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting)
+    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;

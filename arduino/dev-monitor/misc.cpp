@@ -11,9 +11,11 @@ byte rowPins[ROWS] = {6, 7, 8, 9}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagCusView;
+extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3;
 extern byte iCusEvents;
 extern volatile int16_t iCusAddressEEProm;
+extern uint8_t compareDuration1, compareDuration2, compareDuration3;
+extern uint8_t lastDuration1, lastDuration2, lastDuration3;
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
 
@@ -29,6 +31,7 @@ void lcdDefaultInterface()
     uint8_t check[8] = {0x00, 0x00, 0x01, 0x03, 0x16, 0x1C, 0x08, 0x00};
     uint8_t u3[8] = {0x0C, 0x04, 0x00, 0x12, 0x12, 0x12, 0x0C, 0x00};
     uint8_t cancel[8] = {0x00, 0x11, 0x1B, 0x0E, 0x0E, 0x1B, 0x11, 0x00};
+    uint8_t temp[8] = {B11000, B11000, B00110, B01001, B01000, B01000, B01001, B00110};
     // uint8_t trash[8] = {B01110, B11111, B00000, B11111, B11111, B11111, B11111, B01110};
 
     lcd.init();
@@ -43,6 +46,7 @@ void lcdDefaultInterface()
     // lcd.createChar(6, e65);
     lcd.createChar(4, check);
     lcd.createChar(5, cancel);
+    lcd.createChar(6, temp);
 
     lcd.setCursor(0, 0);
     lcd.print("AUTO CHURCH BELL");
@@ -80,11 +84,15 @@ void lcdHomeScreen()
     lcd.print(t.min);
     lcd.print(":");
     lcd.print(t.sec);
-    lcd.print(" ");
+    lcd.print("  ");
+    lcd.setCursor(10, 1);
+    lcd.print(DS3231_get_treg());
+    lcd.printByte(6);
 
     // lcd.print(" Next: ");
 }
 
+// 1 phút check hàm 1 lần
 void alarm()
 {
     uint8_t currentWeekDay = t.wday;
@@ -131,7 +139,6 @@ void alarm()
                     Serial.print(EEPROM[addr + 4]);
                     Serial.print("\t");
                     Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
                     return;
                 }
             }
@@ -151,7 +158,6 @@ void alarm()
                     Serial.print(EEPROM[addr + 4]);
                     Serial.print("\t");
                     Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
                     return;
                 }
             }
@@ -171,7 +177,6 @@ void alarm()
                     Serial.print(EEPROM[addr + 4]);
                     Serial.print("\t");
                     Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
                     return;
                 }
             }
@@ -191,7 +196,6 @@ void alarm()
                     Serial.print(EEPROM[addr + 4]);
                     Serial.print("\t");
                     Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
                     return;
                 }
             }
@@ -211,7 +215,6 @@ void alarm()
                     Serial.print(EEPROM[addr + 4]);
                     Serial.print("\t");
                     Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
                     return;
                 }
             }
@@ -231,7 +234,6 @@ void alarm()
                     Serial.print(EEPROM[addr + 4]);
                     Serial.print("\t");
                     Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
                     return;
                 }
             }
@@ -260,14 +262,38 @@ void alarm()
                         if ((currentYear / 100) == EEPROM[iCusAddr + 2])
                             if ((currentYear % 100) == EEPROM[iCusAddr + 3])
                             {
+                                // debug
                                 Serial.println();
-                                Serial.print("Match Event: ");
+                                Serial.print("Alarm: ");
                                 Serial.print(EEPROM[iCusAddr + 6]);
                                 Serial.print("\t");
                                 Serial.print(EEPROM[iCusAddr + 7]);
                                 Serial.print("\t");
                                 Serial.print(EEPROM[iCusAddr + 8]);
-                                Serial.print("\t");
+
+                                // check bit enable
+                                if (EEPROM[iCusAddr + 6])
+                                {
+                                    flagEnRelay1 = true;
+                                    digitalWrite(OUT1, 1);
+                                    lastDuration1 = t.min;
+                                    compareDuration1 = EEPROM[iCusAddr + 9]; // update duration
+                                }
+                                if (EEPROM[iCusAddr + 7])
+                                {
+                                    flagEnRelay2 = true;
+                                    digitalWrite(OUT2, 1);
+                                    lastDuration2 = t.min;
+                                    compareDuration2 = EEPROM[iCusAddr + 9]; // update duration
+                                }
+                                if (EEPROM[iCusAddr + 8])
+                                {
+                                    flagEnRelay3 = true;
+                                    digitalWrite(OUT3, 1);
+                                    lastDuration3 = t.min;
+                                    compareDuration3 = EEPROM[iCusAddr + 9]; // update duration
+                                }
+
                                 // delete this events
                                 EEPROM.write(iCusAddr, 0);
                                 EEPROM[147] -= 1;
@@ -275,7 +301,7 @@ void alarm()
                                 iCusAddressEEProm = 138;
                                 //TODO: home screen
 
-                                return;
+                                return; // exit right on match event every 1 minutes
                             }
         ++i;
     }
