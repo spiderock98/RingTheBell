@@ -1,21 +1,7 @@
-# Hệ Thống Chuông Tự Động Giáo Xứ ...
+# Hệ Thống Giật Chuông Tự Động Giáo Xứ ...
 
-## Tổ chức ô nhớ EEPr
 
-### Sự kiện mỗi ngày: 7 cells  X  3 buổi mỗi ngày  X  7 ngày trong tuần  =  147 cells. 0 -> 146
-| 0 | 1 | 2 | 3 | 4 | 5 | 6 | ... |
-| - | - | - | - | - | - | - | --- |
-| WeekDay | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
-
-### Sự kiện tuỳ chỉnh: ô 147 *<số sự kiện tuỳ chỉnh hiện tại>*  +  10 cells  X  đến hết ô nhớ EEPr (1024 bytes). 147 | 148 -> 1023
-| 148 | 149 | 150 | 151 | 152 | 153 | 154 | 155 | 156 | 157 | ... |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| MonthDate | Month | Year1 *<hàng nghìn & hàng trăm>* | Year2 *<hàng chục & hàng đơn vị>* | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
-
-### Linh tinh
-- biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
-
-## Người sử dụng
+## Về Phía Người Sử Dụng
 ### Chức năng các phím nhấn
 #### sự kiện hàng tuần
 - ở màn hình chính >> ***phím A*** để chuyển sang màn hình duyệt sự kiện lặp lại mỗi tuần
@@ -38,3 +24,18 @@
 - khi đặt sự kiện hàng ngày lưu ý chọn mốc thời gian trong ngày tương ứng với mốc thời gian trên màn hình. ~~VD: Đặt chuông buổi SÁNG lúc 16h30 CHIỀU là vô lý~~
 - nên kiểm tra qua tất cả các sự kiện để chắc chắn cài đặt sự kiện thành công
 - sau khi hoàn tất mọi cài đặt thời gian thì phải quay lại được màn hình chính >> nếu không quay về được có thể nhấn reset. Sau đó mới đóng nắp tủ điện
+
+## Phía Dev
+### Sự kiện mỗi ngày: 7 cells  X  3 buổi mỗi ngày  X  7 ngày trong tuần  =  147 cells. 0 -> 146
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | ... |
+| - | - | - | - | - | - | - | --- |
+| WeekDay | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
+
+### Sự kiện tuỳ chỉnh: ô 147 *<số sự kiện tuỳ chỉnh hiện tại>*  +  10 cells  X  đến hết ô nhớ EEPr (1024 bytes). 147 | 148 -> 1023
+| 148 | 149 | 150 | 151 | 152 | 153 | 154 | 155 | 156 | 157 | ... |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| MonthDate | Month | Year1 *<hàng nghìn & hàng trăm>* | Year2 *<hàng chục & hàng đơn vị>* | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
+
+### Linh tinh
+- biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
+- khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
