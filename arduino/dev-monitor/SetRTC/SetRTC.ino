@@ -11,13 +11,13 @@ void setup()
     /*----------------------------------------------------------------------------
     In order to synchronise your clock module, insert timetable values below !
     ----------------------------------------------------------------------------*/
-    t.hour = 18;
-    t.min = 43;
-    t.sec = 30;
-    t.mday = 31;
-    t.mon = 3;
+    t.hour = 17;
+    t.min = 11;
+    t.sec = 60;
+    t.mday = 2;
+    t.mon = 4;
     t.year = 2020;
-    t.wday = 3;
+    t.wday = 5;
 
     DS3231_set(t);
 }

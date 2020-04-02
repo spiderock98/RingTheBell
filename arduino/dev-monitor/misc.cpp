@@ -7,8 +7,10 @@ char keys[ROWS][COLS] = {
     {'4', '5', '6', 'B'},
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
-byte rowPins[ROWS] = {6, 7, 8, 9}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
+byte rowPins[ROWS] = {6, 5, 4, 3};  //connect to the row pinouts of the keypad
+byte colPins[COLS] = {10, 9, 8, 7}; //connect to the column pinouts of the keypad
+// byte rowPins[ROWS] = {6, 7, 8, 9}; //connect to the row pinouts of the keypad
+// byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3;
@@ -17,7 +19,8 @@ extern volatile int16_t iCusAddressEEProm;
 extern uint8_t compareDuration1, compareDuration2, compareDuration3;
 extern uint8_t lastDuration1, lastDuration2, lastDuration3;
 
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
+// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2);
 
 void WelcomeInterface()
 {

@@ -6,11 +6,12 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
 
-bool flagHomeView = true, flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false;
+bool flagHomeView = true, flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false;
 
-uint8_t lastMin = 0;
-uint8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
+int8_t lastMinAlarm = -1, lastMinBacklight = 0;
+int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
 uint8_t compareDuration1 = 5, compareDuration2 = 5, compareDuration3 = 5; //minutes
+uint8_t timeBeforeTick0;
 
 void setup()
 {
@@ -59,27 +60,47 @@ void loop()
   // hold relay in <compareDuration> minutes
   if (flagEnRelay1)
   {
-    if ((t.min - lastDuration1) >= compareDuration1)
+    if ((t.min == 0) && (lastDuration1 != 0) && !flagTickMinus1)
+    {
+      lastDuration1 = lastDuration1 - 60;
+      flagTickMinus1 = true;
+    }
+    if ((t.min - lastDuration1) >= (compareDuration1))
     {
       digitalWrite(OUT1, 0);              // then turn off relay
       compareDuration1 = defaultDuration; // set to default for next RF control
-      flagEnRelay1 = false;
+      flagEnRelay1 = flagTickMinus1 = false;
     }
   }
   if (flagEnRelay2)
+  {
+    if ((t.min == 0) && (lastDuration2 != 0) && !flagTickMinus2)
+    {
+      lastDuration2 = lastDuration2 - 60;
+      flagTickMinus2 = true;
+    }
     if ((t.min - lastDuration2) >= compareDuration2)
     {
       digitalWrite(OUT2, 0);
       compareDuration2 = defaultDuration;
-      flagEnRelay2 = false;
+      flagEnRelay2 = flagTickMinus2 = false;
     }
+  }
+
   if (flagEnRelay3)
+  {
+    if ((t.min == 0) && (lastDuration3 != 0) && !flagTickMinus3)
+    {
+      lastDuration3 = lastDuration3 - 60;
+      flagTickMinus3 = true;
+    }
     if ((t.min - lastDuration3) >= compareDuration3)
     {
       digitalWrite(OUT3, 0);
       compareDuration3 = defaultDuration;
-      flagEnRelay3 = false;
+      flagEnRelay3 = flagTickMinus3 = false;
     }
+  }
 
   // loop get time
   DS3231_get(&t);
@@ -90,16 +111,31 @@ void loop()
   if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView)
     lcdHomeScreen();
 
-  // check EEPROM value every 1 minutes
-  if (t.min - lastMin)
+  // Ex: 18:59 next is 18:00 -> buggy
+  if ((t.min == 59) && (t.sec >= 58))
   {
-    alarm();
-    lastMin = t.min;
+    lastMinAlarm = -1;
+    delay(3000); // nếu ko block >3s ở đây else if phía dưới sẽ bắt kịp và set lastMinAlarm về 59
   }
+  // check EEPROM value every 1 minutes for alarm(), not in phút 59
+  else if ((t.min - lastMinAlarm))
+  {
+    // if (t.min == 59)
+    //   flagTick59 = true;
+    alarm();
+    lastMinAlarm = t.min;
+  }
+
+  // off screen after 10 second no activity
+  else if (t.min - lastMinBacklight)
+    lcd.noBacklight();
 }
 // software interrupt event keypad
 void keypadEvent(KeypadEvent key)
 {
+  lcd.backlight();          // ON screen when pressed
+  lastMinBacklight = t.min; // update time stamp
+
   switch (keypad.getState())
   {
   case PRESSED:

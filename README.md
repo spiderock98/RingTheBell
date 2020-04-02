@@ -20,6 +20,7 @@
 - đọc kỹ phần *Chức năng phím nhấn* phía trên. Tuyệt đối không nhấn phím ngẫu nhiên khi thao tác trên màn hình không liên quan để tránh gây lỗi chương trình. ~~VD: nhấn D ở màn hình duyệt sự kiện là vô nghĩa~~
 - không nhấn phím liên tục, nhấn quá nhanh, nhấn nhiều phím cùng lúc
 - không được đặt sự kiện tuỳ chỉnh trùng khớp thời gian với các sự kiện hàng ngày >> tránh xung đột
+- không đặt 2 hoặc nhiều sự kiện tuỳ chỉnh trùng khớp thời gian với nhau >> tránh xung đột
 - khi treo màn hình >> nhấn nút reset hệ thống
 - khi đặt sự kiện hàng ngày lưu ý chọn mốc thời gian trong ngày tương ứng với mốc thời gian trên màn hình. ~~VD: Đặt chuông buổi SÁNG lúc 16h30 CHIỀU là vô lý~~
 - nên kiểm tra qua tất cả các sự kiện để chắc chắn cài đặt sự kiện thành công
