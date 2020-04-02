@@ -23,7 +23,7 @@
 - khi treo màn hình >> nhấn nút reset hệ thống
 - khi đặt sự kiện hàng ngày lưu ý chọn mốc thời gian trong ngày tương ứng với mốc thời gian trên màn hình. ~~VD: Đặt chuông buổi SÁNG lúc 16h30 CHIỀU là vô lý~~
 - nên kiểm tra qua tất cả các sự kiện để chắc chắn cài đặt sự kiện thành công
-- sau khi hoàn tất mọi cài đặt thời gian thì phải quay lại được màn hình chính >> nếu không quay về được có thể nhấn reset. Sau đó mới đóng nắp tủ điện
+- sau khi hoàn tất mọi cài đặt thời gian thì phải quay lại được màn hình chính để chương trình tự động về chế độ hẹn giờ và tự động tắt màn hình tiết kiệm năng lượng >> nếu không quay về được có thể nhấn reset. Sau đó mới đóng nắp tủ điện
 
 ## Phía Dev
 ### Sự kiện mỗi ngày: 7 cells  X  3 buổi mỗi ngày  X  7 ngày trong tuần  =  147 cells. 0 -> 146

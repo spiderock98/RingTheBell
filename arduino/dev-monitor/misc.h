@@ -25,7 +25,7 @@ extern LiquidCrystal_I2C lcd; // set the LCD address to 0x27 for a 16 chars and 
 extern Keypad keypad;
 extern struct ts t;
 
-void lcdDefaultInterface();
+void WelcomeInterface();
 void lcdHomeScreen();
 bool isSpecialChar(char key);
 byte char2byte(char key);

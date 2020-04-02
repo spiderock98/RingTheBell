@@ -38,7 +38,7 @@ lbReConfirm:
     iCusAddressEEProm = 138;
     flagCusSetting = false;
     flagCusView = false;
-    //TODO: return home
+    // return home screen
     lcd.clear();
     iCusAddressEEProm = 138;
 }
@@ -375,7 +375,7 @@ lbConfirm:
     iCusAddressEEProm = 138;
     iCusEvents = EEPROM[147];
     flagCusSetting = false;
-    //TODO: return home
+    // return home screen
     lcd.clear();
 }
 

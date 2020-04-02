@@ -30,7 +30,7 @@ void setup()
   Wire.begin();
   DS3231_init(DS3231_CONTROL_INTCN);
   keypad.addEventListener(keypadEvent);
-  lcdDefaultInterface();
+  WelcomeInterface();
 }
 
 void loop()
@@ -107,14 +107,6 @@ void keypadEvent(KeypadEvent key)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;
-      if (chosenDayOfWeek == 21)
-      {
-        lcd.clear();
-        flagRepeatView = false; // to return home screen
-        chosenDayOfWeek = -1;
-        iAddressEEProm = -7;
-        return;
-      }
       repeaterInterface();
     }
     else if (key == 'B')
@@ -134,7 +126,7 @@ void keypadEvent(KeypadEvent key)
         lcd.setCursor(1, 1);
         lcd.print("GIU D de them");
         delay(2000); // chờ nhấn giữ D
-        //TODO: return home screen
+        // return home screen
         lcd.clear();
         return;
       }

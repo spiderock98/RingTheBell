@@ -179,6 +179,12 @@ void repeaterInterface()
         lcd.print("Cn");
         EEPr2DailyUI();
         break;
+    default:
+        lcd.clear();
+        flagRepeatView = false; // to return home screen
+        chosenDayOfWeek = -1;
+        iAddressEEProm = -7;
+        break;
     }
 }
 
@@ -409,15 +415,6 @@ lbDuration:
     ++chosenDayOfWeek;
     iAddressEEProm += 7;
 
-    // in case we set value in chiều CN
-    if (chosenDayOfWeek == 21)
-    {
-        //TODO: return home screen
-        lcd.clear();
-        chosenDayOfWeek = -1;
-        iAddressEEProm = -7;
-        return;
-    }
     flagRepeatSetting = false;
     repeaterInterface();
 }

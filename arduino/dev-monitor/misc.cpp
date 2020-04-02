@@ -19,7 +19,7 @@ extern uint8_t lastDuration1, lastDuration2, lastDuration3;
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
 
-void lcdDefaultInterface()
+void WelcomeInterface()
 {
     uint8_t bell[8] = {0x4, 0xe, 0xe, 0xe, 0x1f, 0x0, 0x4};
     uint8_t clock[8] = {0x0, 0xe, 0x15, 0x17, 0x11, 0xe, 0x0};
@@ -99,7 +99,7 @@ void alarm()
     uint8_t currentMonth = t.mon;
     int16_t currentYear = t.year;
 
-    // sự kiện lặp lại
+    // alarm sự kiện lặp lại
     switch (currentWeekDay)
     {
     case 2: // Mon
@@ -242,7 +242,7 @@ void alarm()
         break;
     }
 
-    // sự kiện 1 lần
+    // alarm sự kiện 1 lần
     int iCusAddr = 138;
     for (int i = 0; EEPROM[147] - i;)
     { // loop num of length times
@@ -256,7 +256,7 @@ void alarm()
                 if (currentMonthDay == EEPROM[iCusAddr])
                     if (currentMonth == EEPROM[iCusAddr + 1])
                         if ((currentYear / 100) == EEPROM[iCusAddr + 2])
-                            if ((currentYear % 100) == EEPROM[iCusAddr + 3])
+                            if ((currentYear % 100) == EEPROM[iCusAddr + 3]) // an event is match
                             {
                                 // debug
                                 Serial.println();
@@ -267,7 +267,7 @@ void alarm()
                                 Serial.print("\t");
                                 Serial.print(EEPROM[iCusAddr + 8]);
 
-                                // check bit enable
+                                // check bit if enable relay or not
                                 if (EEPROM[iCusAddr + 6])
                                 {
                                     flagEnRelay1 = true;
@@ -290,12 +290,11 @@ void alarm()
                                     compareDuration3 = EEPROM[iCusAddr + 9]; // update duration
                                 }
 
-                                // delete this events
+                                // delete this match events
                                 EEPROM.write(iCusAddr, 0);
                                 EEPROM[147] -= 1;
                                 iCusEvents = EEPROM[147];
                                 iCusAddressEEProm = 138;
-                                //TODO: home screen
 
                                 return; // exit right on match event every 1 minutes
                             }
