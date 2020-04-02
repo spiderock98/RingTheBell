@@ -15,7 +15,7 @@ uint8_t timeBeforeTick0;
 
 void setup()
 {
-  Serial.begin(9600);
+  // Serial.begin(9600);
 
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
@@ -180,10 +180,10 @@ void keypadEvent(KeypadEvent key)
       do
       { // pass null event to generate iCusAddressEEProm
         iCusAddressEEProm += 10;
-        Serial.println();
-        Serial.print("iCusAddressEEProm: ");
-        Serial.println(iCusAddressEEProm);
-        Serial.println(iCusEvents);
+        // Serial.println();
+        // Serial.print("iCusAddressEEProm: ");
+        // Serial.println(iCusAddressEEProm);
+        // Serial.println(iCusEvents);
       } while ((EEPROM[iCusAddressEEProm] == 0) && (iCusAddressEEProm < 1024) && iCusEvents);
 
       if (!iCusEvents)
