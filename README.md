@@ -17,7 +17,7 @@
 
 ### Lưu ý khi thao tác
 - đặt thời gian theo hệ 24 giờ. VD: 12h00 >> 12:00 giờ trưa, 00h01 >> 12:01 khuya, 16h30 >> 4:30 chiều
-- đọc kỹ phần *Chức năng phím nhấn* phía trên. Tuyệt đối không nhấn phím ngẫu nhiên khi thao tác trên màn hình không liên quan để tránh gây lỗi chương trình. ~~VD: nhấn D ở màn hình duyệt sự kiện là vô nghĩa~~
+- đọc kỹ phần *Chức năng phím nhấn* phía trên. Tuyệt đối không nhấn phím ngẫu nhiên khi thao tác trên màn hình không liên quan để tránh gây lỗi chương trình. ~~VD: nhấn D ở màn hình duyệt sự kiện là vô nghĩa, nhấn các phím số ở màn hình chính là vô nghĩa~~
 - không nhấn phím liên tục, nhấn quá nhanh, nhấn nhiều phím cùng lúc
 - không được đặt sự kiện tuỳ chỉnh trùng khớp thời gian với các sự kiện hàng ngày >> tránh xung đột
 - khi treo màn hình >> nhấn nút reset hệ thống
