@@ -72,7 +72,7 @@ void ccp1_isr()
 
 void FORWARD()
 {
-   output_high(relayOut);
+   // output_high(relayOut);
    output_low(triac2Out);
 
    flagForward = true;
@@ -80,13 +80,13 @@ void FORWARD()
 }
 void REVERSE()
 {
-   output_high(relayOut);
+   // output_high(relayOut);
    output_low(triac1Out);
    flagForward = flagSTOP = false;
 }
 void STOP()
 {
-   output_low(relayOut);
+   // output_low(relayOut);
    flagSTOP = true;
    output_low(triac1Out);
    output_low(triac2Out);
@@ -157,6 +157,8 @@ void main()
 
    TRISB0 = TRISC0 = TRISC2 = 1; //input
    TRISC6 = TRISC7 = TRISC1 = 0; //output
+
+   output_high(relayOut);
 
    clear_interrupt(INT_EXT);
    enable_interrupts(INT_EXT);

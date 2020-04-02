@@ -112,17 +112,37 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Mon");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
-                    Serial.print("\t");
+                    // Serial.println("Mon");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
-            addr += 7;
+            addr += 7; // Sáng -> Trưa -> Chiều
         }
         break;
     case 3: // Tue
@@ -132,12 +152,33 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Tue");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
+                    // Serial.println("Tue");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
@@ -151,12 +192,33 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Wed");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
+                    // Serial.println("Wed");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
@@ -170,12 +232,33 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Thu");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
+                    // Serial.println("Thu");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
@@ -189,12 +272,33 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Fri");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
+                    // Serial.println("Fri");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
@@ -208,12 +312,33 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Sat");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
+                    // Serial.println("Sat");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
@@ -227,18 +352,40 @@ void alarm()
             {
                 if (currentMinute == EEPROM[addr + 2])
                 {
-                    Serial.println("Sun");
-                    Serial.print(EEPROM[addr + 3]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 4]);
-                    Serial.print("\t");
-                    Serial.print(EEPROM[addr + 5]);
+                    // Serial.println("Sun");
+                    // Serial.print(EEPROM[addr + 3]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 4]);
+                    // Serial.print("\t");
+                    // Serial.print(EEPROM[addr + 5]);
+                    if (EEPROM[addr + 3]) // relay 1
+                    {
+                        flagEnRelay1 = true;
+                        digitalWrite(OUT1, 1);
+                        lastDuration1 = t.min;
+                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 4]) // relay 2
+                    {
+                        flagEnRelay2 = true;
+                        digitalWrite(OUT2, 1);
+                        lastDuration2 = t.min;
+                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                    }
+                    if (EEPROM[addr + 5]) // relay 3
+                    {
+                        flagEnRelay3 = true;
+                        digitalWrite(OUT3, 1);
+                        lastDuration3 = t.min;
+                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                    }
                     return;
                 }
             }
             addr += 7;
         }
         break;
+
     default:
         lcd.clear();
         lcd.print("Error");
@@ -262,13 +409,13 @@ void alarm()
                             if ((currentYear % 100) == EEPROM[iCusAddr + 3]) // an event is match
                             {
                                 // debug
-                                Serial.println();
-                                Serial.print("Alarm: ");
-                                Serial.print(EEPROM[iCusAddr + 6]);
-                                Serial.print("\t");
-                                Serial.print(EEPROM[iCusAddr + 7]);
-                                Serial.print("\t");
-                                Serial.print(EEPROM[iCusAddr + 8]);
+                                // Serial.println();
+                                // Serial.print("Alarm: ");
+                                // Serial.print(EEPROM[iCusAddr + 6]);
+                                // Serial.print("\t");
+                                // Serial.print(EEPROM[iCusAddr + 7]);
+                                // Serial.print("\t");
+                                // Serial.print(EEPROM[iCusAddr + 8]);
 
                                 // check bit if enable relay or not
                                 if (EEPROM[iCusAddr + 6])

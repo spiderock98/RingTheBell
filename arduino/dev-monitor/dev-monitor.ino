@@ -20,6 +20,7 @@ void setup()
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
+  pinMode(RF0, INPUT);
   pinMode(RF1, INPUT);
   pinMode(RF2, INPUT);
   pinMode(RF3, INPUT);
@@ -37,6 +38,16 @@ void setup()
 void loop()
 {
 #pragma region on / off relay with remote controller
+  // off all relay no condition
+  if (digitalRead(RF0))
+  {
+    digitalWrite(OUT1, 0);
+    digitalWrite(OUT2, 0);
+    digitalWrite(OUT3, 0);
+    compareDuration1 = compareDuration2 = compareDuration3 = defaultDuration; // set to default for next RF control
+    flagEnRelay1 = flagEnRelay2 = flagEnRelay3 = flagTickMinus1 = flagTickMinus2 = flagTickMinus3 = false;
+  }
+
   if (digitalRead(RF1) & !flagEnRelay1)
   {
     digitalWrite(OUT1, 1);
