@@ -1,4 +1,4 @@
-# Hệ Thống Giật Chuông Tự Động Giáo Xứ ...
+# Hệ Thống Giật Chuông Tự Động Giáo Xứ Cao Mộc
 
 
 ## Về Phía Người Sử Dụng
@@ -40,3 +40,8 @@
 ### Linh tinh
 - biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
+
+## Contributors
+1. Giáo Xứ Cao Mộc - Quỳnh Phụ, Thái Bình - [Fanpage](https://www.facebook.com/Gi%C3%A1o-x%E1%BB%A9-Cao-M%E1%BB%99c-442991019215398)
+2. Nguyễn Văn Hải - [Facebook](https://www.facebook.com/haiabc.nguyen)
+3. Nguyễn Minh Tiến - [Facebook](https://www.facebook.com/spiderock98) | [Github](https://github.com/spiderock98)
