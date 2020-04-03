@@ -26,7 +26,7 @@
 - nên kiểm tra qua tất cả các sự kiện để chắc chắn cài đặt sự kiện thành công
 - sau khi hoàn tất mọi cài đặt thời gian thì phải quay lại được màn hình chính để chương trình tự động về chế độ hẹn giờ và tự động tắt màn hình tiết kiệm năng lượng >> nếu không quay về được có thể nhấn reset. Sau đó mới đóng nắp tủ điện
 
-## Phía Dev
+## Dev
 ### Sự kiện mỗi ngày: 7 cells  X  3 buổi mỗi ngày  X  7 ngày trong tuần  =  147 cells. 0 -> 146
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | ... |
 | - | - | - | - | - | - | - | --- |
