@@ -48,7 +48,7 @@ void loop()
     flagEnRelay1 = flagEnRelay2 = flagEnRelay3 = flagTickMinus1 = flagTickMinus2 = flagTickMinus3 = false;
   }
 
-  if (digitalRead(RF1) & !flagEnRelay1)
+  if (digitalRead(RF1) && !flagEnRelay1)
   {
     digitalWrite(OUT1, 1);
     flagEnRelay1 = true;
