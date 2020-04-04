@@ -6,7 +6,7 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
 
-bool flagHomeView = true, flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false;
+bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false;
 
 int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;

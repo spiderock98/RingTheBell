@@ -2,12 +2,11 @@
 
 extern byte arrTick[256], iCusEvents;
 extern volatile int16_t iCusAddressEEProm, numOfEvents;
-extern bool flagCusSetting, flagCusView, flagHomeView;
+extern bool flagCusSetting, flagCusView;
 
 void customDeleteValue()
 {
     flagCusSetting = true;
-    flagHomeView = false;
 
     char charVal;
 
@@ -47,7 +46,6 @@ void customSetValue()
     blankCusInterface();
 
     flagCusSetting = true;
-    flagHomeView = false;
 
     byte decVal;
     char charVal;
@@ -411,7 +409,6 @@ void _blankCusInterface()
 void customInterface()
 {
     flagCusView = true;
-    flagHomeView = false;
     _blankCusInterface();
 
     for (int i = iCusAddressEEProm; iCusAddressEEProm + 10 - i;)

@@ -13,7 +13,7 @@ byte colPins[COLS] = {10, 9, 8, 7}; //connect to the column pinouts of the keypa
 // byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-extern bool flagHomeView, flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3;
+extern bool flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3;
 extern byte iCusEvents;
 extern volatile int16_t iCusAddressEEProm;
 extern uint8_t compareDuration1, compareDuration2, compareDuration3;

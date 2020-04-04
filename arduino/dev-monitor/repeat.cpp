@@ -2,13 +2,12 @@
 
 extern byte arrTick[256];
 extern volatile int16_t chosenDayOfWeek, iAddressEEProm;
-extern bool flagRepeatSetting, flagRepeatView, flagHomeView;
+extern bool flagRepeatSetting, flagRepeatView;
 
 // UI when press 'A'
 void repeaterInterface()
 {
     flagRepeatView = true;
-    flagHomeView = false;
 
     lcd.clear();
     lcd.setCursor(3, 0);
@@ -234,7 +233,6 @@ void EEPr2DailyUI()
 void repeaterSetValue()
 {
     flagRepeatSetting = true;
-    flagHomeView = false;
     byte decVal;
     char charVal, key;
 
