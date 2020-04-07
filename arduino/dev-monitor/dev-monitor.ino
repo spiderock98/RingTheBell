@@ -20,10 +20,10 @@ void setup()
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
-  pinMode(RF0, INPUT);
-  pinMode(RF1, INPUT);
-  pinMode(RF2, INPUT);
-  pinMode(RF3, INPUT);
+  // pinMode(RF0, INPUT);
+  // pinMode(RF1, INPUT);
+  // pinMode(RF2, INPUT);
+  // pinMode(RF3, INPUT);
 
   digitalWrite(OUT1, 0);
   digitalWrite(OUT2, 0);
@@ -39,7 +39,7 @@ void loop()
 {
 #pragma region on / off relay with remote controller
   // off all relay no condition
-  if (digitalRead(RF0))
+  if (analogRead(RF0) > 612) //3V
   {
     digitalWrite(OUT1, 0);
     digitalWrite(OUT2, 0);
@@ -48,19 +48,19 @@ void loop()
     flagEnRelay1 = flagEnRelay2 = flagEnRelay3 = flagTickMinus1 = flagTickMinus2 = flagTickMinus3 = false;
   }
 
-  if (digitalRead(RF1) && !flagEnRelay1)
+  if ((analogRead(RF1) > 612) && !flagEnRelay1)
   {
     digitalWrite(OUT1, 1);
     flagEnRelay1 = true;
     lastDuration1 = t.min; // begin timer
   }
-  else if (digitalRead(RF2) && !flagEnRelay2)
+  else if ((analogRead(RF2) > 612) && !flagEnRelay2)
   {
     digitalWrite(OUT2, 1);
     flagEnRelay2 = true;
     lastDuration2 = t.min; // begin timer
   }
-  else if (digitalRead(RF3) && !flagEnRelay3)
+  else if ((analogRead(RF3) > 612) && !flagEnRelay3)
   {
     digitalWrite(OUT3, 1);
     flagEnRelay3 = true;
