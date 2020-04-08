@@ -15,7 +15,7 @@ uint8_t timeBeforeTick0;
 
 void setup()
 {
-  Serial.begin(9600);
+  // Serial.begin(9600);
 
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
@@ -29,6 +29,7 @@ void setup()
   keypad.addEventListener(keypadEvent);
   WelcomeInterface();
 
+  DS3231_get(&t);
   lastMinAlarm = t.min;
 }
 
@@ -128,7 +129,7 @@ void loop()
     delay(3000); // nếu ko block >3s ở đây else if phía dưới sẽ bắt kịp và set lastMinAlarm về 59
   }
   // check EEPROM value every 1 minutes for alarm(), not in phút 59
-  else if ((t.min - lastMinAlarm))
+  else if (t.min - lastMinAlarm)
   {
     // if (t.min == 59)
     //   flagTick59 = true;
@@ -149,7 +150,7 @@ void keypadEvent(KeypadEvent key)
   switch (keypad.getState())
   {
   case PRESSED:
-    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView)
+    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView && !flagSetRTC)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;
@@ -162,7 +163,7 @@ void keypadEvent(KeypadEvent key)
     }
 
     // duyệt custom events
-    else if ((key == 'D') && !flagRepeatView && !flagCusSetting)
+    else if ((key == 'D') && !flagRepeatView && !flagCusSetting && !flagSetRTC)
     {
       if (EEPROM[147] == 0)
       {
@@ -204,7 +205,7 @@ void keypadEvent(KeypadEvent key)
   case HOLD:
     if ((key == 'D'))
     {
-      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView) // just in view can add event
+      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView && !flagSetRTC) // just in view can add event
       {
         // fix when hold d >> you must pass PRESSED D and get these stuff wrong
         iCusAddressEEProm = 138;

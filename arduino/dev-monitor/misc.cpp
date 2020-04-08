@@ -19,8 +19,8 @@ extern volatile int16_t iCusAddressEEProm;
 extern uint8_t compareDuration1, compareDuration2, compareDuration3;
 extern uint8_t lastDuration1, lastDuration2, lastDuration3;
 
-// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2); // newer LCD
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
+// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2); // newer LCD
 
 void WelcomeInterface()
 {
@@ -79,12 +79,14 @@ void setRTC()
 
 // 1:Sun , 2:Mon, ...
 lbWday:
+    lcd.blink();
+    lcd.cursor();
     lcd.setCursor(4, 0);
-    charVal = keypad.waitForKey(); //blocking
+    charVal = keypad.waitForKey(); // blocking
     decVal = char2byte(charVal);
     if ((!isSpecialChar(charVal)) && (decVal <= 7) && (decVal != 0))
     {
-        if (charVal = '1')
+        if (charVal == '1')
             lcd.print("CN");
         else
             lcd.print(charVal);
