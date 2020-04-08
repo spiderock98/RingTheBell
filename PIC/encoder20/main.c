@@ -91,34 +91,43 @@ void STOP()
 
 void starter()
 {
+   // half rotate
+   while (count <= 10)
+      FORWARD();
+   STOP();
+   while (count >= 0)
+      STOP();
+   while (count >= -10)
+      REVERSE();
+   STOP();
+   while (count <= 0)
+      STOP();
+
+   // 1 rotate
    while (count <= 20)
       FORWARD();
    STOP();
-
    while (count >= 0)
       STOP();
-
    while (count >= -20)
       REVERSE();
    STOP();
-
    while (count <= 0)
       STOP();
 
+   // 2 rotates
    while (count <= 40)
       FORWARD();
    STOP();
-
    while (count >= 0)
       STOP();
-
    while (count >= -40)
       REVERSE();
    STOP();
-
    while (count <= 0)
       STOP();
 
+   // 3 rotates 1 side
    while (count <= 60)
       FORWARD();
    STOP();
