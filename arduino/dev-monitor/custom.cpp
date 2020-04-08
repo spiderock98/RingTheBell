@@ -41,6 +41,8 @@ lbReConfirm:
     lcd.clear();
     iCusAddressEEProm = 138;
 }
+
+// setter
 void customSetValue()
 {
     blankCusInterface();
@@ -88,14 +90,14 @@ lbMonth:
     {
         lcd.print(charVal);
     }
-    else if (charVal == 'A')
-        goto lbYear;
     else if (charVal == 'B')
+        goto lbYear;
+    else if (charVal == 'C')
         goto lbDayOfMonth;
     else
         goto lbMonth;
 
-    // hang chuc
+    // hang don vi
     charVal = keypad.waitForKey(); //blocking
     decVal = decVal * 10 + char2byte(charVal);
     if (!isSpecialChar(charVal))
@@ -105,9 +107,9 @@ lbMonth:
         lcd.print(charVal);
         arrTick[iCusAddressEEProm + 1] = decVal; // store here not store in hang chuc
     }
-    else if (charVal == 'A')
-        goto lbYear;
     else if (charVal == 'B')
+        goto lbYear;
+    else if (charVal == 'C')
         goto lbDayOfMonth;
     else
         goto lbMonth;
@@ -115,21 +117,21 @@ lbMonth:
 lbYear:
     // hang nghin
     lcd.setCursor(cusAddressCol::cusYEAR1, 0);
-    charVal = keypad.waitForKey(); //blocking
+    charVal = keypad.waitForKey(); // blocking
     decVal = char2byte(charVal);
     if (!isSpecialChar(charVal))
     {
         lcd.print(charVal);
     }
-    else if (charVal == 'A')
-        goto lbHour;
     else if (charVal == 'B')
+        goto lbHour;
+    else if (charVal == 'C')
         goto lbMonth;
     else
         goto lbYear;
 
     // hang tram
-    charVal = keypad.waitForKey(); //blocking
+    charVal = keypad.waitForKey(); // blocking
     decVal = decVal * 10 + char2byte(charVal);
     if (!isSpecialChar(charVal))
     {
@@ -138,9 +140,9 @@ lbYear:
         lcd.print(charVal);
         arrTick[iCusAddressEEProm + 2] = decVal;
     }
-    else if (charVal == 'A')
-        goto lbHour;
     else if (charVal == 'B')
+        goto lbHour;
+    else if (charVal == 'C')
         goto lbMonth;
     else
         goto lbYear;
@@ -152,9 +154,9 @@ lbYear:
     {
         lcd.print(charVal);
     }
-    else if (charVal == 'A')
-        goto lbHour;
     else if (charVal == 'B')
+        goto lbHour;
+    else if (charVal == 'C')
         goto lbMonth;
     else
         goto lbYear;
@@ -167,12 +169,13 @@ lbYear:
         lcd.print(charVal);
         arrTick[iCusAddressEEProm + 3] = decVal;
     }
-    else if (charVal == 'A')
-        goto lbHour;
     else if (charVal == 'B')
+        goto lbHour;
+    else if (charVal == 'C')
         goto lbMonth;
     else
         goto lbYear;
+
 lbHour:
     // hang chuc
     lcd.setCursor(cusAddressCol::cusHOUR, 0);

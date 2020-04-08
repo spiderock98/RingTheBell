@@ -6,6 +6,7 @@
         "__bit_reference": "c",
         "algorithm": "c",
         "bitset": "c",
-        "unordered_map": "c"
+        "unordered_map": "c",
+        "cstddef": "cpp"
     }
 }

@@ -13,7 +13,7 @@ byte colPins[COLS] = {10, 9, 8, 7}; //connect to the column pinouts of the keypa
 // byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-extern bool flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3;
+extern bool flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3, flagSetRTC;
 extern byte iCusEvents;
 extern volatile int16_t iCusAddressEEProm;
 extern uint8_t compareDuration1, compareDuration2, compareDuration3;
@@ -59,6 +59,256 @@ void WelcomeInterface()
         delay(100);
         ++i;
     }
+    lcd.clear();
+}
+
+void setRTC()
+{
+    flagSetRTC = true;
+    char charVal;
+    byte decVal, arrRTC[8];
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Th");
+    lcd.printByte(2);
+    lcd.setCursor(6, 0);
+    lcd.print("dd-mm-yyyy");
+    lcd.setCursor(4, 1);
+    lcd.print("hh-mm-ss");
+
+// 1:Sun , 2:Mon, ...
+lbWday:
+    lcd.setCursor(4, 0);
+    charVal = keypad.waitForKey(); //blocking
+    decVal = char2byte(charVal);
+    if ((!isSpecialChar(charVal)) && (decVal <= 7) && (decVal != 0))
+    {
+        if (charVal = '1')
+            lcd.print("CN");
+        else
+            lcd.print(charVal);
+        arrRTC[0] = decVal; // set to ds3020 RTC
+    }
+    else if (charVal == 'B')
+        goto lbMday;
+    else
+        goto lbWday;
+
+lbMday:
+    // hang chuc
+    lcd.setCursor(6, 0);
+    charVal = keypad.waitForKey(); //blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'B')
+        goto lbMonth;
+    else if (charVal == 'C')
+        goto lbWday;
+    else
+        goto lbMday;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); //blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if ((decVal >= 32) || (decVal == 0))
+            goto lbMday;
+        lcd.print(charVal);
+        arrRTC[1] = decVal;
+    }
+    else
+        goto lbMday;
+
+lbMonth:
+    // hang chuc
+    lcd.setCursor(9, 0);
+    charVal = keypad.waitForKey(); //blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'B')
+        goto lbYear;
+    else if (charVal == 'C')
+        goto lbMday;
+    else
+        goto lbMonth;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); //blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if ((decVal >= 13) || (decVal == 0))
+            goto lbMonth;
+        lcd.print(charVal);
+        arrRTC[2] = decVal;
+    }
+    else
+        goto lbMonth;
+
+lbYear:
+    // hang nghin
+    lcd.setCursor(12, 0);
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'B')
+        goto lbHour;
+    else if (charVal == 'C')
+        goto lbMonth;
+    else
+        goto lbYear;
+
+    // hang tram
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (decVal <= 19)
+            goto lbYear;
+        lcd.print(charVal);
+        arrRTC[3] = decVal;
+    }
+    else
+        goto lbYear;
+
+    // hang chuc
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else
+        goto lbYear;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        lcd.print(charVal);
+        arrRTC[4] = decVal;
+    }
+    else
+        goto lbYear;
+
+lbHour:
+    // hang chuc
+    lcd.setCursor(4, 1);
+    charVal = keypad.waitForKey(); //blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'B')
+        goto lbMinute;
+    else if (charVal == 'C')
+        goto lbYear;
+    else
+        goto lbHour;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (decVal >= 24)
+            goto lbHour;
+        lcd.print(charVal);
+        arrRTC[5] = decVal;
+    }
+    else
+        goto lbHour;
+
+lbMinute:
+    // hang chuc
+    lcd.setCursor(7, 1);
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'B')
+        goto lbSecond;
+    else if (charVal == 'C')
+        goto lbHour;
+    else
+        goto lbMinute;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (decVal >= 60)
+            goto lbMinute;
+        lcd.print(charVal);
+        arrRTC[6] = decVal;
+    }
+    else
+        goto lbMinute;
+
+lbSecond:
+    // hang chuc
+    lcd.setCursor(10, 1);
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'C')
+        goto lbMinute;
+    else
+        goto lbSecond;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (decVal >= 60)
+            goto lbSecond;
+        lcd.print(charVal);
+        arrRTC[7] = decVal;
+    }
+    else
+        goto lbSecond;
+
+    delay(1000);
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Cap nhat tgian ?");
+
+    lcd.setCursor(0, 1);
+    lcd.printByte(4); // checked symbol
+    lcd.print(" A:OK");
+    lcd.setCursor(9, 1);
+    lcd.printByte(5); // cancel symbol
+    lcd.setCursor(10, 1);
+    lcd.print(" D:Huy");
+
+lbConfirm:
+    charVal = keypad.waitForKey(); // blocking
+    if (charVal == 'D')
+        ;
+    else if (charVal == 'A')
+    {
+        t.wday = arrRTC[0];
+        t.mday = arrRTC[1];
+        t.mon = arrRTC[2];
+        t.year = arrRTC[3] * 100 + arrRTC[4];
+        t.hour = arrRTC[5];
+        t.min = arrRTC[6];
+        t.sec = arrRTC[7];
+
+        DS3231_set(t);
+    }
+    else
+        goto lbConfirm;
+
+    flagSetRTC = false;
+    // return home screen
     lcd.clear();
 }
 

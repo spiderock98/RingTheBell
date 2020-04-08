@@ -28,6 +28,7 @@ extern struct ts t;
 
 void WelcomeInterface();
 void lcdHomeScreen();
+void setRTC();
 bool isSpecialChar(char key);
 byte char2byte(char key);
 void alarm();

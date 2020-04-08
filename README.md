@@ -14,10 +14,11 @@
 - dừng ở sự kiện bất kỳ >> ***nhấn giữ phím #*** để xoá sự kiện đó
 #### Bổ sung
 - nguyên tắc chọn relay: ***phím 1 hoặc phím bất kỳ khác 0*** >> bật relay, ***phím 0*** >> tắt relay
+- khi chỉnh sửa sự kiện hàng tuần >> phải đặt lại tất cả các thông số, ~~không được chuyển thẳng đến thông số cần thao tác và chỉnh sửa **MỖI** thông số đó~~
 
 ### Lưu ý khi thao tác
 - đặt thời gian theo hệ 24 giờ. VD: 12h00 >> 12:00 giờ trưa, 00h01 >> 12:01 khuya, 16h30 >> 4:30 chiều
-- đọc kỹ phần *Chức năng phím nhấn* phía trên. Tuyệt đối không nhấn phím ngẫu nhiên khi thao tác trên màn hình không liên quan để tránh gây lỗi chương trình. ~~VD: nhấn D ở màn hình duyệt sự kiện là vô nghĩa, nhấn các phím số ở màn hình chính là vô nghĩa~~
+- đọc kỹ phần *Chức năng phím nhấn* phía trên. Tuyệt đối không nhấn phím ngẫu nhiên khi đang thao tác trên màn hình không liên quan để tránh gây lỗi chương trình. ~~VD: nhấn D ở màn hình duyệt sự kiện là vô nghĩa, nhấn các phím số ở màn hình chính là vô nghĩa~~
 - không nhấn phím liên tục, nhấn quá nhanh, nhấn nhiều phím cùng lúc
 - không được đặt sự kiện tuỳ chỉnh trùng khớp thời gian với các sự kiện hàng ngày >> tránh xung đột
 - không đặt 2 hoặc nhiều sự kiện tuỳ chỉnh trùng khớp thời gian với nhau >> tránh xung đột

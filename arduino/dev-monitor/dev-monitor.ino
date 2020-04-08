@@ -6,7 +6,7 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
 
-bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false;
+bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false;
 
 int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
@@ -15,16 +15,11 @@ uint8_t timeBeforeTick0;
 
 void setup()
 {
-  // Serial.begin(9600);
+  Serial.begin(9600);
 
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
-  // pinMode(RF0, INPUT);
-  // pinMode(RF1, INPUT);
-  // pinMode(RF2, INPUT);
-  // pinMode(RF3, INPUT);
-
   digitalWrite(OUT1, 0);
   digitalWrite(OUT2, 0);
   digitalWrite(OUT3, 0);
@@ -119,8 +114,10 @@ void loop()
   char key = keypad.getKey();
 
   // loop home screen to update RTC
-  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView)
+  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC)
+  {
     lcdHomeScreen();
+  }
 
   // Ex: 18:59 next is 18:00 -> buggy
   if ((t.min == 59) && (t.sec >= 58))
@@ -237,15 +234,25 @@ void keypadEvent(KeypadEvent key)
       //   // Serial.println(flagRepeatView);
       // }
     }
-    // hold #
-    else if (key == '#')
+    // xoá sự kiện custom
+    else if ((key == '#') && flagCusView)
     {
-      if (flagCusView)
-      {
-        customDeleteValue();
-        flagCusView = false;
-      }
-      break;
+      customDeleteValue();
+      flagCusView = false;
     }
+
+    // set ds3231
+    else if (key == '*')
+    {
+      if (!flagSetRTC)
+        setRTC();
+      else
+      {
+        flagSetRTC = false;
+        lcd.clear();
+      }
+    }
+
+    break;
   }
 }
