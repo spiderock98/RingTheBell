@@ -10,7 +10,7 @@ bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, fla
 
 int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
-uint8_t compareDuration1 = 5, compareDuration2 = 5, compareDuration3 = 5; //minutes
+uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
 uint8_t timeBeforeTick0;
 
 void setup()
@@ -28,6 +28,8 @@ void setup()
   DS3231_init(DS3231_CONTROL_INTCN);
   keypad.addEventListener(keypadEvent);
   WelcomeInterface();
+
+  lastMinAlarm = t.min;
 }
 
 void loop()
