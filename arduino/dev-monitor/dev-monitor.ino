@@ -6,9 +6,9 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
 
-bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false, flagBtnOff = false;
+bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false;
 
-int8_t lastMinAlarm = -1, lastMinBacklight = 0, lastMinBtnOff = 0;
+int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
 uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
 uint8_t timeBeforeTick0;
@@ -44,22 +44,10 @@ void loop()
     digitalWrite(OUT3, 0);
     compareDuration1 = compareDuration2 = compareDuration3 = defaultDuration; // set to default for next RF control
     flagEnRelay1 = flagEnRelay2 = flagEnRelay3 = flagTickMinus1 = flagTickMinus2 = flagTickMinus3 = false;
-
-    flagBtnOff = true;
-    lastMinBtnOff = t.min;
   }
 
   if ((analogRead(RF1) > 612) && !flagEnRelay1)
   {
-    if (flagBtnOff) // check if has pressed btnOff before this command on
-    {
-      if ((t.min - lastMinBtnOff) >= minBetween2RF)
-      {
-        flagBtnOff = false;
-      }
-      else
-        return;
-    }
     digitalWrite(OUT1, 1);
     flagEnRelay1 = true;
     lastDuration1 = t.min; // begin timer
@@ -123,35 +111,28 @@ void loop()
     }
   }
 
-  // loop get time
-  DS3231_get(&t);
-
-  char key = keypad.getKey();
-
-  // loop home screen to update RTC
-  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC)
-  {
-    lcdHomeScreen();
-  }
-
   // Ex: 18:59 next is 18:00 -> buggy
   if ((t.min == 59) && (t.sec >= 58))
   {
     lastMinAlarm = -1;
     delay(3000); // nếu ko block >3s ở đây else if phía dưới sẽ bắt kịp và set lastMinAlarm về 59
   }
-  // check EEPROM value every 1 minutes for alarm(), not in phút 59
+  // check EEPROM value every 1 minutes for turn ON relays, not in phút 59
   else if (t.min - lastMinAlarm)
   {
-    // if (t.min == 59)
-    //   flagTick59 = true;
     alarm();
     lastMinAlarm = t.min;
   }
 
   // off screen after 10 second no activity
-  else if (t.min - lastMinBacklight)
+  else if (t.min - lastMinBacklight) //TODO: fix if last pressed is at phút 59
     lcd.noBacklight();
+  // loop get time
+  DS3231_get(&t);
+  char key = keypad.getKey();
+  // loop home screen to update RTC
+  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC)
+    lcdHomeScreen();
 }
 // software interrupt event keypad
 void keypadEvent(KeypadEvent key)
