@@ -4,28 +4,32 @@ int count = 0;
 void setup() {
   Serial.begin(9600);
   // put your setup code here, to run once:
-  pinMode(2, INPUT);
   pinMode(3, INPUT);
+  pinMode(4, INPUT);
   //pinMode(LED_BUILTIN, OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(2), ISR_EXT, FALLING);
+  attachInterrupt(digitalPinToInterrupt(3), ngatngoai, RISING);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  //  if (digitalRead(3)){
+  //    if (
+  //  }
+  //Serial.println(count);
 }
 
-void ISR_EXT()
+void ngatngoai()
 {
+  delayMicroseconds(20);
   noInterrupts();
-  if (digitalRead(3))
+  if (digitalRead(4))
   {
-    //Serial.print('+');
+    //count++;
     Serial.println(++count);
   }
   else
   {
-    //Serial.print('-');
+    //count--;
     Serial.println(--count);
   }
   interrupts();

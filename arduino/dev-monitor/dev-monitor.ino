@@ -6,9 +6,9 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
 
-bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false;
+bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false, flagBtnOff = false;
 
-int8_t lastMinAlarm = -1, lastMinBacklight = 0;
+int8_t lastMinAlarm = -1, lastMinBacklight = 0, lastMinBtnOff = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
 uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
 uint8_t timeBeforeTick0;
@@ -44,10 +44,22 @@ void loop()
     digitalWrite(OUT3, 0);
     compareDuration1 = compareDuration2 = compareDuration3 = defaultDuration; // set to default for next RF control
     flagEnRelay1 = flagEnRelay2 = flagEnRelay3 = flagTickMinus1 = flagTickMinus2 = flagTickMinus3 = false;
+
+    flagBtnOff = true;
+    lastMinBtnOff = t.min;
   }
 
   if ((analogRead(RF1) > 612) && !flagEnRelay1)
   {
+    if (flagBtnOff) // check if has pressed btnOff before this command on
+    {
+      if ((t.min - lastMinBtnOff) >= minBetween2RF)
+      {
+        flagBtnOff = false;
+      }
+      else
+        return;
+    }
     digitalWrite(OUT1, 1);
     flagEnRelay1 = true;
     lastDuration1 = t.min; // begin timer

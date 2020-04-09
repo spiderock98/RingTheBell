@@ -16,6 +16,8 @@
 #define OUT3 13
 #define defaultDuration 5
 
+#define minBetween2RF 1
+
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args) write(args);
 #else
