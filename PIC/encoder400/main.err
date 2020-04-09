@@ -1,6 +1,6 @@
->>> Warning 202 "D:\Desktop\RingTheBell\PIC\def_lcd.c" Line 10(6,15): Variable never used:   arrNumber
->>> Warning 202 "main.c" Line 22(6,15): Variable never used:   countTime
->>> Warning 202 "main.c" Line 22(21,33): Variable never used:   anglePercent
-      Memory usage:   ROM=23%      RAM=12% - 24%
+>>> Warning 202 "D:\Desktop\RingTheBell\PIC\encoder400\def_lcd.c" Line 10(6,15): Variable never used:   arrNumber
+>>> Warning 202 "main.c" Line 25(6,15): Variable never used:   countTime
+>>> Warning 202 "main.c" Line 25(21,33): Variable never used:   anglePercent
+      Memory usage:   ROM=23%      RAM=12% - 23%
       0 Errors,  3 Warnings.
 Build Successful.

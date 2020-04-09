@@ -1,7 +1,7 @@
-D G "__PCM__" 0 238 ""5.025""
-D G "__DEVICE__" 0 238 "877"
-D G "__DATE__" 0 238 ""07-Apr-20""
-D G "__TIME__" 0 238 ""09:12:13"" "Standard Header file for the PIC16F877A device ////////////////"
+D G "__PCM__" 0 211 ""5.025""
+D G "__DEVICE__" 0 211 "877"
+D G "__DATE__" 0 211 ""09-Apr-20""
+D G "__TIME__" 0 211 ""10:22:41"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -839,39 +839,48 @@ V L "res" 5 3 "float" `874
 V L "l" 5 4 "int16" `875 
 V L "s" 5 5 "int1" `876 
 D G "triac1" 0 5 "RC6"
-D G "triac1Out" 0 6 "PIN_C6"
-D G "triac2" 0 8 "RC7"
-D G "triac2Out" 0 9 "PIN_C7"
-D G "relay" 0 11 "RC1"
-D G "relayOut" 0 12 "PIN_C1"
-V G "angleStarter" 0 15 "float" `890 
-V G "angleRingTheBell" 0 16 "float" `891 
-V G "valTimer0SetStarter" 0 18 "int32" `892 
-V G "valTimer0SetRingTheBell" 0 19 "int32" `898 
-V G "count" 0 21 "sint32" `899 
-V G "countTime" 0 22 "int8" `900 
-V G "anglePercent" 0 22 "int8" `901 
-V G "flagForward" 0 23 "int1" `902 
-V G "flagStarter" 0 23 "int1" `903 
-V G "flagSTOP" 0 23 "int1" `904 
-F G "ext_isr" 0 27 "void()" `905  "cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet"
-C L "ext_isr" 0 14 4 "FUNCTION"
-C L "ext_isr" 0 14 1 "FUNCTION"
-F G "timer0_isr" 0 50 "void()" `907 
-C L "timer0_isr" 0 14 1 "FUNCTION"
-F G "ccp1_isr" 0 62 "void()" `908 
-C L "ccp1_isr" 0 14 1 "FUNCTION"
-F G "FORWARD" 0 71 "void()" `909  "output_high(relayOut);"
-F G "REVERSE" 0 79 "void()" `910  "output_high(relayOut);"
-F G "STOP" 0 85 "void()" `911  "output_low(relayOut);"
-F G "starter" 0 93 "void()" `912 
-F G "RingTheBell" 0 130 "void()" `913 
-F G "MAIN" 0 147 "void()" `914  "initLCD();"
-C L "MAIN" 0 14 4 "FUNCTION"
-C L "MAIN" 0 14 1 "FUNCTION"
-C L "MAIN" 0 14 1 "FUNCTION"
-C L "MAIN" 0 14 2 "FUNCTION"
-C L "MAIN" 0 14 1 "FUNCTION"
+D G "triac1Out" 0 7 "PIN_C6"
+D G "triac2" 0 9 "RC7"
+D G "triac2Out" 0 11 "PIN_C7"
+D G "relay" 0 13 "RC1"
+D G "relayOut" 0 15 "PIN_C1"
+V G "angleStarter" 0 18 "float" `890 
+V G "angleRingTheBell" 0 19 "float" `891 
+V G "valTimer0SetStarter" 0 21 "int32" `892 
+V G "valTimer0SetRingTheBell" 0 22 "int32" `898 
+V G "count" 0 24 "sint16" `899 
+V G "countTime" 0 25 "int8" `900 
+V G "anglePercent" 0 25 "int8" `901 
+V G "flagForward" 0 26 "int1" `902 
+V G "flagStarter" 0 26 "int1" `903 
+V G "flagSTOP" 0 26 "int1" `904 
+F G "ext_isr" 0 30 "void()" `905  "cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet"
+C L "ext_isr" 0 6 1 "FUNCTION"
+F G "timer0_isr" 0 48 "void()" `907 
+C L "timer0_isr" 0 6 1 "FUNCTION"
+F G "ccp1_isr" 0 60 "void()" `908 
+C L "ccp1_isr" 0 6 1 "FUNCTION"
+F G "FORWARD" 0 69 "void()" `909 
+F G "REVERSE" 0 76 "void()" `910 
+F G "STOP" 0 81 "void()" `911 
+F G "starter" 0 88 "void()" `912  "half rotate"
+C L "starter" 0 6 1 "FUNCTION"
+C L "starter" 0 6 1 "FUNCTION"
+C L "starter" 0 6 1 "FUNCTION"
+F G "RingTheBell" 0 134 "void()" `913 
+C L "checkSafetyFirst" 0 6 1 "FUNCTION"
+V L "sec" 0 151 "int32" `915 
+F G "checkSafetyFirst" 0 152 "void(int32 sec)" `914 
+V L "lastCount" 0 156 "sint16" `916 
+V L "i" 0 157 "int32" `917 
+C L "checkSafetyFirst" 0 6 1 "FUNCTION"
+C L "checkSafetyFirst" 0 6 1 "FUNCTION"
+C L "checkSafetyFirst" 0 6 1 "FUNCTION"
+F G "MAIN" 0 173 "void()" `918  "initLCD();"
+C L "MAIN" 0 6 4 "FUNCTION"
+C L "MAIN" 0 6 1 "FUNCTION"
+C L "MAIN" 0 6 3 "FUNCTION"
+C L "MAIN" 0 6 2 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0
