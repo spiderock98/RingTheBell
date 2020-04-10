@@ -6,15 +6,16 @@
 #### sự kiện hàng tuần
 - ở màn hình chính >> ***phím A*** để chuyển sang màn hình duyệt sự kiện lặp lại mỗi tuần
 - tiếp tục nhấn ***phím A*** để duyệt qua hàng loạt các sự kiện
-- dừng ở sự kiện bất kỳ >> ***phím B*** để đặt lại thời gian, relay, ... tương ứng
+- dừng ở sự kiện bất kỳ >> ***phím B*** để đặt lại thời gian, relay, ... tương ứng >> *Trong lúc đặt giá trị có thể dùng ***phím B*** hoặc ***phím C*** để tiến/lùi*
 #### sự kiện tuỳ chỉnh
 - ở màn hình chính >> ***phím D*** để chuyển sang màn hình duyệt sự kiện tuỳ chỉnh
 - tiếp tục nhấn ***phím D*** để duyệt qua hàng loạt các sự kiện
-- ở màn hình chính hoặc trong khi đang duyệt sự kiện tuỳ chỉnh >> ***nhấn giữ phím D*** để thêm sự kiện tuỳ chỉnh mới
+- ở màn hình chính hoặc trong khi đang duyệt sự kiện tuỳ chỉnh >> ***nhấn giữ phím D*** để thêm sự kiện tuỳ chỉnh mới >> *Trong lúc đặt giá trị có thể dùng ***phím B*** hoặc ***phím C*** để tiến/lùi*
 - dừng ở sự kiện bất kỳ >> ***nhấn giữ phím #*** để xoá sự kiện đó
 #### Bổ sung
 - nguyên tắc chọn relay: ***phím 1 hoặc phím bất kỳ khác 0*** >> bật relay, ***phím 0*** >> tắt relay
 - khi chỉnh sửa sự kiện hàng tuần >> phải đặt lại tất cả các thông số, ~~không được chuyển thẳng đến thông số cần thao tác và chỉnh sửa **MỖI** thông số đó~~
+- nếu thời gian thực bị lệch so với thực tế thì tiến hành cân chỉnh bằng cách từ màn hình chính >> nhấn giữ ***phím * ***
 
 ### Lưu ý khi thao tác
 - đặt thời gian theo hệ 24 giờ. VD: 12h00 >> 12:00 giờ trưa, 00h01 >> 12:01 khuya, 16h30 >> 4:30 chiều

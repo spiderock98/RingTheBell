@@ -1,7 +1,7 @@
 D G "__PCM__" 0 211 ""5.025""
 D G "__DEVICE__" 0 211 "877"
 D G "__DATE__" 0 211 ""09-Apr-20""
-D G "__TIME__" 0 211 ""10:22:41"" "Standard Header file for the PIC16F877A device ////////////////"
+D G "__TIME__" 0 211 ""10:31:09"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -876,10 +876,11 @@ V L "i" 0 157 "int32" `917
 C L "checkSafetyFirst" 0 6 1 "FUNCTION"
 C L "checkSafetyFirst" 0 6 1 "FUNCTION"
 C L "checkSafetyFirst" 0 6 1 "FUNCTION"
-F G "MAIN" 0 173 "void()" `918  "initLCD();"
+C L "checkSafetyFirst" 0 6 1 "FUNCTION"
+F G "MAIN" 0 174 "void()" `918  "initLCD();"
 C L "MAIN" 0 6 4 "FUNCTION"
 C L "MAIN" 0 6 1 "FUNCTION"
-C L "MAIN" 0 6 3 "FUNCTION"
+C L "MAIN" 0 6 1 "FUNCTION"
 C L "MAIN" 0 6 2 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0

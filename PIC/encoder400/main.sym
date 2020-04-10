@@ -173,6 +173,8 @@
 04D     @FTOSD.@SCRATCH1
 051-054 @DIVFF.P1
 051-054 FLOOR.y
+051     checkSafetyFirst.@SCRATCH1
+052     @delay_ms1.P1
 055-058 FLOOR.res
 055     @DIVFF.@SCRATCH1
 056     @DIVFF.@SCRATCH2
@@ -231,8 +233,8 @@
 085.3   TRISA3
 085.4   TRISA4
 085.5   TRISA5
-086     TRISB
 086.0   TRISB0
+086     TRISB
 086.1   TRISB1
 086.2   TRISB2
 086.3   TRISB3
@@ -240,8 +242,8 @@
 086.5   TRISB5
 086.6   TRISB6
 086.7   TRISB7
-087.0   TRISC0
 087     TRISC
+087.0   TRISC0
 087.1   TRISC1
 087.2   TRISC2
 087.3   TRISC3
@@ -376,27 +378,28 @@ ROM Allocation:
 00037C  FLOOR
 0004EF  @FTOSD
 00050E  checkSafetyFirst
-00055E  FORWARD
-000567  STOP
-000575  REVERSE
-00057E  starter
-000618  RingTheBell
-000657  MAIN
-000657  @cinit1
-00073A  @cinit2
+00055E  @delay_ms1
+000577  FORWARD
+000580  STOP
+00058E  REVERSE
+000597  starter
+000631  RingTheBell
+000670  @cinit1
+000670  MAIN
+000753  @cinit2
 
 Project Directory:
     D:\Desktop\RingTheBell\PIC\encoder400\
 
 Project Files:
-    main.c                                                  [09-Apr-20 10:21  CRC=7BBC8FA9]
+    main.c                                                  [09-Apr-20 10:24  CRC=DAFF05C1]
     main.h                                                  [07-Apr-20 09:11  CRC=621A0733]
     C:\Program Files (x86)\PICC\Devices\16F877A.h           [18-Apr-14 16:56  CRC=4F277C97]
     C:\Program Files (x86)\PICC\Devices\def_16f877a.h       [27-Apr-19 01:32  CRC=334B119E]
     def_lcd.c                                               [04-Apr-20 13:53  CRC=1DFAADE1]
     floor.c                                                 [04-Apr-20 13:53  CRC=4CF94BD1]
 
-Source signature=18366A94
+Source signature=7778E0AC
 
 Units:
     main (main)
