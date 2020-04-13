@@ -6,12 +6,16 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
 
-bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false;
+bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false, flagSetRfTimer = false, flagPulsePerHour = false;
+
+bool lastPulseState = false;
 
 int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
 uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
-uint8_t timeBeforeTick0;
+int8_t lastSecPulse, lastHourPulse;
+uint8_t countPulsePerHour;     // number of pulse every 1 hour = t.hour
+uint8_t PulseWidthPerHour = 5; // <sec> ON <sec> OFF
 
 void setup()
 {
@@ -20,9 +24,11 @@ void setup()
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
+  pinMode(OUT4, OUTPUT); // pulse per hour
   digitalWrite(OUT1, 0);
   digitalWrite(OUT2, 0);
   digitalWrite(OUT3, 0);
+  digitalWrite(OUT4, 0);
 
   Wire.begin();
   DS3231_init(DS3231_CONTROL_INTCN);
@@ -31,6 +37,7 @@ void setup()
 
   DS3231_get(&t);
   lastMinAlarm = t.min;
+  lastHourPulse = t.hour;
 }
 
 void loop()
@@ -122,23 +129,60 @@ void loop()
   {
     alarm();
     lastMinAlarm = t.min;
+    lcd.noBacklight(); // off screen after 1 min no activity
   }
 
-  // off screen after 10 second no activity
-  else if (t.min - lastMinBacklight) //TODO: fix if last pressed is at phút 59
-    lcd.noBacklight();
+  // init these value after 1 hours
+  if (t.hour - lastHourPulse)
+  {
+    if (t.hour != 0) // not at 24h00
+    {
+      flagPulsePerHour = true;
+      countPulsePerHour = t.hour * 2;
+      lastHourPulse = t.hour;
+      lastSecPulse = t.sec;
+    }
+    else // now : 00h00
+    {
+      lastHourPulse = 0;
+    }
+  }
+  if (flagPulsePerHour)
+  {
+    if ((t.sec - lastSecPulse) >= PulseWidthPerHour)
+    {
+      lastSecPulse = t.sec;
+      if (countPulsePerHour--)
+      {
+        // flip pulse
+        if (lastPulseState)
+          digitalWrite(OUT4, 0);
+        else
+          digitalWrite(OUT4, 1);
+      }
+      else
+      {
+        flagPulsePerHour = false;
+      }
+    }
+  }
+  // // off screen after 1 min no activity
+  // else if (t.min - lastMinBacklight) //TODO: fix if last pressed is at phút 59
+  //   lcd.noBacklight();
+
+  // loop home screen to update RTC
+  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC && !flagSetRfTimer)
+    lcdHomeScreen();
+
   // loop get time
   DS3231_get(&t);
   char key = keypad.getKey();
-  // loop home screen to update RTC
-  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC)
-    lcdHomeScreen();
 }
 // software interrupt event keypad
 void keypadEvent(KeypadEvent key)
 {
-  lcd.backlight();          // ON screen when pressed
-  lastMinBacklight = t.min; // update time stamp
+  lcd.backlight(); // ON screen when pressed
+  // lastMinBacklight = t.min; // update time stamp
 
   switch (keypad.getState())
   {
@@ -230,11 +274,19 @@ void keypadEvent(KeypadEvent key)
       //   // Serial.println(flagRepeatView);
       // }
     }
-    // xoá sự kiện custom
-    else if ((key == '#') && flagCusView)
-    {
-      customDeleteValue();
-      flagCusView = false;
+
+    else if ((key == '#'))
+    { // xoá sự kiện custom
+      if (flagCusView)
+      {
+        customDeleteValue();
+        flagCusView = false;
+      }
+      // set thời gian nhấn rf
+      else
+      {
+        setRfTimer();
+      }
     }
 
     // set ds3231

@@ -14,9 +14,8 @@
 #define OUT1 11
 #define OUT2 12
 #define OUT3 13
+#define OUT4 A4
 #define defaultDuration 5
-
-#define minBetween2RF 1
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args) write(args);
@@ -34,3 +33,4 @@ void setRTC();
 bool isSpecialChar(char key);
 byte char2byte(char key);
 void alarm();
+void setRfTimer();
