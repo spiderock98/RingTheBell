@@ -153,22 +153,11 @@ void loop()
     {
       lastSecPulse = t.sec;
       if (countPulsePerHour--)
-      {
-        // flip pulse
-        if (lastPulseState)
-          digitalWrite(OUT4, 0);
-        else
-          digitalWrite(OUT4, 1);
-      }
+        digitalWrite(OUT4, lastPulseState ? LOW : HIGH);
       else
-      {
         flagPulsePerHour = false;
-      }
     }
   }
-  // // off screen after 1 min no activity
-  // else if (t.min - lastMinBacklight) //TODO: fix if last pressed is at phút 59
-  //   lcd.noBacklight();
 
   // loop home screen to update RTC
   if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC && !flagSetRfTimer)
@@ -182,7 +171,6 @@ void loop()
 void keypadEvent(KeypadEvent key)
 {
   lcd.backlight(); // ON screen when pressed
-  // lastMinBacklight = t.min; // update time stamp
 
   switch (keypad.getState())
   {
