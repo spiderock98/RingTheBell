@@ -158,7 +158,7 @@ void RingTheBell()
 
 // pic 20mhz 5.10^6 = 1sec
 // motor 2000rpm
-// quay co tai: 0.5rps
+// quay co tai: 0.5rps -> 200xung/s -> 1/200 s/xung
 void checkSafetyFirst(int32 sec)
 {
    flagSTOP = true;
@@ -177,7 +177,7 @@ void checkSafetyFirst(int32 sec)
 
    count = 0; // update 0 point
    output_high(relayOut);
-   delay_ms(1000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
+   delay_ms(3000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
    flagSTOP = false;
 }
 
@@ -211,7 +211,7 @@ void main()
 
    enable_interrupts(GLOBAL);
 
-   checkSafetyFirst(10000000);
+   checkSafetyFirst(10000000); // 2sec
 
    starter();
 
