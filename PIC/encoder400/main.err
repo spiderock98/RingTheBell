@@ -1,6 +1,9 @@
+>>> Warning 204 "main.c" Line 98(1,1): Condition always FALSE
+>>> Warning 204 "main.c" Line 117(1,1): Condition always FALSE
 >>> Warning 202 "D:\Desktop\RingTheBell\PIC\encoder400\def_lcd.c" Line 10(6,15): Variable never used:   arrNumber
->>> Warning 202 "main.c" Line 25(6,15): Variable never used:   countTime
->>> Warning 202 "main.c" Line 25(21,33): Variable never used:   anglePercent
-      Memory usage:   ROM=24%      RAM=12% - 23%
-      0 Errors,  3 Warnings.
+>>> Warning 202 "main.c" Line 30(6,15): Variable never used:   countTime
+>>> Warning 202 "main.c" Line 30(21,33): Variable never used:   anglePercent
+>>> Warning 202 "main.c" Line 40(9,15): Variable never used:   charas
+      Memory usage:   ROM=26%      RAM=11% - 22%
+      0 Errors,  6 Warnings.
 Build Successful.
