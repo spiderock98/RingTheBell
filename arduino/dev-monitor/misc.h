@@ -7,16 +7,15 @@
 #include <LiquidCrystal_I2C.h>
 
 // pin confige
-#define RF0 A0
-#define RF1 A1
-#define RF2 A2
-#define RF3 A3
+#define RF0 A3
+#define RF1 A0
+#define RF2 A1
+#define RF3 A2
 #define OUT1 11
 #define OUT2 12
 #define OUT3 13
+#define OUT4 A6
 #define defaultDuration 5
-
-#define minBetween2RF 1
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args) write(args);
@@ -34,3 +33,4 @@ void setRTC();
 bool isSpecialChar(char key);
 byte char2byte(char key);
 void alarm();
+void setRfTimer();

@@ -25,6 +25,15 @@ volatile signed int16 count = 0;
 int8 countTime = 0, anglePercent = 0;
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
+#byte CMCON = 0x9C
+#INT_COMP
+void isrComparator()
+{ // A mismatch condition will continue to set flag bit CMIF. Reading CMCON will end the mismatch condition and allow flag bit CMIF to be cleared
+   char charas = CMCON;
+   output_low(relayOut); // safety switch
+   //TODO: xuat tin hieu reset
+}
+
 #INT_EXT
 void ext_isr()
 {
@@ -147,11 +156,13 @@ void RingTheBell()
    STOP();
 }
 
-// 5.10^6 = 1sec
+// pic 20mhz 5.10^6 = 1sec
+// motor 2000rpm
+// quay co tai: 0.5rps -> 200xung/s -> 1/200 s/xung
 void checkSafetyFirst(int32 sec)
 {
    flagSTOP = true;
-   output_low(relayOut);
+   output_low(relayOut); // safety switch
 
    signed int16 lastCount = count;
    for (int32 i = sec; --i;) // waitting steady
@@ -160,13 +171,13 @@ void checkSafetyFirst(int32 sec)
       {
          i = sec; // reset
          lastCount = count;
-         delay_us(20); // pray for <count> changed
+         delay_ms(30); // pray for couting up
       }
    }
 
-   count = lastCount; // update 0 point
+   count = 0; // update 0 point
    output_high(relayOut);
-   delay_ms(1000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
+   delay_ms(3000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
    flagSTOP = false;
 }
 
@@ -194,9 +205,13 @@ void main()
    // set_timer0(59);                             //10.086ms
    enable_interrupts(INT_TIMER0);
 
+   setup_comparator(A0_VR_A1_VR);
+   setup_vref(VREF_HIGH | 5);
+   enable_interrupts(INT_COMP);
+
    enable_interrupts(GLOBAL);
 
-   checkSafetyFirst(10000000);
+   checkSafetyFirst(10000000); // 2sec
 
    starter();
 
