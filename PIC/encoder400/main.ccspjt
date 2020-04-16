@@ -1,5 +1,5 @@
 [ProjectLog]
-Days=5
+Days=6
 D1=25-03-2020
 D1_L=7
 D1_L1=[81813]Project Opened.
@@ -67,6 +67,10 @@ D5_D=0
 D5_L8=[38075]Project Closed.
 D5_L9=[38102]Project Opened.
 D5_L10=[39116]Project Closed.
+D6=12-04-2020
+D6_L=2
+D6_L1=[3002]Project Opened.
+D6_L2=[3957]Project Closed.
 
 [Opened Files]
 1=main.c

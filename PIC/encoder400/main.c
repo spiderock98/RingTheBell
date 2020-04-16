@@ -160,7 +160,7 @@ void checkSafetyFirst(int32 sec)
       {
          i = sec; // reset
          lastCount = count;
-         delay_us(20);
+         delay_us(20); // pray for <count> changed
       }
    }
 
