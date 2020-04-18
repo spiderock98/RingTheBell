@@ -15,7 +15,7 @@ int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
 uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
 int8_t lastSecPulse, lastHourPulse;
 uint8_t countPulsePerHour;     // number of pulse every 1 hour = t.hour
-uint8_t PulseWidthPerHour = 5; // <sec> ON <sec> OFF
+uint8_t PulseWidthPerHour = 1; // <sec> ON <sec> OFF
 
 void setup()
 {
@@ -140,7 +140,7 @@ void loop()
       flagPulsePerHour = true;
       countPulsePerHour = t.hour * 2;
       lastHourPulse = t.hour;
-      lastSecPulse = t.sec;
+      lastSecPulse = t.sec; // nearly 0
     }
     else // now : 00h00
     {
@@ -149,11 +149,18 @@ void loop()
   }
   if (flagPulsePerHour)
   {
+    if (t.sec == 0)
+    {
+      lastSecPulse = 0;
+    }
     if ((t.sec - lastSecPulse) >= PulseWidthPerHour)
     {
       lastSecPulse = t.sec;
       if (countPulsePerHour--)
+      {
         digitalWrite(OUT4, lastPulseState ? LOW : HIGH);
+        lastPulseState = !lastPulseState;
+      }
       else
         flagPulsePerHour = false;
     }
@@ -277,11 +284,14 @@ void keypadEvent(KeypadEvent key)
       }
     }
 
-    // set ds3231
+    // set ds3231 rtc
     else if (key == '*')
     {
       if (!flagSetRTC)
+      {
         setRTC();
+        lastHourPulse = t.hour; // fix pulse after set rtc
+      }
       else
       {
         flagSetRTC = false;

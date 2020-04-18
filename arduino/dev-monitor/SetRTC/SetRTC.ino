@@ -11,9 +11,9 @@ void setup()
     /*----------------------------------------------------------------------------
     In order to synchronise your clock module, insert timetable values below !
     ----------------------------------------------------------------------------*/
-    t.hour = 17;
-    t.min = 11;
-    t.sec = 60;
+    t.hour = 7;
+    t.min = 59;
+    t.sec = 45;
     t.mday = 2;
     t.mon = 4;
     t.year = 2020;

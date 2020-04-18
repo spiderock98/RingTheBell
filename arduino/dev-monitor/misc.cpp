@@ -9,8 +9,6 @@ char keys[ROWS][COLS] = {
     {'*', '0', '#', 'D'}};
 byte rowPins[ROWS] = {7, 8, 9, 10}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {3, 4, 5, 6};  //connect to the column pinouts of the keypad
-// byte rowPins[ROWS] = {6, 7, 8, 9}; //connect to the row pinouts of the keypad
-// byte colPins[COLS] = {2, 3, 4, 5}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 extern bool flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3, flagSetRTC, flagSetRfTimer;

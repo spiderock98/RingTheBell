@@ -33,7 +33,6 @@ int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
 /***************************************************** ISR Func() *****************************************************/
 
-#byte CMCON = 0x9C
 #INT_COMP
 void isrComparator()
 { // A mismatch condition will continue to set flag bit CMIF. Reading CMCON will end the mismatch condition and allow flag bit CMIF to be cleared
