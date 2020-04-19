@@ -14,8 +14,8 @@ int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
 uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
 int8_t lastSecPulse, lastHourPulse;
-uint8_t countPulsePerHour;     // number of pulse every 1 hour = t.hour
-uint8_t PulseWidthPerHour = 1; // <sec> ON <sec> OFF
+uint8_t countPulsePerHour;                                   // number of pulse every 1 hour = t.hour
+uint8_t PulseWidthPerHourHIGH = 1, PulseWidthPerHourLOW = 2; // <sec> ON <sec> OFF
 
 void setup()
 {
@@ -164,12 +164,23 @@ void loop()
     {
       lastSecPulse = 0;
     }
-    if ((t.sec - lastSecPulse) >= PulseWidthPerHour)
+    if (((t.sec - lastSecPulse) >= PulseWidthPerHourHIGH) && lastPulseState)
     {
       lastSecPulse = t.sec;
       if (countPulsePerHour--)
       {
-        digitalWrite(OUT4, lastPulseState ? LOW : HIGH);
+        digitalWrite(OUT4, LOW); // off
+        lastPulseState = !lastPulseState;
+      }
+      else
+        flagPulsePerHour = false;
+    }
+    if (((t.sec - lastSecPulse) >= PulseWidthPerHourLOW) && !lastPulseState)
+    {
+      lastSecPulse = t.sec;
+      if (countPulsePerHour--)
+      {
+        digitalWrite(OUT4, HIGH); // on
         lastPulseState = !lastPulseState;
       }
       else
