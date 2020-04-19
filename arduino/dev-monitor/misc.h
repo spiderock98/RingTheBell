@@ -14,7 +14,7 @@
 #define OUT1 11
 #define OUT2 12
 #define OUT3 13
-#define OUT4 A6
+#define OUT4 2
 #define defaultDuration 5
 
 #if defined(ARDUINO) && ARDUINO >= 100

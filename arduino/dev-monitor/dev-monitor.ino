@@ -135,16 +135,27 @@ void loop()
   // init these value after 1 hours
   if (t.hour - lastHourPulse)
   {
-    if (t.hour != 0) // not at 24h00
-    {
-      flagPulsePerHour = true;
-      countPulsePerHour = t.hour * 2;
-      lastHourPulse = t.hour;
-      lastSecPulse = t.sec; // nearly 0
-    }
-    else // now : 00h00
+    if (t.hour == 0) // now : 00h00 -> no pulse
     {
       lastHourPulse = 0;
+    }
+    else // not at 24h00
+    {
+      flagPulsePerHour = true;
+      lastHourPulse = t.hour;
+      lastSecPulse = t.sec; // init second >> nearly 0
+      if (t.hour > 21)      // from 22h00
+      {
+        countPulsePerHour = 2; // nightly >> 1 pulse
+      }
+      else if (t.hour > 12) // from 1 P.M
+      {
+        countPulsePerHour = (t.hour - 12) * 2;
+      }
+      else // from 1 A.M
+      {
+        countPulsePerHour = t.hour * 2;
+      }
     }
   }
   if (flagPulsePerHour)
