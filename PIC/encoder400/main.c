@@ -5,15 +5,15 @@
 /***************************************************** PREPROSECSOR ****************************************************/
 
 // 1 >> on
-#define triac1Out PIN_C6
-#define triac2Out PIN_C7
-#define relayOut PIN_C1
+#define triac1Out PIN_D0
+#define triac2Out PIN_D1
+#define relayOut PIN_C0
 // 0 >> pressed
 #define btnINCREASE PIN_B4
 #define btnDECREASE PIN_B1
 // 1 >> led on
-#define ledSAFETY PIN_D1
-#define ledSTARTING PIN_D2
+#define ledSAFETY PIN_D2
+#define ledSTARTING PIN_D3
 #define ledRINGING PIN_C5
 #define ledBUTTON PIN_D4
 
@@ -140,7 +140,7 @@ void timer2_isr()
 #INT_CCP1
 void ccp1_isr()
 {
-   if (RC0)
+   if (RC1)
       ++count;
    else
       --count;
@@ -261,8 +261,8 @@ void checkSafetyFirst(int32 sec)
 
 void main()
 {
-   TRISB0 = TRISC0 = TRISC2 = TRISB1 = TRISB4 = 1;                   //input
-   TRISC6 = TRISC7 = TRISC1 = TRISD1 = TRISD2 = TRISC5 = TRISD4 = 0; //output
+   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB4 = 1;                   //input
+   TRISD0 = TRISD1 = TRISC0 = TRISD2 = TRISD3 = TRISC5 = TRISD4 = 0; //output
 
    clear_interrupt(INT_EXT);
    enable_interrupts(INT_EXT);
