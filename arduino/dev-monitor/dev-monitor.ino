@@ -234,10 +234,6 @@ void keypadEvent(KeypadEvent key)
       do
       { // pass null event to generate iCusAddressEEProm
         iCusAddressEEProm += 10;
-        // Serial.println();
-        // Serial.print("iCusAddressEEProm: ");
-        // Serial.println(iCusAddressEEProm);
-        // Serial.println(iCusEvents);
       } while ((EEPROM[iCusAddressEEProm] == 0) && (iCusAddressEEProm < 1024) && iCusEvents);
 
       if (!iCusEvents)
@@ -272,24 +268,7 @@ void keypadEvent(KeypadEvent key)
         } while ((EEPROM[iCusAddressEEProm] != 0) && (iCusAddressEEProm < 1024));
 
         customSetValue();
-
-        // Serial.println(flagCusView);
-        // Serial.println(flagCusSetting);
-        // Serial.println(flagRepeatSetting);
-        // Serial.println(flagRepeatView);
       }
-      // else if (flagCusSetting)
-      // {
-      //   --iCusEvents;
-      //   flagCusSetting = false;
-      //   iCusAddressEEProm = 138;
-      //   //TODO: return home
-      //   lcd.clear();
-      //   // Serial.println(flagCusView);
-      //   // Serial.println(flagCusSetting);
-      //   // Serial.println(flagRepeatSetting);
-      //   // Serial.println(flagRepeatView);
-      // }
     }
 
     else if ((key == '#'))
@@ -313,11 +292,6 @@ void keypadEvent(KeypadEvent key)
       {
         setRTC();
         lastHourPulse = t.hour; // fix pulse after set rtc
-      }
-      else
-      {
-        flagSetRTC = false;
-        lcd.clear();
       }
     }
 

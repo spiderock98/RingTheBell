@@ -17,8 +17,8 @@ extern volatile int16_t iCusAddressEEProm;
 extern uint8_t compareDuration1, compareDuration2, compareDuration3;
 extern uint8_t lastDuration1, lastDuration2, lastDuration3;
 
-// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
-LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2); // newer LCD
+LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x3F, 16, 2);
+// LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2); // newer LCD
 
 void WelcomeInterface()
 {
@@ -68,15 +68,15 @@ void setRfTimer()
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Tu dong TAT sau");
+    lcd.print("Dung remote BAT");
     lcd.setCursor(0, 1);
-    lcd.print("     mm ph     ");
+    lcd.print(" TAT sau: mm ph ");
     lcd.blink();
     lcd.cursor();
 
 lbMinute:
     // hang chuc
-    lcd.setCursor(5, 1);
+    lcd.setCursor(10, 1);
     charVal = keypad.waitForKey(); // blocking
     decVal = char2byte(charVal);
     if (!isSpecialChar(charVal))
@@ -96,6 +96,9 @@ lbMinute:
     else
         goto lbMinute;
 
+    compareDuration1 = compareDuration2 = compareDuration3 = decVal;
+
+    delay(1000);
     flagSetRfTimer = false;
 }
 
