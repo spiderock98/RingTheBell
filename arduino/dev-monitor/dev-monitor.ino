@@ -2,6 +2,7 @@
 #include "repeat.h"
 #include "custom.h"
 
+//================================================== global variables ==================================================
 struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM[147];
@@ -16,6 +17,8 @@ uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, 
 int8_t lastSecPulse, lastHourPulse;
 uint8_t countPulsePerHour;                                   // number of pulse every 1 hour = t.hour
 uint8_t PulseWidthPerHourHIGH = 1, PulseWidthPerHourLOW = 2; // <sec> ON <sec> OFF
+
+//================================================== setup ==================================================
 
 void setup()
 {
@@ -40,11 +43,13 @@ void setup()
   lastHourPulse = t.hour;
 }
 
+//================================================== Loop ==================================================
+
 void loop()
 {
 #pragma region on / off relay with remote controller
   // off all relay no condition
-  if (analogRead(RF0) > 612) //3V
+  if (analogRead(RF0) > 612) // 3V
   {
     digitalWrite(OUT1, 0);
     digitalWrite(OUT2, 0);
@@ -119,10 +124,10 @@ void loop()
   }
 
   // Ex: 18:59 next is 18:00 -> buggy
-  if ((t.min == 59) && (t.sec >= 58))
+  if ((t.min == 59) && (t.sec >= 59))
   {
     lastMinAlarm = -1;
-    delay(3000); // nếu ko block >3s ở đây else if phía dưới sẽ bắt kịp và set lastMinAlarm về 59
+    delay(2000); // nếu ko block >3s ở đây else if phía dưới sẽ bắt kịp và set lastMinAlarm về 59
   }
   // check EEPROM value every 1 minutes for turn ON relays, not in phút 59
   else if (t.min - lastMinAlarm)
@@ -196,7 +201,9 @@ void loop()
   DS3231_get(&t);
   char key = keypad.getKey();
 }
-// software interrupt event keypad
+
+//================================================== Keypad Event Handler ==================================================
+
 void keypadEvent(KeypadEvent key)
 {
   lcd.backlight(); // ON screen when pressed

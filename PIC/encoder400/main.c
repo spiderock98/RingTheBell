@@ -2,7 +2,7 @@
 #include "def_lcd.c"
 #include "floor.c"
 
-/***************************************************** PREPROSECSOR ****************************************************/
+//================================================== PREPROSECSOR ==================================================
 
 // 1 >> on
 #define triac1Out PIN_D0
@@ -16,12 +16,16 @@
 #define ledSTARTING PIN_D3
 #define ledRINGING PIN_C5
 #define ledBUTTON PIN_D4
+// rst soft
+#define PIN_RESET PIN_B5
 
-/***************************************************** VARIABLES *****************************************************/
+//================================================== VARIABLES ==================================================
 
 // set angle (10 levels). more angle, weaker motor
-volatile int8 angleStarter = read_eeprom(0x00);
-volatile int8 angleRingTheBell = read_eeprom(0x01);
+volatile int8 angleStarter = 1;
+volatile int8 angleRingTheBell = 6;
+// volatile int8 angleStarter = read_eeprom(0x00);
+// volatile int8 angleRingTheBell = read_eeprom(0x01);
 
 volatile int32 valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
 volatile int32 valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
@@ -31,14 +35,14 @@ int8 countTime = 0, anglePercent = 0;
 int16 iTimer2OverFlow;
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
-/***************************************************** ISR Func() *****************************************************/
+//================================================== ISR Func() ==================================================
 
 #INT_COMP
 void isrComparator()
 { // A mismatch condition will continue to set flag bit CMIF. Reading CMCON will end the mismatch condition and allow flag bit CMIF to be cleared
    char charas = CMCON;
-   output_low(relayOut); // safety switch
-   //TODO: xuat tin hieu reset
+   output_low(relayOut);   // safety switch
+   output_high(PIN_RESET); // reset mcu
 }
 
 #INT_EXT
@@ -81,16 +85,16 @@ void timer2_isr()
       {
          if (count >= 1600) // (+)4 rotate
          {
-            output_low(relayOut); // safety switch
-            //TODO: xuat tin hieu reset
+            output_low(relayOut);   // safety switch
+            output_high(PIN_RESET); // reset mcu
          }
       }
       else
       {
          if (count <= -1600) // (-)4 rotate
          {
-            output_low(relayOut); // safety switch
-            //TODO: xuat tin hieu reset
+            output_low(relayOut);   // safety switch
+            output_high(PIN_RESET); // reset mcu
          }
       }
 
@@ -147,7 +151,7 @@ void ccp1_isr()
    // clear_interrupt(INT_CCP1);
 }
 
-/***************************************************** FUNC() *****************************************************/
+//================================================== Func() ==================================================
 
 void FORWARD()
 {
@@ -257,12 +261,14 @@ void checkSafetyFirst(int32 sec)
    flagSTOP = false;
 }
 
-/***************************************************** MAIN ********************************************************/
+//================================================== MAIN ==================================================
 
 void main()
 {
-   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB4 = 1;                   //input
-   TRISD0 = TRISD1 = TRISC0 = TRISD2 = TRISD3 = TRISC5 = TRISD4 = 0; //output
+   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB4 = 1;                            //input
+   TRISD0 = TRISD1 = TRISC0 = TRISD2 = TRISD3 = TRISC5 = TRISD4 = TRISB5 = 0; //output
+
+   output_low(PIN_RESET); // CLEAR reset pin
 
    clear_interrupt(INT_EXT);
    enable_interrupts(INT_EXT);
