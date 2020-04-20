@@ -9,6 +9,18 @@
         "unordered_map": "c",
         "cstddef": "cpp",
         "map": "c",
-        "set": "c"
+        "set": "c",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "atomic": "cpp",
+        "deque": "cpp",
+        "filesystem": "cpp",
+        "ios": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "system_error": "cpp",
+        "vector": "cpp",
+        "*.tcc": "cpp"
     }
 }

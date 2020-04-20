@@ -211,7 +211,7 @@ void keypadEvent(KeypadEvent key)
   switch (keypad.getState())
   {
   case PRESSED:
-    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView && !flagSetRTC)
+    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView && !flagSetRTC && !flagSetRfTimer)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;
@@ -224,7 +224,7 @@ void keypadEvent(KeypadEvent key)
     }
 
     // duyệt custom events
-    else if ((key == 'D') && !flagRepeatView && !flagCusSetting && !flagSetRTC)
+    else if ((key == 'D') && !flagRepeatView && !flagCusSetting && !flagSetRTC && !flagSetRfTimer)
     {
       if (EEPROM[147] == 0)
       {
@@ -262,7 +262,7 @@ void keypadEvent(KeypadEvent key)
   case HOLD:
     if ((key == 'D'))
     {
-      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView && !flagSetRTC) // just in view can add event
+      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView && !flagSetRTC && !flagSetRfTimer) // just in view can add event
       {
         // fix when hold d >> you must pass PRESSED D and get these stuff wrong
         iCusAddressEEProm = 138;

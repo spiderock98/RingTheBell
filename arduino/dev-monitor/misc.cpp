@@ -65,14 +65,85 @@ void setRfTimer()
     flagSetRfTimer = true;
     char charVal;
     byte decVal;
+    bool arrInfo[3];
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Dung remote BAT");
+    lcd.print("  BAT A  B  C   ");
     lcd.setCursor(0, 1);
     lcd.print(" TAT sau: mm ph ");
     lcd.blink();
     lcd.cursor();
+
+lbRelay1:
+    lcd.setCursor(7, 0);
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (charVal != '0')
+        {
+            lcd.print(1);
+            arrInfo[0] = 1;
+        }
+        else
+        {
+            lcd.print(0);
+            arrInfo[0] = 0;
+        }
+    }
+    else if (charVal == 'B')
+        goto lbRelay2;
+    else
+        goto lbRelay1;
+
+lbRelay2:
+    lcd.setCursor(10, 0);
+    charVal = keypad.waitForKey(); //blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (charVal != '0')
+        {
+            lcd.print(1);
+            arrInfo[1] = 1;
+        }
+        else
+        {
+            lcd.print(0);
+            arrInfo[1] = 0;
+        }
+    }
+    else if (charVal == 'B')
+        goto lbRelay3;
+    else if (charVal == 'C')
+        goto lbRelay1;
+    else
+        goto lbRelay2;
+
+lbRelay3:
+    lcd.setCursor(13, 0);
+    charVal = keypad.waitForKey(); //blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if (charVal != '0')
+        {
+            lcd.print(1);
+            arrInfo[2] = 1;
+        }
+        else
+        {
+            lcd.print(0);
+            arrInfo[2] = 0;
+        }
+    }
+    else if (charVal == 'B')
+        goto lbMinute;
+    else if (charVal == 'C')
+        goto lbRelay2;
+    else
+        goto lbRelay3;
 
 lbMinute:
     // hang chuc
@@ -81,6 +152,8 @@ lbMinute:
     decVal = char2byte(charVal);
     if (!isSpecialChar(charVal))
         lcd.print(charVal);
+    else if (charVal == 'C')
+        goto lbRelay3;
     else
         goto lbMinute;
 
@@ -93,12 +166,42 @@ lbMinute:
             goto lbMinute;
         lcd.print(charVal);
     }
+    else if (charVal == 'C')
+        goto lbRelay3;
     else
         goto lbMinute;
 
-    compareDuration1 = compareDuration2 = compareDuration3 = decVal;
-
     delay(1000);
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("   Xac Nhan ?   ");
+
+    lcd.setCursor(0, 1);
+    lcd.printByte(4); //checked symbol
+    lcd.print(" A:OK");
+    lcd.setCursor(9, 1);
+    lcd.printByte(5); // cancel symbol
+    lcd.setCursor(10, 1);
+    lcd.print(" D:Huy");
+
+lbConfirm:
+    charVal = keypad.waitForKey(); //blocking
+    if (charVal == 'D')
+        ;
+    else if (charVal == 'A')
+    {
+        if (arrInfo[0])
+            compareDuration1 = decVal;
+        if (arrInfo[1])
+            compareDuration2 = decVal;
+        if (arrInfo[2])
+            compareDuration3 = decVal;
+    }
+    else
+        goto lbConfirm;
+
+    lcd.clear();
     flagSetRfTimer = false;
 }
 
