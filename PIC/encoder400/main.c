@@ -13,7 +13,7 @@ volatile int32 valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0
 volatile int32 valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
 
 volatile signed int16 count = 0;
-int16 iTimer2OverFlow;
+volatile int16 iTimer2OverFlow;
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
 //================================================== ISR Func() ==================================================
@@ -59,28 +59,31 @@ void timer0_isr()
 #INT_TIMER2
 void timer2_isr()
 {
-   if (!(--iTimer2OverFlow))
+   // --iTimer2OverFlow;
+   // if (!(--iTimer2OverFlow))
+   // if (!iTimer2OverFlow)
    {
       // reset neu quay qua 4 vong
       if (flagForward)
       {
          if (count >= 1600) // (+)4 rotate
          {
-            output_low(relayOut);   // safety switch
-            output_high(PIN_RESET); // reset mcu
+            output_low(relayOut); // safety switch
+            reset_cpu();
          }
       }
       else
       {
          if (count <= -1600) // (-)4 rotate
          {
-            output_low(relayOut);   // safety switch
-            output_high(PIN_RESET); // reset mcu
+            output_low(relayOut); // safety switch
+            reset_cpu();
          }
       }
 
       if (!input(btnDECREASE))
       {
+         output_high(ledBUTTON);
          if (flagStarter)
          {
             if (angleStarter < 9)
@@ -99,9 +102,11 @@ void timer2_isr()
                valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
             }
          }
+         output_low(ledBUTTON);
       }
       else if (!input(btnINCREASE))
       {
+         output_high(ledBUTTON);
          if (flagStarter)
          {
             if (angleStarter > 1)
@@ -120,9 +125,11 @@ void timer2_isr()
                valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
             }
          }
+         output_low(ledBUTTON);
       }
 
-      iTimer2OverFlow = 7660; // 100ms every command
+      // iTimer2OverFlow = 50; // 100ms every command
+      // iTimer2OverFlow = 7660; // 100ms every command
    }
 }
 
@@ -242,7 +249,6 @@ void checkSafetyFirst(int32 sec)
    count = 0; // update 0 point
    output_high(relayOut);
    delay_ms(3000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
-   enable_interrupts(INT_TIMER2);
    flagSTOP = false;
 }
 
@@ -250,10 +256,9 @@ void checkSafetyFirst(int32 sec)
 
 void main()
 {
-   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB4 = 1;                            //input
+   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB2 = TRISB3 = TRISB4 = 1;          //input
    TRISD0 = TRISD1 = TRISC0 = TRISD2 = TRISD3 = TRISC5 = TRISD4 = TRISB5 = 0; //output
 
-   output_low(PIN_RESET);   // CLEAR reset pin
    output_low(ledSAFETY);   // CLEAR reset pin
    output_low(ledSTARTING); // CLEAR reset pin
    output_low(ledRINGING);  // CLEAR reset pin
@@ -271,7 +276,9 @@ void main()
 
    setup_timer_2(T2_DIV_BY_16, 255, 16); // Overflow every 13.056us
    set_timer2(0);
-   iTimer2OverFlow = 7660; // 100ms every command
+   // iTimer2OverFlow = 50; // 100ms every command
+   // iTimer2OverFlow = 7660; // 100ms every command
+   enable_interrupts(INT_TIMER2);
 
    // setup_comparator(A0_VR_A1_VR);
    // setup_vref(VREF_HIGH | 5);
@@ -280,7 +287,8 @@ void main()
    enable_interrupts(GLOBAL);
 
    output_high(ledSAFETY);
-   checkSafetyFirst(1000000); // unknown seconds
+   // checkSafetyFirst(15); // ~~ 6 seconds
+   checkSafetyFirst(1500000); // ~~ 6 seconds
    output_low(ledSAFETY);
 
    output_high(ledSTARTING);

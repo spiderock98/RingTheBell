@@ -1,7 +1,7 @@
-D G "__PCM__" 0 293 ""5.025""
-D G "__DEVICE__" 0 293 "877"
-D G "__DATE__" 0 293 ""21-Apr-20""
-D G "__TIME__" 0 293 ""05:25:50"" "Standard Header file for the PIC16F877A device ////////////////"
+D G "__PCM__" 0 305 ""5.025""
+D G "__DEVICE__" 0 305 "877"
+D G "__DATE__" 0 305 ""21-Apr-20""
+D G "__TIME__" 0 305 ""23:11:24"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -822,11 +822,13 @@ D G "triac2Out" 1 16 "PIN_D1"
 D G "relayOut" 1 17 "PIN_C0"
 D G "btnINCREASE" 1 19 "PIN_B4"
 D G "btnDECREASE" 1 20 "PIN_B1"
-D G "ledSAFETY" 1 22 "PIN_D2"
-D G "ledSTARTING" 1 23 "PIN_D3"
-D G "ledRINGING" 1 24 "PIN_C5"
-D G "ledBUTTON" 1 25 "PIN_D4"
-D G "PIN_RESET" 1 27 "PIN_B5"
+D G "dipSw0" 1 22 "PIN_B2"
+D G "dipSw1" 1 23 "PIN_B3"
+D G "dipSw2" 1 24 "PIN_B4"
+D G "ledSAFETY" 1 26 "PIN_D2"
+D G "ledSTARTING" 1 27 "PIN_D3"
+D G "ledRINGING" 1 28 "PIN_C5"
+D G "ledBUTTON" 1 29 "PIN_D4"
 V L "x" 4 1 "float" `867 
 F G "FLOOR" 4 2 "float(float x)" `866 
 V L "y" 4 3 "float" `868 
@@ -847,7 +849,8 @@ F G "ext_isr" 0 31 "void()" `901  "cross zero point detector 50Hz >> 1/50/2 sec 
 C L "ext_isr" 0 4 1 "FUNCTION"
 F G "timer0_isr" 0 49 "void()" `902 
 C L "timer0_isr" 0 4 1 "FUNCTION"
-F G "timer2_isr" 0 61 "void()" `903 
+F G "timer2_isr" 0 61 "void()" `903  "--iTimer2OverFlow;"
+C L "timer2_isr" 0 4 2 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
@@ -857,39 +860,41 @@ C L "timer2_isr" 0 4 1 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
-F G "ccp1_isr" 0 128 "void()" `905 
+C L "timer2_isr" 0 4 2 "FUNCTION"
+F G "ccp1_isr" 0 138 "void()" `905 
 C L "ccp1_isr" 0 4 1 "FUNCTION"
 C L "FORWARD" 0 4 1 "FUNCTION"
-F G "FORWARD" 0 139 "void()" `906 
-F G "REVERSE" 0 146 "void()" `907 
-F G "STOP" 0 151 "void()" `908 
-F G "starter" 0 158 "void()" `909  "half rotate"
+F G "FORWARD" 0 149 "void()" `906 
+F G "REVERSE" 0 156 "void()" `907 
+F G "STOP" 0 161 "void()" `908 
+F G "starter" 0 168 "void()" `909  "half rotate"
 C L "starter" 0 4 1 "FUNCTION"
 C L "starter" 0 4 1 "FUNCTION"
 C L "starter" 0 4 1 "FUNCTION"
-F G "RingTheBell" 0 204 "void()" `910 
+F G "RingTheBell" 0 214 "void()" `910 
 C L "checkSafetyFirst" 0 4 3 "FUNCTION"
-V L "sec" 0 223 "int32" `912 
-F G "checkSafetyFirst" 0 224 "void(int32 sec)" `911 
+V L "sec" 0 233 "int32" `912 
+F G "checkSafetyFirst" 0 234 "void(int32 sec)" `911 
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-V L "lastCount" 0 228 "sint16" `913 
-V L "i" 0 229 "int32" `914 
-C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-C L "checkSafetyFirst" 0 4 1 "FUNCTION"
+V L "lastCount" 0 238 "sint16" `913 
+V L "i" 0 239 "int32" `914 
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
+C L "checkSafetyFirst" 0 4 1 "FUNCTION"
+C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
-F G "MAIN" 0 249 "void()" `915 
-C L "MAIN" 0 4 1 "FUNCTION"
-C L "MAIN" 0 4 1 "FUNCTION"
-C L "MAIN" 0 4 1 "FUNCTION"
-C L "MAIN" 0 4 1 "FUNCTION"
+F G "MAIN" 0 258 "void()" `915 
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
-C L "MAIN" 0 4 4 "FUNCTION"
+C L "MAIN" 0 4 1 "FUNCTION"
+C L "MAIN" 0 4 1 "FUNCTION"
+C L "MAIN" 0 4 1 "FUNCTION"
+C L "MAIN" 0 4 2 "FUNCTION"
+C L "MAIN" 0 4 3 "FUNCTION"
+C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0

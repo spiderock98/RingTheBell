@@ -1,8 +1,9 @@
->>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DTOF)
->>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@ADDFF)
->>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIVFF)
->>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (FLOOR)
->>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@FTOSD)
-      Memory usage:   ROM=36%      RAM=10% - 33%
-      0 Errors,  5 Warnings.
+>>> Warning 216 "main.c" Line 303(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DTOF)
+>>> Warning 216 "main.c" Line 303(1,2): Interrupts disabled during call to prevent re-entrancy:  (@ADDFF)
+>>> Warning 216 "main.c" Line 303(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIVFF)
+>>> Warning 216 "main.c" Line 303(1,2): Interrupts disabled during call to prevent re-entrancy:  (FLOOR)
+>>> Warning 216 "main.c" Line 303(1,2): Interrupts disabled during call to prevent re-entrancy:  (@FTOSD)
+>>> Warning 202 "main.c" Line 16(16,31): Variable never used:   iTimer2OverFlow
+      Memory usage:   ROM=34%      RAM=10% - 33%
+      0 Errors,  6 Warnings.
 Build Successful.

@@ -18,12 +18,17 @@
 // 0 >> pressed
 #define btnINCREASE PIN_B4
 #define btnDECREASE PIN_B1
+// dip switch 2-bit starter
+#define dipSw1 PIN_B1
+#define dipSw2 PIN_B2
+// dip switch 3-bit ringthebell
+#define dipSw3 PIN_B3
+#define dipSw4 PIN_B4
+#define dipSw5 PIN_B5
 // 1 >> led on
 #define ledSAFETY PIN_D2
 #define ledSTARTING PIN_D3
 #define ledRINGING PIN_C5
 #define ledBUTTON PIN_D4
-// rst soft
-#define PIN_RESET PIN_B5
 
 #byte CMCON = 0x9C

@@ -382,30 +382,30 @@ ROM Allocation:
 000337  @MULFF
 0003AE  FLOOR
 000559  @FTOSD
-000578  ccp1_isr
-000586  @delay_ms1
-00059A  checkSafetyFirst
-0005EF  FORWARD
-0005F6  STOP
-000600  REVERSE
-000607  starter
-0006A1  RingTheBell
-000800  timer2_isr
-000AD7  @cinit1
-000AD7  MAIN
-000C1F  @cinit2
+000578  timer2_isr
+0007B1  ccp1_isr
+0007BF  @delay_ms1
+0007D3  FORWARD
+0007DA  STOP
+0007E4  REVERSE
+000800  checkSafetyFirst
+000856  starter
+000918  RingTheBell
+000963  @cinit1
+000963  MAIN
+000AAB  @cinit2
 
 Project Directory:
     D:\Desktop\RingTheBell\PIC\encoder400\
 
 Project Files:
-    main.c                                                  [21-Apr-20 05:25  CRC=DAC882DE]
-    main.h                                                  [21-Apr-20 01:45  CRC=CAB969AF]
-    C:\Program Files (x86)\PICC\Devices\16F877A.h           [18-Apr-14 16:56  CRC=4F277C97]
-    C:\Program Files (x86)\PICC\Devices\def_16f877a.h       [13-Apr-20 00:51  CRC=94886CA3]
-    floor.c                                                 [04-Apr-20 13:53  CRC=4CF94BD1]
+    main.c                                                  [21-Apr-20 23:10  CRC=2C4F2029]
+    main.h                                                  [21-Apr-20 23:11  CRC=C849FB19]
+    C:\Program Files (x86)\PICC\Devices\16F877A.h           [19-Apr-14 06:56  CRC=4F277C97]
+    C:\Program Files (x86)\PICC\Devices\def_16f877a.h       [13-Apr-20 14:51  CRC=94886CA3]
+    floor.c                                                 [05-Apr-20 03:53  CRC=4CF94BD1]
 
-Source signature=23246D69
+Source signature=723B9C1E
 
 Units:
     main (main)
