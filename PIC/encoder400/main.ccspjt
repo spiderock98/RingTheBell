@@ -1,11 +1,11 @@
 [ProjectLog]
-Days=7
+Days=8
 D1=25-03-2020
 D1_L=7
 D1_L1=[81813]Project Opened.
 D1_L2=[81822]Started Editing.
 D1_L3=[82100]Stopped Editing.
-TotalEdit=60
+TotalEdit=64
 TotalDebug=0
 D1_E=5
 D1_D=0
@@ -72,7 +72,7 @@ D6_L=2
 D6_L1=[3002]Project Opened.
 D6_L2=[3957]Project Closed.
 D7=16-04-2020
-D7_L=9
+D7_L=12
 D7_L1=[45499]Project Opened.
 D7_L2=[46970]Started Editing.
 D7_L3=[47311]Stopped Editing.
@@ -82,10 +82,28 @@ D7_L6=[35515]Started Editing.
 D7_L7=[35823]Stopped Editing.
 D7_L8=[36332]Started Editing.
 D7_L9=[36632]Stopped Editing.
+D7_E=3
+D7_D=0
+D7_L10=[42267]Project Closed.
+D7_L11=[42280]Project Opened.
+D7_L12=[42329]Project Closed.
+D8=21-04-2020
+D8_L=9
+D8_L1=[2494]Project Opened.
+D8_L2=[2539]Project Closed.
+D8_L3=[5112]Project Opened.
+D8_L4=[5248]Project Closed.
+D8_L5=[6243]Project Opened.
+D8_L6=[7179]Started Editing.
+D8_L7=[7492]Stopped Editing.
+D8_E=1
+D8_D=0
+D8_L8=[7637]Project Closed.
+D8_L9=[8388]Project Opened.
 
 [Opened Files]
 1=main.c
-2=main.h
+2=
 3=
 4=
 [PROJECT]

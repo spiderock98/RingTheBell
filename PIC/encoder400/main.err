@@ -1,9 +1,8 @@
->>> Warning 204 "main.c" Line 98(1,1): Condition always FALSE
->>> Warning 204 "main.c" Line 117(1,1): Condition always FALSE
->>> Warning 202 "D:\Desktop\RingTheBell\PIC\encoder400\def_lcd.c" Line 10(6,15): Variable never used:   arrNumber
->>> Warning 202 "main.c" Line 30(6,15): Variable never used:   countTime
->>> Warning 202 "main.c" Line 30(21,33): Variable never used:   anglePercent
->>> Warning 202 "main.c" Line 40(9,15): Variable never used:   charas
-      Memory usage:   ROM=26%      RAM=11% - 22%
-      0 Errors,  6 Warnings.
+>>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DTOF)
+>>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@ADDFF)
+>>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIVFF)
+>>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (FLOOR)
+>>> Warning 216 "main.c" Line 292(1,2): Interrupts disabled during call to prevent re-entrancy:  (@FTOSD)
+      Memory usage:   ROM=36%      RAM=10% - 33%
+      0 Errors,  5 Warnings.
 Build Successful.

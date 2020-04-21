@@ -192,7 +192,7 @@ void EEPr2DailyUI()
 {
     for (int i = iAddressEEProm; iAddressEEProm + 7 - i;)
     {
-        arrTick[i] = EEPROM[i]; // begin declare arrTick from EEPROM
+        arrTick[i] = EEPROM.read(i); // begin declare arrTick from EEPROM
         switch (i - iAddressEEProm)
         {
         case 1:
