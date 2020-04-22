@@ -11,7 +11,7 @@ byte rowPins[ROWS] = {7, 8, 9, 10}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {3, 4, 5, 6};  //connect to the column pinouts of the keypad
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
-extern bool flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3, flagSetRTC, flagSetRfTimer;
+extern bool flagRepeatSetting, flagCusSetting, flagEnRelay1, flagEnRelay2, flagEnRelay3, flagSetRTC, flagSetRfDuration;
 extern byte iCusEvents;
 extern volatile int16_t iCusAddressEEProm;
 extern uint8_t compareDuration1, compareDuration2, compareDuration3;
@@ -60,102 +60,32 @@ void WelcomeInterface()
     lcd.clear();
 }
 
-void setRfTimer()
+void setRfDuration()
 {
-    flagSetRfTimer = true;
+    flagSetRfDuration = true;
     char charVal;
     byte decVal;
-    bool arrInfo[3];
+    uint8_t arrInfo[3];
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("  BAT A  B  C   ");
+    lcd.print("A: mm ph B: mm ph");
     lcd.setCursor(0, 1);
-    lcd.print(" TAT sau: mm ph ");
+    lcd.print("    C: mm ph    ");
     lcd.blink();
     lcd.cursor();
 
-lbRelay1:
-    lcd.setCursor(7, 0);
-    charVal = keypad.waitForKey(); // blocking
-    decVal = char2byte(charVal);
-    if (!isSpecialChar(charVal))
-    {
-        if (charVal != '0')
-        {
-            lcd.print(1);
-            arrInfo[0] = 1;
-        }
-        else
-        {
-            lcd.print(0);
-            arrInfo[0] = 0;
-        }
-    }
-    else if (charVal == 'B')
-        goto lbRelay2;
-    else
-        goto lbRelay1;
-
-lbRelay2:
-    lcd.setCursor(10, 0);
-    charVal = keypad.waitForKey(); //blocking
-    decVal = char2byte(charVal);
-    if (!isSpecialChar(charVal))
-    {
-        if (charVal != '0')
-        {
-            lcd.print(1);
-            arrInfo[1] = 1;
-        }
-        else
-        {
-            lcd.print(0);
-            arrInfo[1] = 0;
-        }
-    }
-    else if (charVal == 'B')
-        goto lbRelay3;
-    else if (charVal == 'C')
-        goto lbRelay1;
-    else
-        goto lbRelay2;
-
-lbRelay3:
-    lcd.setCursor(13, 0);
-    charVal = keypad.waitForKey(); //blocking
-    decVal = char2byte(charVal);
-    if (!isSpecialChar(charVal))
-    {
-        if (charVal != '0')
-        {
-            lcd.print(1);
-            arrInfo[2] = 1;
-        }
-        else
-        {
-            lcd.print(0);
-            arrInfo[2] = 0;
-        }
-    }
-    else if (charVal == 'B')
-        goto lbMinute;
-    else if (charVal == 'C')
-        goto lbRelay2;
-    else
-        goto lbRelay3;
-
-lbMinute:
+lbRelay1Min:
     // hang chuc
-    lcd.setCursor(10, 1);
+    lcd.setCursor(3, 0);
     charVal = keypad.waitForKey(); // blocking
     decVal = char2byte(charVal);
     if (!isSpecialChar(charVal))
         lcd.print(charVal);
-    else if (charVal == 'C')
-        goto lbRelay3;
+    else if (charVal == 'B')
+        goto lbRelay2Min;
     else
-        goto lbMinute;
+        goto lbRelay1Min;
 
     // hang don vi
     charVal = keypad.waitForKey(); // blocking
@@ -163,13 +93,64 @@ lbMinute:
     if (!isSpecialChar(charVal))
     {
         if ((decVal >= 60) || (decVal == 0))
-            goto lbMinute;
+            goto lbRelay1Min;
         lcd.print(charVal);
+        arrInfo[0] = decVal;
     }
-    else if (charVal == 'C')
-        goto lbRelay3;
     else
-        goto lbMinute;
+        goto lbRelay1Min;
+
+lbRelay2Min:
+    // hang chuc
+    lcd.setCursor(12, 0);
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'B')
+        goto lbRelay3Min;
+    else if (charVal == 'C')
+        goto lbRelay1Min;
+    else
+        goto lbRelay2Min;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if ((decVal >= 60) || (decVal == 0))
+            goto lbRelay2Min;
+        lcd.print(charVal);
+        arrInfo[1] = decVal;
+    }
+    else
+        goto lbRelay2Min;
+
+lbRelay3Min:
+    // hang chuc
+    lcd.setCursor(7, 1);
+    charVal = keypad.waitForKey(); // blocking
+    decVal = char2byte(charVal);
+    if (!isSpecialChar(charVal))
+        lcd.print(charVal);
+    else if (charVal == 'C')
+        goto lbRelay2Min;
+    else
+        goto lbRelay3Min;
+
+    // hang don vi
+    charVal = keypad.waitForKey(); // blocking
+    decVal = decVal * 10 + char2byte(charVal);
+    if (!isSpecialChar(charVal))
+    {
+        if ((decVal >= 60) || (decVal == 0))
+            goto lbRelay3Min;
+        lcd.print(charVal);
+        arrInfo[2] = decVal;
+    }
+    else
+        goto lbRelay3Min;
 
     delay(1000);
 
@@ -191,18 +172,22 @@ lbConfirm:
         ;
     else if (charVal == 'A')
     {
-        if (arrInfo[0])
-            compareDuration1 = decVal;
-        if (arrInfo[1])
-            compareDuration2 = decVal;
-        if (arrInfo[2])
-            compareDuration3 = decVal;
+        compareDuration1 = arrInfo[0];
+        compareDuration2 = arrInfo[1];
+        compareDuration3 = arrInfo[2];
+        // save to eeprom
+        EEPROM.write(1025, compareDuration1);
+        delay(4);
+        EEPROM.write(1026, compareDuration2);
+        delay(4);
+        EEPROM.write(1027, compareDuration3);
+        delay(4);
     }
     else
         goto lbConfirm;
 
     lcd.clear();
-    flagSetRfTimer = false;
+    flagSetRfDuration = false;
 }
 
 void setRTC()

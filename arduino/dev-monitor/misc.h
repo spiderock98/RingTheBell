@@ -16,7 +16,7 @@
 #define OUT3 13
 // pulse per hour
 #define OUT4 2
-#define defaultDuration 5
+// #define defaultDuration 5
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args) write(args);
@@ -34,4 +34,4 @@ void setRTC();
 bool isSpecialChar(char key);
 byte char2byte(char key);
 void alarm();
-void setRfTimer();
+void setRfDuration();

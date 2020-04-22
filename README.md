@@ -40,6 +40,8 @@
 | MonthDate | Month | Year1 *<hàng nghìn & hàng trăm>* | Year2 *<hàng chục & hàng đơn vị>* | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
 
 ### Linh tinh
+- ô thứ *148 + 10n* là các ô MonthDate nếu về 0 thì khi duyệt qua các sự kiện sẽ dừng lại ở đó >> nếu #0 thì bỏ qua
+- ô 1025, 1026, 1027 lưu 3 biến duration RF tương ứng 3 relay
 - biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
 

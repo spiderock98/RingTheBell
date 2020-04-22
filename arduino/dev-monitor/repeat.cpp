@@ -244,12 +244,12 @@ lbRelay1:
     {
         if (charVal != '0')
         {
-            lcd.print(1);
+            lcd.printByte(4);                // checked symbol
             arrTick[iAddressEEProm + 3] = 1; // just store 0 or 1
         }
         else
         {
-            lcd.print(0);
+            lcd.printByte(5);                // cancel symbol
             arrTick[iAddressEEProm + 3] = 0; // just store 0 or 1
         }
     }
@@ -266,12 +266,12 @@ lbRelay2:
     {
         if (charVal != '0')
         {
-            lcd.print(1);
+            lcd.printByte(4);                // checked symbol
             arrTick[iAddressEEProm + 4] = 1; // just store 0 or 1
         }
         else
         {
-            lcd.print(0);
+            lcd.printByte(5);                // cancel symbol
             arrTick[iAddressEEProm + 4] = 0; // just store 0 or 1
         }
     }
@@ -290,12 +290,12 @@ lbRelay3:
     {
         if (charVal != '0')
         {
-            lcd.print(1);
+            lcd.printByte(4);                // checked symbol
             arrTick[iAddressEEProm + 5] = 1; // just store 0 or 1
         }
         else
         {
-            lcd.print(0);
+            lcd.printByte(5);                // cancel symbol
             arrTick[iAddressEEProm + 5] = 0; // just store 0 or 1
         }
     }

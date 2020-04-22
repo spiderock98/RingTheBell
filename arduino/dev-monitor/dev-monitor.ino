@@ -7,13 +7,13 @@ struct ts t;
 volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
 byte arrTick[256], iCusEvents = EEPROM.read(147);
 
-bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false, flagSetRfTimer = false, flagPulsePerHour = false;
+bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false, flagSetRfDuration = false, flagPulsePerHour = false;
 
 bool lastPulseState = false;
 
 int8_t lastMinAlarm = -1, lastMinBacklight = 0;
 int8_t lastDuration1 = 0, lastDuration2 = 0, lastDuration3 = 0;
-uint8_t compareDuration1 = defaultDuration, compareDuration2 = defaultDuration, compareDuration3 = defaultDuration; //minutes
+uint8_t compareDuration1 = 0, compareDuration2 = 0, compareDuration3 = 0; // minutes, init later in setup()
 int8_t lastSecPulse, lastHourPulse;
 uint8_t countPulsePerHour;                                   // number of pulse every 1 hour = t.hour
 uint8_t PulseWidthPerHourHIGH = 1, PulseWidthPerHourLOW = 2; // <sec> ON <sec> OFF
@@ -32,6 +32,10 @@ void setup()
   digitalWrite(OUT2, 0);
   digitalWrite(OUT3, 0);
   digitalWrite(OUT4, 0);
+
+  compareDuration1 = EEPROM.read(1025);
+  compareDuration2 = EEPROM.read(1026);
+  compareDuration3 = EEPROM.read(1027);
 
   Wire.begin();
   DS3231_init(DS3231_CONTROL_INTCN);
@@ -54,7 +58,10 @@ void loop()
     digitalWrite(OUT1, 0);
     digitalWrite(OUT2, 0);
     digitalWrite(OUT3, 0);
-    compareDuration1 = compareDuration2 = compareDuration3 = defaultDuration; // set to default for next RF control
+    // set to default for next RF control
+    compareDuration1 = EEPROM.read(1025);
+    compareDuration2 = EEPROM.read(1026);
+    compareDuration3 = EEPROM.read(1027);
     flagEnRelay1 = flagEnRelay2 = flagEnRelay3 = flagTickMinus1 = flagTickMinus2 = flagTickMinus3 = false;
   }
 
@@ -88,8 +95,8 @@ void loop()
     }
     if ((t.min - lastDuration1) >= (compareDuration1))
     {
-      digitalWrite(OUT1, 0);              // then turn off relay
-      compareDuration1 = defaultDuration; // set to default for next RF control
+      digitalWrite(OUT1, 0);                // then turn off relay
+      compareDuration1 = EEPROM.read(1025); // set to default for next RF control
       flagEnRelay1 = flagTickMinus1 = false;
     }
   }
@@ -103,7 +110,7 @@ void loop()
     if ((t.min - lastDuration2) >= compareDuration2)
     {
       digitalWrite(OUT2, 0);
-      compareDuration2 = defaultDuration;
+      compareDuration2 = EEPROM.read(1026);
       flagEnRelay2 = flagTickMinus2 = false;
     }
   }
@@ -118,7 +125,7 @@ void loop()
     if ((t.min - lastDuration3) >= compareDuration3)
     {
       digitalWrite(OUT3, 0);
-      compareDuration3 = defaultDuration;
+      compareDuration3 = EEPROM.read(1027);
       flagEnRelay3 = flagTickMinus3 = false;
     }
   }
@@ -192,7 +199,7 @@ void loop()
   }
 
   // loop home screen to update RTC
-  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC && !flagSetRfTimer)
+  if (!flagCusSetting && !flagRepeatSetting && !flagCusView && !flagRepeatView && !flagSetRTC && !flagSetRfDuration)
     lcdHomeScreen();
 
   // loop get time
@@ -209,7 +216,7 @@ void keypadEvent(KeypadEvent key)
   switch (keypad.getState())
   {
   case PRESSED:
-    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView && !flagSetRTC && !flagSetRfTimer)
+    if ((key == 'A') && !flagRepeatSetting && !flagCusSetting && !flagCusView && !flagSetRTC && !flagSetRfDuration)
     {
       ++chosenDayOfWeek;
       iAddressEEProm += 7;
@@ -222,7 +229,7 @@ void keypadEvent(KeypadEvent key)
     }
 
     // duyệt custom events
-    else if ((key == 'D') && !flagRepeatView && !flagCusSetting && !flagSetRTC && !flagSetRfTimer)
+    else if ((key == 'D') && !flagRepeatView && !flagCusSetting && !flagSetRTC && !flagSetRfDuration)
     {
       if (EEPROM.read(147) == 0)
       {
@@ -260,7 +267,7 @@ void keypadEvent(KeypadEvent key)
   case HOLD:
     if ((key == 'D'))
     {
-      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView && !flagSetRTC && !flagSetRfTimer) // just in view can add event
+      if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView && !flagSetRTC && !flagSetRfDuration) // just in view can add event
       {
         // fix when hold d >> you must pass PRESSED D and get these stuff wrong
         iCusAddressEEProm = 138;
@@ -283,10 +290,10 @@ void keypadEvent(KeypadEvent key)
         customDeleteValue();
         flagCusView = false;
       }
-      // set thời gian nhấn rf
+      // set duration pressed rf
       else
       {
-        setRfTimer();
+        setRfDuration();
       }
     }
 
