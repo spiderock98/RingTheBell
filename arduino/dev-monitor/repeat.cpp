@@ -403,8 +403,8 @@ lbDuration:
     // set arrTick to EEPr
     for (int i = iAddressEEProm; iAddressEEProm + 7 - i;)
     {
-        EEPROM.update(i, arrTick[i]);
-        delay(5);
+        EEPROM.write(i, arrTick[i]);
+        delay(4);
         ++i;
     }
 

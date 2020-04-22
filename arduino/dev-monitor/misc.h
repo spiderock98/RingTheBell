@@ -6,14 +6,15 @@
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 
-// pin confige
 #define RF0 A3
 #define RF1 A0
 #define RF2 A1
 #define RF3 A2
+// relay
 #define OUT1 11
 #define OUT2 12
 #define OUT3 13
+// pulse per hour
 #define OUT4 2
 #define defaultDuration 5
 

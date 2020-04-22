@@ -786,6 +786,7 @@ void alarm()
 
                                 // delete this match events
                                 EEPROM.write(iCusAddr, 0);
+                                delay(4);
                                 EEPROM.write(147, EEPROM.read(147) - 1);
                                 delay(4); // An EEPROM write takes 3.3 ms to complete
                                 iCusEvents = EEPROM.read(147);

@@ -28,6 +28,7 @@ lbReConfirm:
     else if (charVal == 'A')
     {
         EEPROM.write(iCusAddressEEProm, 0);
+        delay(4); // An EEPROM write takes 3.3 ms to complete
         EEPROM.write(147, EEPROM.read(147) - 1);
         delay(4); // An EEPROM write takes 3.3 ms to complete
     }
@@ -40,7 +41,6 @@ lbReConfirm:
     flagCusView = false;
     // return home screen
     lcd.clear();
-    iCusAddressEEProm = 138;
 }
 
 // setter
@@ -365,8 +365,8 @@ lbConfirm:
     {
         for (int i = iCusAddressEEProm; iCusAddressEEProm + 10 - i;)
         {
-            EEPROM.update(i, arrTick[i]);
-            delay(5);
+            EEPROM.write(i, arrTick[i]);
+            delay(4);
             ++i;
         }
         EEPROM.write(147, EEPROM.read(147) + 1);

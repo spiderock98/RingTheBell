@@ -5,8 +5,8 @@ void setup()
   // put your setup code here, to run once:
   for (int i = 0; i < EEPROM.length(); i++)
   {
-    EEPROM.update(i, 0);
-    delay(5);
+    EEPROM.write(i, 0);
+    delay(4);
   }
 }
 

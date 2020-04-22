@@ -4,7 +4,9 @@
             "name": "Mac",
             "includePath": [
                 "/Users/spiderock/Library/Arduino15/packages/esp8266/tools/**",
-                "/Users/spiderock/Library/Arduino15/packages/esp8266/hardware/esp8266/2.6.3/**"
+                "/Users/spiderock/Library/Arduino15/packages/esp8266/hardware/esp8266/2.6.3/**",
+                "C:\\Users\\NguyenMinhTien\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.3\\**",
+                "C:\\Users\\NguyenMinhTien\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**"
             ],
             "forcedInclude": [],
             "macFrameworkPath": [

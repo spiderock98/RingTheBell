@@ -140,29 +140,27 @@ void loop()
   // init these value after 1 hours
   if (t.hour - lastHourPulse)
   {
-    if (t.hour == 0) // now : 00h00 -> no pulse
+    flagPulsePerHour = true;
+    lastHourPulse = t.hour;
+    lastSecPulse = t.sec; // init second >> nearly 0
+    if (t.hour > 21)      // from 22h00
     {
-      lastHourPulse = 0;
+      countPulsePerHour = 2; // nightly >> 1 pulse
     }
-    else // not at 24h00
+    else if (t.hour > 12) // from 1 P.M
     {
-      flagPulsePerHour = true;
-      lastHourPulse = t.hour;
-      lastSecPulse = t.sec; // init second >> nearly 0
-      if (t.hour > 21)      // from 22h00
-      {
-        countPulsePerHour = 2; // nightly >> 1 pulse
-      }
-      else if (t.hour > 12) // from 1 P.M
-      {
-        countPulsePerHour = (t.hour - 12) * 2;
-      }
-      else // from 1 A.M
-      {
-        countPulsePerHour = t.hour * 2;
-      }
+      countPulsePerHour = (t.hour - 12) * 2;
+    }
+    else if (t.hour > 0) // from 1 A.M
+    {
+      countPulsePerHour = t.hour * 2;
+    }
+    else // 0h00 A.M -> 3 pulse
+    {
+      countPulsePerHour = 3 * 2;
     }
   }
+  // pulse per hour func()
   if (flagPulsePerHour)
   {
     if (t.sec == 0)
