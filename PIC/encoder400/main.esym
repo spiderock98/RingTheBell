@@ -1,7 +1,7 @@
-D G "__PCM__" 0 349 ""5.025""
-D G "__DEVICE__" 0 349 "887"
-D G "__DATE__" 0 349 ""23-Apr-20""
-D G "__TIME__" 0 349 ""00:31:30"" "#include <16F877A.h>"
+D G "__PCM__" 0 0 ""5.025""
+D G "__DEVICE__" 0 0 ""
+D G "__DATE__" 0 0 ""23-Apr-20""
+D G "__TIME__" 0 0 ""01:10:31"" "#include <16F877A.h>"
 c L "set_tris_a" 2 1 6 "FUNCTION"
 v L "value" 2 39 "int8" `54 
 f B "set_tris_a" 2 39 "void(int8 value)" `53 
@@ -890,19 +890,19 @@ C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
-D G "triac1Out" 1 18 "PIN_D0"
-D G "triac2Out" 1 19 "PIN_D1"
-D G "relayOut" 1 20 "PIN_C0"
-D G "dipStart1" 1 26 "PIN_B5"
-D G "dipStart0" 1 27 "PIN_B4"
-D G "dipRing2" 1 29 "PIN_B3"
-D G "dipRing1" 1 30 "PIN_B2"
-D G "dipRing0" 1 31 "PIN_B1"
-D G "dipRotate1" 1 33 "PIN_D6"
-D G "dipRotate0" 1 34 "PIN_D5"
-D G "ledSAFETY" 1 37 "PIN_D2"
-D G "ledSTARTING" 1 38 "PIN_D3"
-D G "ledRINGING" 1 39 "PIN_C5"
+D G "triac1Out" 1 16 "PIN_C6"
+D G "triac2Out" 1 17 "PIN_C7"
+D G "relayOut" 1 21 "PIN_C0"
+D G "dipStart1" 1 27 "PIN_B5"
+D G "dipStart0" 1 28 "PIN_B4"
+D G "dipRing2" 1 30 "PIN_B3"
+D G "dipRing1" 1 31 "PIN_B2"
+D G "dipRing0" 1 32 "PIN_B1"
+D G "dipRotate1" 1 34 "PIN_D6"
+D G "dipRotate0" 1 35 "PIN_D5"
+D G "ledSAFETY" 1 38 "PIN_D2"
+D G "ledSTARTING" 1 39 "PIN_D3"
+D G "ledRINGING" 1 40 "PIN_C5"
 C L "jump_to_isr" 1 13 1 "FUNCTION"
 V L "x" 4 1 "float" `866 
 F G "FLOOR" 4 2 "float(float x)" `865 
@@ -922,9 +922,9 @@ V G "ProtectRotate" 0 22 "sint16" `892
 C L "ext_isr" 0 4 8 "FUNCTION"
 F G "ext_isr" 0 36 "void()" `893  "cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet"
 C L "ext_isr" 0 4 1 "FUNCTION"
-F G "timer0_isr" 0 54 "void()" `894 
+F G "timer0_isr" 0 54 "void()" `895 
 C L "timer0_isr" 0 4 1 "FUNCTION"
-F G "timer2_isr" 0 66 "void()" `895  "--iTimer2OverFlow;"
+F G "timer2_isr" 0 66 "void()" `896  "--iTimer2OverFlow;"
 C L "timer2_isr" 0 4 2 "FUNCTION"
 C L "timer2_isr" 0 4 2 "FUNCTION"
 C L "timer2_isr" 0 4 1 "FUNCTION"
@@ -942,22 +942,22 @@ F G "starter" 0 123 "void()" `904  "half rotate"
 C L "starter" 0 4 1 "FUNCTION"
 C L "starter" 0 4 1 "FUNCTION"
 C L "starter" 0 4 1 "FUNCTION"
-F G "RingTheBell" 0 169 "void()" `905 
+F G "RingTheBell" 0 174 "void()" `905 
 C L "checkSafetyFirst" 0 4 3 "FUNCTION"
-V L "sec" 0 188 "int32" `907 
-F G "checkSafetyFirst" 0 189 "void(int32 sec)" `906 
+V L "sec" 0 193 "int32" `907 
+F G "checkSafetyFirst" 0 194 "void(int32 sec)" `906 
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-V L "lastCount" 0 193 "sint16" `908 
-V L "i" 0 194 "int32" `909 
-C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-C L "checkSafetyFirst" 0 4 1 "FUNCTION"
+V L "lastCount" 0 198 "sint16" `908 
+V L "i" 0 199 "int32" `909 
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-V L "angleStarter" 0 211 "int32" `911 
-V L "angleRingTheBell" 0 211 "int32" `912 
-V L "ProtectRotate" 0 211 "sint16" `913 
-F G "initDipSwitchState" 0 212 "void(int32 angleStarter,int32 angleRingTheBell,sint16 ProtectRotate)" `910 
+C L "checkSafetyFirst" 0 4 1 "FUNCTION"
+C L "checkSafetyFirst" 0 4 1 "FUNCTION"
+V L "angleStarter" 0 216 "int32" `911 
+V L "angleRingTheBell" 0 216 "int32" `912 
+V L "ProtectRotate" 0 216 "sint16" `913 
+F G "initDipSwitchState" 0 217 "void(int32 angleStarter,int32 angleRingTheBell,sint16 ProtectRotate)" `910 
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
@@ -970,10 +970,9 @@ C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
-F G "MAIN" 0 296 "void()" `914 
+F G "MAIN" 0 301 "void()" `914 
 C L "MAIN" 0 4 1 "FUNCTION"
-C L "MAIN" 0 4 2 "FUNCTION"
-C L "MAIN" 0 4 1 "FUNCTION"
+C L "MAIN" 0 4 3 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"

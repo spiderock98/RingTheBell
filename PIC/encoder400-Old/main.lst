@@ -1,8 +1,8 @@
-CCS PCM C Compiler, Version 5.025, 31658               23-Apr-20 00:43
+CCS PCM C Compiler, Version 5.025, 31658               23-Apr-20 01:10
 
                Filename:   D:\Desktop\RingTheBell\PIC\encoder400-Old\main.lst
 
-               ROM used:   2113 words (26%)
+               ROM used:   2127 words (26%)
                            Largest free fragment is 2048
                RAM used:   34 (9%) at main() level
                            81 (22%) worst case
@@ -2031,276 +2031,295 @@ CCS PCM C Compiler, Version 5.025, 31658               23-Apr-20 00:43
 0629:  GOTO   631
 062A:  MOVF   38,F
 062B:  BTFSS  03.2
-062C:  GOTO   633
+062C:  GOTO   641
 062D:  MOVF   37,W
 062E:  SUBLW  C8
 062F:  BTFSS  03.0
-0630:  GOTO   633
+0630:  GOTO   641
+....................    { 
+....................       if (count <= -200) 
+0631:  BTFSS  38.7
+0632:  GOTO   63F
+0633:  MOVF   38,W
+0634:  SUBLW  FF
+0635:  BTFSS  03.0
+0636:  GOTO   63F
+0637:  BTFSS  03.2
+0638:  GOTO   63D
+0639:  MOVF   37,W
+063A:  SUBLW  38
+063B:  BTFSS  03.0
+063C:  GOTO   63F
+....................          reset_cpu(); 
+063D:  CLRF   0A
+063E:  GOTO   000
 ....................       FORWARD(); 
-0631:  CALL   608
-0632:  GOTO   628
+063F:  CALL   608
+0640:  GOTO   628
+....................    } 
+....................  
 ....................    STOP(); 
-0633:  CALL   611
+0641:  CALL   611
 ....................    while (count >= 0) 
-0634:  BTFSC  38.7
-0635:  GOTO   638
+0642:  BTFSC  38.7
+0643:  GOTO   646
 ....................       STOP(); 
-0636:  CALL   611
-0637:  GOTO   634
+0644:  CALL   611
+0645:  GOTO   642
 ....................    while (count >= -200) 
-0638:  BTFSS  38.7
-0639:  GOTO   645
-063A:  MOVF   38,W
-063B:  SUBLW  FE
-063C:  BTFSC  03.0
-063D:  GOTO   647
-063E:  XORLW  FF
-063F:  BTFSS  03.2
-0640:  GOTO   645
-0641:  MOVF   37,W
-0642:  SUBLW  37
-0643:  BTFSC  03.0
-0644:  GOTO   647
+0646:  BTFSS  38.7
+0647:  GOTO   653
+0648:  MOVF   38,W
+0649:  SUBLW  FE
+064A:  BTFSC  03.0
+064B:  GOTO   655
+064C:  XORLW  FF
+064D:  BTFSS  03.2
+064E:  GOTO   653
+064F:  MOVF   37,W
+0650:  SUBLW  37
+0651:  BTFSC  03.0
+0652:  GOTO   655
 ....................       REVERSE(); 
-0645:  CALL   61F
-0646:  GOTO   638
+0653:  CALL   61F
+0654:  GOTO   646
 ....................    STOP(); 
-0647:  CALL   611
+0655:  CALL   611
 ....................    while (count <= 0) 
-0648:  BTFSC  38.7
-0649:  GOTO   651
-064A:  MOVF   38,F
-064B:  BTFSS  03.2
-064C:  GOTO   653
-064D:  MOVF   37,W
-064E:  SUBLW  00
-064F:  BTFSS  03.0
-0650:  GOTO   653
+0656:  BTFSC  38.7
+0657:  GOTO   65F
+0658:  MOVF   38,F
+0659:  BTFSS  03.2
+065A:  GOTO   661
+065B:  MOVF   37,W
+065C:  SUBLW  00
+065D:  BTFSS  03.0
+065E:  GOTO   661
 ....................       STOP(); 
-0651:  CALL   611
-0652:  GOTO   648
+065F:  CALL   611
+0660:  GOTO   656
 ....................  
 ....................    // 1 rotate 
 ....................    while (count <= 400) 
-0653:  BTFSC  38.7
-0654:  GOTO   65F
-0655:  MOVF   38,W
-0656:  SUBLW  01
-0657:  BTFSS  03.0
-0658:  GOTO   661
-0659:  BTFSS  03.2
-065A:  GOTO   65F
-065B:  MOVF   37,W
-065C:  SUBLW  90
-065D:  BTFSS  03.0
-065E:  GOTO   661
+0661:  BTFSC  38.7
+0662:  GOTO   66D
+0663:  MOVF   38,W
+0664:  SUBLW  01
+0665:  BTFSS  03.0
+0666:  GOTO   66F
+0667:  BTFSS  03.2
+0668:  GOTO   66D
+0669:  MOVF   37,W
+066A:  SUBLW  90
+066B:  BTFSS  03.0
+066C:  GOTO   66F
 ....................       FORWARD(); 
-065F:  CALL   608
-0660:  GOTO   653
+066D:  CALL   608
+066E:  GOTO   661
 ....................    STOP(); 
-0661:  CALL   611
+066F:  CALL   611
 ....................    while (count >= 0) 
-0662:  BTFSC  38.7
-0663:  GOTO   666
+0670:  BTFSC  38.7
+0671:  GOTO   674
 ....................       STOP(); 
-0664:  CALL   611
-0665:  GOTO   662
+0672:  CALL   611
+0673:  GOTO   670
 ....................    while (count >= -400) 
-0666:  BTFSS  38.7
-0667:  GOTO   673
-0668:  MOVF   38,W
-0669:  SUBLW  FD
-066A:  BTFSC  03.0
-066B:  GOTO   675
-066C:  XORLW  FF
-066D:  BTFSS  03.2
-066E:  GOTO   673
-066F:  MOVF   37,W
-0670:  SUBLW  6F
-0671:  BTFSC  03.0
-0672:  GOTO   675
+0674:  BTFSS  38.7
+0675:  GOTO   681
+0676:  MOVF   38,W
+0677:  SUBLW  FD
+0678:  BTFSC  03.0
+0679:  GOTO   683
+067A:  XORLW  FF
+067B:  BTFSS  03.2
+067C:  GOTO   681
+067D:  MOVF   37,W
+067E:  SUBLW  6F
+067F:  BTFSC  03.0
+0680:  GOTO   683
 ....................       REVERSE(); 
-0673:  CALL   61F
-0674:  GOTO   666
+0681:  CALL   61F
+0682:  GOTO   674
 ....................    STOP(); 
-0675:  CALL   611
+0683:  CALL   611
 ....................    while (count <= 0) 
-0676:  BTFSC  38.7
-0677:  GOTO   67F
-0678:  MOVF   38,F
-0679:  BTFSS  03.2
-067A:  GOTO   681
-067B:  MOVF   37,W
-067C:  SUBLW  00
-067D:  BTFSS  03.0
-067E:  GOTO   681
+0684:  BTFSC  38.7
+0685:  GOTO   68D
+0686:  MOVF   38,F
+0687:  BTFSS  03.2
+0688:  GOTO   68F
+0689:  MOVF   37,W
+068A:  SUBLW  00
+068B:  BTFSS  03.0
+068C:  GOTO   68F
 ....................       STOP(); 
-067F:  CALL   611
-0680:  GOTO   676
+068D:  CALL   611
+068E:  GOTO   684
 ....................  
 ....................    // 2 rotates 
 ....................    while (count <= 800) 
-0681:  BTFSC  38.7
-0682:  GOTO   68D
-0683:  MOVF   38,W
-0684:  SUBLW  03
-0685:  BTFSS  03.0
-0686:  GOTO   68F
-0687:  BTFSS  03.2
-0688:  GOTO   68D
-0689:  MOVF   37,W
-068A:  SUBLW  20
-068B:  BTFSS  03.0
-068C:  GOTO   68F
+068F:  BTFSC  38.7
+0690:  GOTO   69B
+0691:  MOVF   38,W
+0692:  SUBLW  03
+0693:  BTFSS  03.0
+0694:  GOTO   69D
+0695:  BTFSS  03.2
+0696:  GOTO   69B
+0697:  MOVF   37,W
+0698:  SUBLW  20
+0699:  BTFSS  03.0
+069A:  GOTO   69D
 ....................       FORWARD(); 
-068D:  CALL   608
-068E:  GOTO   681
+069B:  CALL   608
+069C:  GOTO   68F
 ....................    STOP(); 
-068F:  CALL   611
+069D:  CALL   611
 ....................    while (count >= 0) 
-0690:  BTFSC  38.7
-0691:  GOTO   694
+069E:  BTFSC  38.7
+069F:  GOTO   6A2
 ....................       STOP(); 
-0692:  CALL   611
-0693:  GOTO   690
+06A0:  CALL   611
+06A1:  GOTO   69E
 ....................    while (count >= -800) 
-0694:  BTFSS  38.7
-0695:  GOTO   6A1
-0696:  MOVF   38,W
-0697:  SUBLW  FB
-0698:  BTFSC  03.0
-0699:  GOTO   6A3
-069A:  XORLW  FF
-069B:  BTFSS  03.2
-069C:  GOTO   6A1
-069D:  MOVF   37,W
-069E:  SUBLW  DF
-069F:  BTFSC  03.0
-06A0:  GOTO   6A3
+06A2:  BTFSS  38.7
+06A3:  GOTO   6AF
+06A4:  MOVF   38,W
+06A5:  SUBLW  FB
+06A6:  BTFSC  03.0
+06A7:  GOTO   6B1
+06A8:  XORLW  FF
+06A9:  BTFSS  03.2
+06AA:  GOTO   6AF
+06AB:  MOVF   37,W
+06AC:  SUBLW  DF
+06AD:  BTFSC  03.0
+06AE:  GOTO   6B1
 ....................       REVERSE(); 
-06A1:  CALL   61F
-06A2:  GOTO   694
+06AF:  CALL   61F
+06B0:  GOTO   6A2
 ....................    STOP(); 
-06A3:  CALL   611
+06B1:  CALL   611
 ....................    while (count <= 0) 
-06A4:  BTFSC  38.7
-06A5:  GOTO   6AD
-06A6:  MOVF   38,F
-06A7:  BTFSS  03.2
-06A8:  GOTO   6AF
-06A9:  MOVF   37,W
-06AA:  SUBLW  00
-06AB:  BTFSS  03.0
-06AC:  GOTO   6AF
+06B2:  BTFSC  38.7
+06B3:  GOTO   6BB
+06B4:  MOVF   38,F
+06B5:  BTFSS  03.2
+06B6:  GOTO   6BD
+06B7:  MOVF   37,W
+06B8:  SUBLW  00
+06B9:  BTFSS  03.0
+06BA:  GOTO   6BD
 ....................       STOP(); 
-06AD:  CALL   611
-06AE:  GOTO   6A4
+06BB:  CALL   611
+06BC:  GOTO   6B2
 ....................  
 ....................    // 3 rotates 1 side 
 ....................    while (count <= 1200) 
-06AF:  BTFSC  38.7
-06B0:  GOTO   6BB
-06B1:  MOVF   38,W
-06B2:  SUBLW  04
-06B3:  BTFSS  03.0
-06B4:  GOTO   6BD
-06B5:  BTFSS  03.2
-06B6:  GOTO   6BB
-06B7:  MOVF   37,W
-06B8:  SUBLW  B0
-06B9:  BTFSS  03.0
-06BA:  GOTO   6BD
+06BD:  BTFSC  38.7
+06BE:  GOTO   6C9
+06BF:  MOVF   38,W
+06C0:  SUBLW  04
+06C1:  BTFSS  03.0
+06C2:  GOTO   6CB
+06C3:  BTFSS  03.2
+06C4:  GOTO   6C9
+06C5:  MOVF   37,W
+06C6:  SUBLW  B0
+06C7:  BTFSS  03.0
+06C8:  GOTO   6CB
 ....................       FORWARD(); 
-06BB:  CALL   608
-06BC:  GOTO   6AF
+06C9:  CALL   608
+06CA:  GOTO   6BD
 ....................    STOP(); 
-06BD:  CALL   611
+06CB:  CALL   611
 ....................  
 ....................    flagStarter = false; 
-06BE:  BCF    39.1
-06BF:  BSF    0A.3
-06C0:  BCF    0A.4
-06C1:  GOTO   13A (RETURN)
+06CC:  BCF    39.1
+06CD:  BSF    0A.3
+06CE:  BCF    0A.4
+06CF:  GOTO   13A (RETURN)
 .................... } 
 ....................  
 .................... void RingTheBell() 
 .................... { 
 ....................    while (count >= 400) 
-06C2:  BTFSC  38.7
-06C3:  GOTO   6D1
-06C4:  MOVF   38,W
-06C5:  SUBLW  00
-06C6:  BTFSC  03.0
-06C7:  GOTO   6D1
-06C8:  XORLW  FF
-06C9:  BTFSS  03.2
-06CA:  GOTO   6CF
-06CB:  MOVF   37,W
-06CC:  SUBLW  8F
-06CD:  BTFSC  03.0
-06CE:  GOTO   6D1
+06D0:  BTFSC  38.7
+06D1:  GOTO   6DF
+06D2:  MOVF   38,W
+06D3:  SUBLW  00
+06D4:  BTFSC  03.0
+06D5:  GOTO   6DF
+06D6:  XORLW  FF
+06D7:  BTFSS  03.2
+06D8:  GOTO   6DD
+06D9:  MOVF   37,W
+06DA:  SUBLW  8F
+06DB:  BTFSC  03.0
+06DC:  GOTO   6DF
 ....................       STOP(); 
-06CF:  CALL   611
-06D0:  GOTO   6C2
+06DD:  CALL   611
+06DE:  GOTO   6D0
 ....................  
 ....................    while (count >= -800) 
-06D1:  BTFSS  38.7
-06D2:  GOTO   6DE
-06D3:  MOVF   38,W
-06D4:  SUBLW  FB
-06D5:  BTFSC  03.0
-06D6:  GOTO   6E0
-06D7:  XORLW  FF
-06D8:  BTFSS  03.2
-06D9:  GOTO   6DE
-06DA:  MOVF   37,W
-06DB:  SUBLW  DF
-06DC:  BTFSC  03.0
-06DD:  GOTO   6E0
+06DF:  BTFSS  38.7
+06E0:  GOTO   6EC
+06E1:  MOVF   38,W
+06E2:  SUBLW  FB
+06E3:  BTFSC  03.0
+06E4:  GOTO   6EE
+06E5:  XORLW  FF
+06E6:  BTFSS  03.2
+06E7:  GOTO   6EC
+06E8:  MOVF   37,W
+06E9:  SUBLW  DF
+06EA:  BTFSC  03.0
+06EB:  GOTO   6EE
 ....................       REVERSE(); 
-06DE:  CALL   61F
-06DF:  GOTO   6D1
+06EC:  CALL   61F
+06ED:  GOTO   6DF
 ....................    STOP(); 
-06E0:  CALL   611
+06EE:  CALL   611
 ....................  
 ....................    while (count <= -400) 
-06E1:  BTFSS  38.7
-06E2:  GOTO   6EF
-06E3:  MOVF   38,W
-06E4:  SUBLW  FE
-06E5:  BTFSS  03.0
-06E6:  GOTO   6EF
-06E7:  BTFSS  03.2
-06E8:  GOTO   6ED
-06E9:  MOVF   37,W
-06EA:  SUBLW  70
-06EB:  BTFSS  03.0
-06EC:  GOTO   6EF
-....................       STOP(); 
-06ED:  CALL   611
-06EE:  GOTO   6E1
-....................  
-....................    while (count <= 800) 
-06EF:  BTFSC  38.7
-06F0:  GOTO   6FB
+06EF:  BTFSS  38.7
+06F0:  GOTO   6FD
 06F1:  MOVF   38,W
-06F2:  SUBLW  03
+06F2:  SUBLW  FE
 06F3:  BTFSS  03.0
 06F4:  GOTO   6FD
 06F5:  BTFSS  03.2
 06F6:  GOTO   6FB
 06F7:  MOVF   37,W
-06F8:  SUBLW  20
+06F8:  SUBLW  70
 06F9:  BTFSS  03.0
 06FA:  GOTO   6FD
-....................       FORWARD(); 
-06FB:  CALL   608
+....................       STOP(); 
+06FB:  CALL   611
 06FC:  GOTO   6EF
+....................  
+....................    while (count <= 800) 
+06FD:  BTFSC  38.7
+06FE:  GOTO   709
+06FF:  MOVF   38,W
+0700:  SUBLW  03
+0701:  BTFSS  03.0
+0702:  GOTO   70B
+0703:  BTFSS  03.2
+0704:  GOTO   709
+0705:  MOVF   37,W
+0706:  SUBLW  20
+0707:  BTFSS  03.0
+0708:  GOTO   70B
+....................       FORWARD(); 
+0709:  CALL   608
+070A:  GOTO   6FD
 ....................    STOP(); 
-06FD:  CALL   611
-06FE:  BSF    0A.3
-06FF:  BCF    0A.4
-0700:  GOTO   13D (RETURN)
+070B:  CALL   611
+070C:  BSF    0A.3
+070D:  BCF    0A.4
+070E:  GOTO   13D (RETURN)
 .................... } 
 ....................  
 .................... // pic 20mhz 5.10^6 = 1sec 
@@ -2772,7 +2791,7 @@ CCS PCM C Compiler, Version 5.025, 31658               23-Apr-20 00:43
 ....................    { 
 ....................       RingTheBell(); 
 093B:  BCF    0A.3
-093C:  GOTO   6C2
+093C:  GOTO   6D0
 093D:  BSF    0A.3
 093E:  GOTO   13B
 ....................    } 

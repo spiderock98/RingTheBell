@@ -390,7 +390,7 @@ ROM Allocation:
 000611  STOP
 00061F  REVERSE
 000628  starter
-0006C2  RingTheBell
+0006D0  RingTheBell
 000800  @cinit1
 000800  MAIN
 000904  @cinit2
@@ -399,13 +399,13 @@ Project Directory:
     D:\Desktop\RingTheBell\PIC\encoder400-Old\
 
 Project Files:
-    main.c                                                  [23-Apr-20 00:40  CRC=ABEC4473]
+    main.c                                                  [23-Apr-20 01:09  CRC=A6910948]
     main.h                                                  [23-Apr-20 00:32  CRC=CD53B8E2]
     C:\Program Files (x86)\PICC\Devices\16F877A.h           [19-Apr-14 06:56  CRC=4F277C97]
     C:\Program Files (x86)\PICC\Devices\def_16f877a.h       [27-Apr-19 15:32  CRC=334B119E]
     floor.c                                                 [05-Apr-20 03:53  CRC=4CF94BD1]
 
-Source signature=95A5232C
+Source signature=9049E801
 
 Units:
     main (main)

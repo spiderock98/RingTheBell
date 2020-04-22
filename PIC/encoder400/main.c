@@ -123,7 +123,12 @@ void starter()
 {
    // half rotate
    while (count <= 200)
+   {
+      if (count <= -200)
+         reset_cpu();
       FORWARD();
+   }
+
    STOP();
    while (count >= 0)
       STOP();
@@ -298,8 +303,8 @@ void main()
    TRISC0 = TRISD2 = TRISD3 = TRISC5 = 0; //output
 
    // triac
-   TRISD0 = TRISD1 = 0;
-   // TRISC6 = TRISC7 = 0;
+   // TRISD0 = TRISD1 = 0;
+   TRISC6 = TRISC7 = 0;
 
    initDipSwitchState(angleStarter, angleRingTheBell, ProtectRotate);
    valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;

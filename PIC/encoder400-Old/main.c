@@ -96,7 +96,12 @@ void starter()
 {
    // half rotate
    while (count <= 200)
+   {
+      if (count <= -200)
+         reset_cpu();
       FORWARD();
+   }
+
    STOP();
    while (count >= 0)
       STOP();

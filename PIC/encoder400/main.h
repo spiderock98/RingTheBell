@@ -13,10 +13,11 @@
 //================================================== PREPROSECSOR ==================================================
 
 // 1 >> on
-// #define triac1Out PIN_C6
-// #define triac2Out PIN_C7
-#define triac1Out PIN_D0
-#define triac2Out PIN_D1
+#define triac1Out PIN_C6
+#define triac2Out PIN_C7
+// #define triac1Out PIN_D0
+// #define triac2Out PIN_D1
+
 #define relayOut PIN_C0
 // 0 >> pressed
 // #define btnINCREASE PIN_B4

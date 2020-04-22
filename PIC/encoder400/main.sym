@@ -155,15 +155,15 @@
 039.2   flagSTOP
 03A-03B ProtectRotate
 03C     @TRIS_C
-03D-040 @FTOSD.P1
-03D-040 checkSafetyFirst.sec
 03D-040 @DTOF.P1
+03D-040 @FTOSD.P2
+03D-040 checkSafetyFirst.sec
 03D     MAIN.@SCRATCH1
 03E     MAIN.@SCRATCH2
 03F     MAIN.@SCRATCH3
 040     MAIN.@SCRATCH4
-041-044 @DIVFF.P1
 041-044 FLOOR.x
+041-044 @DIVFF.P1
 041-042 checkSafetyFirst.lastCount
 041     @FTOSD.@SCRATCH1
 043-046 checkSafetyFirst.i
@@ -180,16 +180,16 @@
 04D     @DIVFF.@SCRATCH5
 04E     @DIVFF.@SCRATCH6
 04F.0   FLOOR.s
-050-053 @SFTOI.P1
+050-053 @MULFF.P1
 050-053 @FLT.P2
-050-053 @MULFF.P3
+050-053 @SFTOI.P3
 050     FLOOR.@SCRATCH1
 051     FLOOR.@SCRATCH2
 052     FLOOR.@SCRATCH3
 053     FLOOR.@SCRATCH4
 054-057 @FLT.P1
-054-057 @ADDFF.P2
-054-055 @ITOF.P3
+054-055 @ITOF.P2
+054-057 @ADDFF.P3
 054-057 @MULFF.P4
 058-05B @ADDFF.P1
 058     @FLT.@SCRATCH1
@@ -251,8 +251,8 @@
 087.5   TRISC5
 087.6   TRISC6
 087.7   TRISC7
-088.0   TRISD0
 088     TRISD
+088.0   TRISD0
 088.1   TRISD1
 088.2   TRISD2
 088.3   TRISD3
@@ -264,8 +264,8 @@
 089     TRISE
 089.1   TRISE1
 089.2   TRISE2
-08C     PIE1
 08C.0   tmr1ie
+08C     PIE1
 08C.1   tmr2ie
 08C.2   ccp1ie
 08C.3   sspie
@@ -292,8 +292,8 @@
 091.7   GCEN
 092     PR2
 093     SSPADD
-094.0   STAT_BF
 094     SSPSTAT
+094.0   STAT_BF
 094.1   STAT_UA
 094.2   STAT_RW
 094.3   STAT_S
@@ -368,26 +368,26 @@ FFF     @INTERRUPT_AREA
 
 ROM Allocation:
 000048  ext_isr
-00005E  timer0_isr
-000074  timer2_isr
-000094  @MULS1616
-0000E1  ccp1_isr
-0000EF  @DTOF
-00010A  @ADDFF
-00024B  @DIVFF
-000315  @FLT
-000354  @SFTOI
-000373  @ITOF
-000390  @MULFF
-000405  FLOOR
-000578  @FTOSD
-000597  @delay_ms1
-0005AB  checkSafetyFirst
-000600  FORWARD
-000607  STOP
-000611  REVERSE
-000618  starter
-0006B2  RingTheBell
+000062  timer0_isr
+00007C  timer2_isr
+00009C  @MULS1616
+0000E9  ccp1_isr
+0000F7  @DTOF
+000112  @ADDFF
+000253  @DIVFF
+00031D  @FLT
+00035C  @SFTOI
+00037B  @ITOF
+000398  @MULFF
+00040D  FLOOR
+000580  @FTOSD
+00059F  @delay_ms1
+0005B3  checkSafetyFirst
+000608  FORWARD
+000611  STOP
+00061F  REVERSE
+000628  starter
+0006D0  RingTheBell
 000800  @cinit1
 000800  MAIN
 00082B  @cinit2
@@ -397,13 +397,13 @@ Project Directory:
     D:\Desktop\RingTheBell\PIC\encoder400\
 
 Project Files:
-    main.c                                                  [23-Apr-20 00:31  CRC=7A9027A5]
-    main.h                                                  [23-Apr-20 00:31  CRC=BE78B43A]
+    main.c                                                  [23-Apr-20 00:55  CRC=D5251B00]
+    main.h                                                  [23-Apr-20 00:55  CRC=FF4CB279]
     C:\Program Files (x86)\PICC\Devices\16F887.h            [19-Apr-14 06:56  CRC=42D047B0]
     C:\Program Files (x86)\PICC\Devices\def_16f877a.h       [27-Apr-19 15:32  CRC=334B119E]
     floor.c                                                 [05-Apr-20 03:53  CRC=4CF94BD1]
 
-Source signature=4916CCCF
+Source signature=E47FBE69
 
 Units:
     main (main)

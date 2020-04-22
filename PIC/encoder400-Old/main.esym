@@ -1,7 +1,7 @@
 D G "__PCM__" 0 0 ""5.025""
 D G "__DEVICE__" 0 0 ""
 D G "__DATE__" 0 0 ""23-Apr-20""
-D G "__TIME__" 0 0 ""00:43:09"" "Standard Header file for the PIC16F877A device ////////////////"
+D G "__TIME__" 0 0 ""01:10:54"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 2 3 6 "FUNCTION"
 v L "value" 2 37 "int8" `54 
 f B "set_tris_a" 2 37 "void(int8 value)" `53 
@@ -854,20 +854,20 @@ F G "starter" 0 96 "void()" `912  "half rotate"
 C L "starter" 0 4 1 "FUNCTION"
 C L "starter" 0 4 1 "FUNCTION"
 C L "starter" 0 4 1 "FUNCTION"
-F G "RingTheBell" 0 142 "void()" `913 
+F G "RingTheBell" 0 147 "void()" `913 
 C L "checkSafetyFirst" 0 4 3 "FUNCTION"
-V L "sec" 0 161 "int32" `915 
-F G "checkSafetyFirst" 0 162 "void(int32 sec)" `914 
+V L "sec" 0 166 "int32" `915 
+F G "checkSafetyFirst" 0 167 "void(int32 sec)" `914 
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-V L "lastCount" 0 166 "sint16" `916 
-V L "i" 0 167 "int32" `917 
+V L "lastCount" 0 171 "sint16" `916 
+V L "i" 0 172 "int32" `917 
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
-F G "MAIN" 0 187 "void()" `918  "encoder dir"
+F G "MAIN" 0 192 "void()" `918  "encoder dir"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 2 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"

@@ -1,5 +1,5 @@
 
-ROM used:   2311/8192 (28%)
+ROM used:   2341/8192 (29%)
             2582/8192 (32%) including unused fragments
 
             1.5 Average locations per line
@@ -13,13 +13,13 @@ Stack size: 8
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-  348   158  86  main.c
-   43     0   0  main.h
+  353   161  87  main.c
+   44     0   0  main.h
   769     0   0  C:\Program Files (x86)\PICC\Devices\16F887.h
   337     0   0  C:\Program Files (x86)\PICC\Devices\def_16f877a.h
-   45    25  14  floor.c
+   45    25  13  floor.c
 ----- -----
- 1542   183 Total
+ 1548   186 Total
 
 Page ROM  %  RAM    Vol Diff  Functions:
 ---- --- --- ---    --- ----  ----------
@@ -30,15 +30,15 @@ Page ROM  %  RAM    Vol Diff  Functions:
 0     29   1    2             @ITOF
 0    117   5   13             @MULFF
 0    321  14   16             @ADDFF
-0     22   1    0    152  2.2  ext_isr
-0     22   1    0    119  2.9  timer0_isr
+0     26   1    0    152  2.2  ext_isr
+0     26   1    0    119  2.9  timer0_isr
 0    109   5    0    141  3.4  timer2_isr
- Inline         6     42  2.6  @MULS1616
+ Inline         6             @MULS1616
 0     14   1    0     42  2.6  ccp1_isr
-0      7   0    0     50  1.5  FORWARD
-0      7   0    0     42  1.4  REVERSE
-0     10   0    0     50  1.5  STOP
-0    154   7    0    785  3.8  starter
+0      9   0    0     50  1.5  FORWARD
+0      9   0    0     42  1.4  REVERSE
+0     14   1    0     50  1.5  STOP
+0    168   7    0    857  4.3  starter
 0     63   3    0    190  3.1  RingTheBell
 0     85   4    5    359  3.9  checkSafetyFirst
  Inline        10   1214  4.9  initDipSwitchState
@@ -49,22 +49,22 @@ Page ROM  %  RAM    Vol Diff  Functions:
  Inline         0             @cinit1
 
 Program metrics:
-    Functions               14
-    Statements              183
+    Functions               13
+    Statements              186
     Comments                266
-    Volume (V)              8098
-    Difficulty (D)          49.2
-    Effort to implement (E) 398435
-    Time to implement (T)   6 hours, 9 minutes
+    Volume (V)              8064
+    Difficulty (D)          46.4
+    Effort to implement (E) 373881
+    Time to implement (T)   5 hours, 46 minutes
     Est Delivered Bugs (B)  2
     Cyclomatic Complexity   32
-    Maintainability (MI)    118
+    Maintainability (MI)    127
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00003     4  0  
 00004-00047    68  0  
-00048-007FF  1705  271  
+00048-007FF  1735  241  
 00800-00FFF   534  1514  
 01000-017FF     0  2048  
 01800-01FFF     0  2048  
