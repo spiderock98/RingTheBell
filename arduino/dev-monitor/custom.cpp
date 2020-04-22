@@ -28,12 +28,13 @@ lbReConfirm:
     else if (charVal == 'A')
     {
         EEPROM.write(iCusAddressEEProm, 0);
-        EEPROM[147] -= 1;
+        EEPROM.write(147, EEPROM.read(147) - 1);
+        delay(4); // An EEPROM write takes 3.3 ms to complete
     }
     else
         goto lbReConfirm;
 
-    iCusEvents = EEPROM[147];
+    iCusEvents = EEPROM.read(147);
     iCusAddressEEProm = 138;
     flagCusSetting = false;
     flagCusView = false;
@@ -368,13 +369,14 @@ lbConfirm:
             delay(5);
             ++i;
         }
-        EEPROM[147] += 1;
+        EEPROM.write(147, EEPROM.read(147) + 1);
+        delay(4); // An EEPROM write takes 3.3 ms to complete
     }
     else
         goto lbConfirm;
 
     iCusAddressEEProm = 138;
-    iCusEvents = EEPROM[147];
+    iCusEvents = EEPROM.read(147);
     flagCusSetting = false;
     // return home screen
     lcd.clear();
@@ -416,7 +418,7 @@ void customInterface()
 
     for (int i = iCusAddressEEProm; iCusAddressEEProm + 10 - i;)
     {
-        arrTick[i] = EEPROM[i]; // begin declare arrTick from EEPROM
+        arrTick[i] = EEPROM.read(i); // begin declare arrTick from EEPROM
         switch (i - iCusAddressEEProm)
         {
         case 0:

@@ -1,49 +1,30 @@
 #include <main.h>
-#include "def_lcd.c"
 #include "floor.c"
-
-//================================================== PREPROSECSOR ==================================================
-
-// 1 >> on
-#define triac1Out PIN_D0
-#define triac2Out PIN_D1
-#define relayOut PIN_C0
-// 0 >> pressed
-#define btnINCREASE PIN_B4
-#define btnDECREASE PIN_B1
-// 1 >> led on
-#define ledSAFETY PIN_D2
-#define ledSTARTING PIN_D3
-#define ledRINGING PIN_C5
-#define ledBUTTON PIN_D4
-// rst soft
-#define PIN_RESET PIN_B5
 
 //================================================== VARIABLES ==================================================
 
 // set angle (10 levels). more angle, weaker motor
-volatile int8 angleStarter = 1;
-volatile int8 angleRingTheBell = 6;
-// volatile int8 angleStarter = read_eeprom(0x00);
-// volatile int8 angleRingTheBell = read_eeprom(0x01);
+volatile int32 angleStarter = 1;
+volatile int32 angleRingTheBell = 6;
+// volatile int32 angleStarter = read_eeprom(0x00);
+// volatile int32 angleRingTheBell = read_eeprom(0x01);
 
 volatile int32 valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
 volatile int32 valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
 
 volatile signed int16 count = 0;
-int8 countTime = 0, anglePercent = 0;
-int16 iTimer2OverFlow;
+volatile int16 iTimer2OverFlow;
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
 //================================================== ISR Func() ==================================================
 
-#INT_COMP
-void isrComparator()
-{ // A mismatch condition will continue to set flag bit CMIF. Reading CMCON will end the mismatch condition and allow flag bit CMIF to be cleared
-   char charas = CMCON;
-   output_low(relayOut);   // safety switch
-   output_high(PIN_RESET); // reset mcu
-}
+// #INT_COMP
+// void isrComparator()
+// { // A mismatch condition will continue to set flag bit CMIF. Reading CMCON will end the mismatch condition and allow flag bit CMIF to be cleared
+//    char charas = CMCON;
+//    output_low(relayOut);   // safety switch
+//    output_high(PIN_RESET); // reset mcu
+// }
 
 #INT_EXT
 void ext_isr()
@@ -78,33 +59,37 @@ void timer0_isr()
 #INT_TIMER2
 void timer2_isr()
 {
-   if (!(--iTimer2OverFlow))
+   // --iTimer2OverFlow;
+   // if (!(--iTimer2OverFlow))
+   // if (!iTimer2OverFlow)
    {
       // reset neu quay qua 4 vong
       if (flagForward)
       {
          if (count >= 1600) // (+)4 rotate
          {
-            output_low(relayOut);   // safety switch
-            output_high(PIN_RESET); // reset mcu
+            output_low(relayOut); // safety switch
+            reset_cpu();
          }
       }
       else
       {
          if (count <= -1600) // (-)4 rotate
          {
-            output_low(relayOut);   // safety switch
-            output_high(PIN_RESET); // reset mcu
+            output_low(relayOut); // safety switch
+            reset_cpu();
          }
       }
 
-      if (!btnDECREASE)
+      if (!input(btnDECREASE))
       {
+         output_high(ledBUTTON);
          if (flagStarter)
          {
             if (angleStarter < 9)
             {
-               write_eeprom(0x00, ++angleStarter);
+               ++angleStarter;
+               // write_eeprom(0x00, ++angleStarter);
                valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
             }
          }
@@ -112,18 +97,22 @@ void timer2_isr()
          {
             if (angleRingTheBell < 9)
             {
-               write_eeprom(0x01, ++angleRingTheBell);
+               ++angleRingTheBell;
+               // write_eeprom(0x01, ++angleRingTheBell);
                valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
             }
          }
+         output_low(ledBUTTON);
       }
-      else if (!btnINCREASE)
+      else if (!input(btnINCREASE))
       {
+         output_high(ledBUTTON);
          if (flagStarter)
          {
             if (angleStarter > 1)
             {
-               write_eeprom(0x00, --angleStarter);
+               --angleStarter;
+               // write_eeprom(0x00, --angleStarter);
                valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
             }
          }
@@ -131,13 +120,16 @@ void timer2_isr()
          {
             if (angleRingTheBell > 1)
             {
-               write_eeprom(0x01, --angleRingTheBell);
+               --angleRingTheBell;
+               // write_eeprom(0x01, --angleRingTheBell);
                valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
             }
          }
+         output_low(ledBUTTON);
       }
 
-      iTimer2OverFlow = 7660; // 100ms every command
+      // iTimer2OverFlow = 50; // 100ms every command
+      // iTimer2OverFlow = 7660; // 100ms every command
    }
 }
 
@@ -257,7 +249,6 @@ void checkSafetyFirst(int32 sec)
    count = 0; // update 0 point
    output_high(relayOut);
    delay_ms(3000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
-   enable_interrupts(INT_TIMER2);
    flagSTOP = false;
 }
 
@@ -265,10 +256,12 @@ void checkSafetyFirst(int32 sec)
 
 void main()
 {
-   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB4 = 1;                            //input
+   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB2 = TRISB3 = TRISB4 = 1;          //input
    TRISD0 = TRISD1 = TRISC0 = TRISD2 = TRISD3 = TRISC5 = TRISD4 = TRISB5 = 0; //output
 
-   output_low(PIN_RESET); // CLEAR reset pin
+   output_low(ledSAFETY);   // CLEAR reset pin
+   output_low(ledSTARTING); // CLEAR reset pin
+   output_low(ledRINGING);  // CLEAR reset pin
 
    clear_interrupt(INT_EXT);
    enable_interrupts(INT_EXT);
@@ -283,18 +276,26 @@ void main()
 
    setup_timer_2(T2_DIV_BY_16, 255, 16); // Overflow every 13.056us
    set_timer2(0);
-   iTimer2OverFlow = 7660; // 100ms every command
+   // iTimer2OverFlow = 50; // 100ms every command
+   // iTimer2OverFlow = 7660; // 100ms every command
+   enable_interrupts(INT_TIMER2);
 
-   setup_comparator(A0_VR_A1_VR);
-   setup_vref(VREF_HIGH | 5);
-   enable_interrupts(INT_COMP);
+   // setup_comparator(A0_VR_A1_VR);
+   // setup_vref(VREF_HIGH | 5);
+   // enable_interrupts(INT_COMP);
 
    enable_interrupts(GLOBAL);
 
-   checkSafetyFirst(10000000); // 2sec
+   output_high(ledSAFETY);
+   // checkSafetyFirst(15); // ~~ 6 seconds
+   checkSafetyFirst(1500000); // ~~ 6 seconds
+   output_low(ledSAFETY);
 
+   output_high(ledSTARTING);
    starter();
+   output_low(ledSTARTING);
 
+   output_high(ledRINGING);
    while (TRUE)
    {
       RingTheBell();

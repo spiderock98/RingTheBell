@@ -503,36 +503,30 @@ void alarm()
     case 2: // Mon
         for (int addr = 0; 21 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Mon");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -543,36 +537,30 @@ void alarm()
     case 3: // Tue
         for (int addr = 21; 42 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Tue");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -583,36 +571,30 @@ void alarm()
     case 4: // Wed
         for (int addr = 42; 63 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Wed");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -623,36 +605,30 @@ void alarm()
     case 5: // Thus
         for (int addr = 63; 84 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Thu");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -663,36 +639,30 @@ void alarm()
     case 6: // Fri
         for (int addr = 84; 105 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Fri");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -703,36 +673,30 @@ void alarm()
     case 7: // Sat
         for (int addr = 105; 126 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Sat");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -743,36 +707,30 @@ void alarm()
     case 1: // Sun
         for (int addr = 126; 147 - addr;)
         {
-            if (currentHour == EEPROM[addr + 1])
+            if (currentHour == EEPROM.read(addr + 1))
             {
-                if (currentMinute == EEPROM[addr + 2])
+                if (currentMinute == EEPROM.read(addr + 2))
                 {
-                    // Serial.println("Sun");
-                    // Serial.print(EEPROM[addr + 3]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 4]);
-                    // Serial.print("\t");
-                    // Serial.print(EEPROM[addr + 5]);
-                    if (EEPROM[addr + 3]) // relay 1
+                    if (EEPROM.read(addr + 3)) // relay 1
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
                         lastDuration1 = t.min;
-                        compareDuration1 = EEPROM[addr + 6]; // update duration
+                        compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 4]) // relay 2
+                    if (EEPROM.read(addr + 4)) // relay 2
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
                         lastDuration2 = t.min;
-                        compareDuration2 = EEPROM[addr + 6]; // update duration
+                        compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
-                    if (EEPROM[addr + 5]) // relay 3
+                    if (EEPROM.read(addr + 5)) // relay 3
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
                         lastDuration3 = t.min;
-                        compareDuration3 = EEPROM[addr + 6]; // update duration
+                        compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
                     return;
                 }
@@ -789,56 +747,48 @@ void alarm()
 
     // alarm sự kiện 1 lần
     int iCusAddr = 138;
-    for (int i = 0; EEPROM[147] - i;)
+    for (int i = 0; EEPROM.read(147) - i;)
     { // loop num of length times
         do
         { // pass null event to generate iCusAddr
             iCusAddr += 10;
-        } while ((EEPROM[iCusAddr] == 0) && (iCusAddr < 1024));
+        } while ((EEPROM.read(iCusAddr) == 0) && (iCusAddr < 1024));
 
-        if (currentMinute == EEPROM[iCusAddr + 5])
-            if (currentHour == EEPROM[iCusAddr + 4])
-                if (currentMonthDay == EEPROM[iCusAddr])
-                    if (currentMonth == EEPROM[iCusAddr + 1])
-                        if ((currentYear / 100) == EEPROM[iCusAddr + 2])
-                            if ((currentYear % 100) == EEPROM[iCusAddr + 3]) // an event is match
+        if (currentMinute == EEPROM.read(iCusAddr + 5))
+            if (currentHour == EEPROM.read(iCusAddr + 4))
+                if (currentMonthDay == EEPROM.read(iCusAddr))
+                    if (currentMonth == EEPROM.read(iCusAddr + 1))
+                        if ((currentYear / 100) == EEPROM.read(iCusAddr + 2))
+                            if ((currentYear % 100) == EEPROM.read(iCusAddr + 3)) // an event is match
                             {
-                                // debug
-                                // Serial.println();
-                                // Serial.print("Alarm: ");
-                                // Serial.print(EEPROM[iCusAddr + 6]);
-                                // Serial.print("\t");
-                                // Serial.print(EEPROM[iCusAddr + 7]);
-                                // Serial.print("\t");
-                                // Serial.print(EEPROM[iCusAddr + 8]);
-
                                 // check bit if enable relay or not
-                                if (EEPROM[iCusAddr + 6])
+                                if (EEPROM.read(iCusAddr + 6))
                                 {
                                     flagEnRelay1 = true;
                                     digitalWrite(OUT1, 1);
                                     lastDuration1 = t.min;
-                                    compareDuration1 = EEPROM[iCusAddr + 9]; // update duration
+                                    compareDuration1 = EEPROM.read(iCusAddr + 9); // update duration
                                 }
-                                if (EEPROM[iCusAddr + 7])
+                                if (EEPROM.read(iCusAddr + 7))
                                 {
                                     flagEnRelay2 = true;
                                     digitalWrite(OUT2, 1);
                                     lastDuration2 = t.min;
-                                    compareDuration2 = EEPROM[iCusAddr + 9]; // update duration
+                                    compareDuration2 = EEPROM.read(iCusAddr + 9); // update duration
                                 }
-                                if (EEPROM[iCusAddr + 8])
+                                if (EEPROM.read(iCusAddr + 8))
                                 {
                                     flagEnRelay3 = true;
                                     digitalWrite(OUT3, 1);
                                     lastDuration3 = t.min;
-                                    compareDuration3 = EEPROM[iCusAddr + 9]; // update duration
+                                    compareDuration3 = EEPROM.read(iCusAddr + 9); // update duration
                                 }
 
                                 // delete this match events
                                 EEPROM.write(iCusAddr, 0);
-                                EEPROM[147] -= 1;
-                                iCusEvents = EEPROM[147];
+                                EEPROM.write(147, EEPROM.read(147) - 1);
+                                delay(4); // An EEPROM write takes 3.3 ms to complete
+                                iCusEvents = EEPROM.read(147);
                                 iCusAddressEEProm = 138;
 
                                 return; // exit right on match event every 1 minutes
