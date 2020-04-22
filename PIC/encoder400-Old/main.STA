@@ -1,0 +1,72 @@
+
+ROM used:   2113/8192 (26%)
+            2368/8192 (29%) including unused fragments
+
+            1.6 Average locations per line
+            15.5 Average locations per statement
+
+RAM used:   34/368 (9%) at main() level
+            81/368 (22%) worst case
+
+Stack used: 3 worst case (2 in main + 1 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  226   111  82  main.c
+   22     0   0  main.h
+  672     0   0  C:\Program Files (x86)\PICC\Devices\16F877A.h
+  337     0   0  C:\Program Files (x86)\PICC\Devices\def_16f877a.h
+   45    25  18  floor.c
+----- -----
+ 1302   136 Total
+
+Page ROM  %  RAM    Vol Diff  Functions:
+---- --- --- ---    --- ----  ----------
+0     20   1    1             @delay_ms1
+0    371  18   19    950  9.5  FLOOR
+0     63   3   10             @FLT
+0     31   1    4             @SFTOI
+0     29   1    2             @ITOF
+0    117   6   13             @MULFF
+0    321  15   16             @ADDFF
+0     27   1    4             @DTOF
+0    202  10   14             @DIVFF
+0     31   1    5             @FTOSD
+0     26   1    0    152  2.2  ext_isr
+0     26   1    0    119  2.9  timer0_isr
+0    109   5    0    136  3.4  timer2_isr
+ Inline         6             @MULS1616
+0     14   1    0     42  2.6  ccp1_isr
+0      9   0    0     50  1.5  FORWARD
+0      9   0    0     42  1.4  REVERSE
+0     14   1    0     50  1.5  STOP
+0    154   7    0    785  3.8  starter
+0     63   3    0    190  3.1  RingTheBell
+0     85   4    5    359  3.9  checkSafetyFirst
+1    320  15    0    483  3.3  MAIN
+ Inline         6             @cinit1
+
+Program metrics:
+    Functions               12
+    Statements              136
+    Comments                194
+    Volume (V)              5331
+    Difficulty (D)          39.5
+    Effort to implement (E) 210435
+    Time to implement (T)   3 hours, 15 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   15
+    Maintainability (MI)    97
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00047    68  0  
+00048-007FF  1721  255  
+00800-00FFF   320  1728  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

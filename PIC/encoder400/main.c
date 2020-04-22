@@ -4,17 +4,22 @@
 //================================================== VARIABLES ==================================================
 
 // set angle (10 levels). more angle, weaker motor
-volatile int32 angleStarter = 1;
-volatile int32 angleRingTheBell = 6;
+int32 angleStarter = 0;
+int32 angleRingTheBell = 0;
 // volatile int32 angleStarter = read_eeprom(0x00);
 // volatile int32 angleRingTheBell = read_eeprom(0x01);
 
-volatile int32 valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
-volatile int32 valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
+// int32 valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
+// int32 valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
+
+int32 valTimer0SetStarter = 0;     // init in DipSwitchState()
+int32 valTimer0SetRingTheBell = 0; // init in DipSwitchState()
 
 volatile signed int16 count = 0;
-volatile int16 iTimer2OverFlow;
+// volatile int16 iTimer2OverFlow;
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
+
+signed int16 ProtectRotate = 0; // init in DipSwitchState()
 
 //================================================== ISR Func() ==================================================
 
@@ -64,72 +69,22 @@ void timer2_isr()
    // if (!iTimer2OverFlow)
    {
       // reset neu quay qua 4 vong
-      if (flagForward)
+      // if (flagForward)
+      // {
+      if (count >= ProtectRotate) // (+)ProtectRotate rotate
       {
-         if (count >= 1600) // (+)4 rotate
-         {
-            output_low(relayOut); // safety switch
-            reset_cpu();
-         }
+         output_low(relayOut); // safety switch
+         reset_cpu();
       }
-      else
+      // }
+      //else
+      //{
+      if (count <= -1 * ProtectRotate) // (-)ProtectRotate rotate
       {
-         if (count <= -1600) // (-)4 rotate
-         {
-            output_low(relayOut); // safety switch
-            reset_cpu();
-         }
+         output_low(relayOut); // safety switch
+         reset_cpu();
       }
-
-      if (!input(btnDECREASE))
-      {
-         output_high(ledBUTTON);
-         if (flagStarter)
-         {
-            if (angleStarter < 9)
-            {
-               ++angleStarter;
-               // write_eeprom(0x00, ++angleStarter);
-               valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
-            }
-         }
-         else
-         {
-            if (angleRingTheBell < 9)
-            {
-               ++angleRingTheBell;
-               // write_eeprom(0x01, ++angleRingTheBell);
-               valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
-            }
-         }
-         output_low(ledBUTTON);
-      }
-      else if (!input(btnINCREASE))
-      {
-         output_high(ledBUTTON);
-         if (flagStarter)
-         {
-            if (angleStarter > 1)
-            {
-               --angleStarter;
-               // write_eeprom(0x00, --angleStarter);
-               valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
-            }
-         }
-         else
-         {
-            if (angleRingTheBell > 1)
-            {
-               --angleRingTheBell;
-               // write_eeprom(0x01, --angleRingTheBell);
-               valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
-            }
-         }
-         output_low(ledBUTTON);
-      }
-
-      // iTimer2OverFlow = 50; // 100ms every command
-      // iTimer2OverFlow = 7660; // 100ms every command
+      //}
    }
 }
 
@@ -249,15 +204,106 @@ void checkSafetyFirst(int32 sec)
    count = 0; // update 0 point
    output_high(relayOut);
    delay_ms(3000); // ngăn hồ quang nếu cùng lúc đóng triac lập tức
+   enable_interrupts(INT_TIMER2);
    flagSTOP = false;
+}
+
+void initDipSwitchState(int32 &angleStarter, int32 &angleRingTheBell, signed int16 &ProtectRotate)
+{
+   TRISB5 = TRISB4 = TRISB3 = TRISB2 = TRISB1 = TRISD6 = TRISD5 = 1;
+
+   // Dip swith Start
+   switch (PORTB & 0b00110000)
+   // switch (PORTB & 0x30)
+   {
+   // case 0b00:
+   case 0:
+      angleStarter = 1;
+      // output_high(ledRINGING); // debug
+      // delay_ms(100);
+      // output_low(ledRINGING);
+      // delay_ms(100);
+      // output_high(ledRINGING);
+      // delay_ms(100);
+      // output_low(ledRINGING);
+      break;
+   // case 0b01:
+   case 0b00010000:
+      angleStarter = 2;
+      break;
+   // case 0b10:
+   case 0b00100000:
+      angleStarter = 3;
+      break;
+   case 0b00110000:
+      // case 3:
+      angleStarter = 4;
+      break;
+   }
+
+   // Dip swith Ringing
+   switch (PORTB & 0b00001110)
+   // switch (PORTB & 0x0E)
+   {
+   case 0b0000:
+      angleRingTheBell = 2;
+      break;
+   case 0b0010:
+      angleRingTheBell = 3;
+      break;
+   case 0b0100:
+      angleRingTheBell = 4;
+      break;
+   case 0b0110:
+      angleRingTheBell = 5;
+      break;
+   case 0b1000:
+      angleRingTheBell = 6;
+      break;
+   case 0b1010:
+      angleRingTheBell = 7;
+      break;
+   case 0b1100:
+      angleRingTheBell = 8;
+      break;
+   case 0b1110:
+      angleRingTheBell = 9;
+      break;
+   }
+
+   // Dip swith Protector Rotate
+   switch (PORTD & 0b01100000)
+   // switch (PORTD & 0x60)
+   {
+   case 0b0000000:
+      ProtectRotate = 2000;
+      break;
+   case 0b0100000:
+      ProtectRotate = 2400;
+      break;
+   case 0b1000000:
+      ProtectRotate = 2800;
+      break;
+   case 0b1100000:
+      ProtectRotate = 3200;
+      break;
+   }
 }
 
 //================================================== MAIN ==================================================
 
 void main()
 {
-   TRISB0 = TRISC1 = TRISC2 = TRISB1 = TRISB2 = TRISB3 = TRISB4 = 1;          //input
-   TRISD0 = TRISD1 = TRISC0 = TRISD2 = TRISD3 = TRISC5 = TRISD4 = TRISB5 = 0; //output
+   TRISB0 = TRISC1 = TRISC2 = 1;          //input
+   TRISC0 = TRISD2 = TRISD3 = TRISC5 = 0; //output
+
+   // triac
+   TRISD0 = TRISD1 = 0;
+   // TRISC6 = TRISC7 = 0;
+
+   initDipSwitchState(angleStarter, angleRingTheBell, ProtectRotate);
+   valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
+   valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
 
    output_low(ledSAFETY);   // CLEAR reset pin
    output_low(ledSTARTING); // CLEAR reset pin
@@ -278,7 +324,6 @@ void main()
    set_timer2(0);
    // iTimer2OverFlow = 50; // 100ms every command
    // iTimer2OverFlow = 7660; // 100ms every command
-   enable_interrupts(INT_TIMER2);
 
    // setup_comparator(A0_VR_A1_VR);
    // setup_vref(VREF_HIGH | 5);
@@ -287,7 +332,6 @@ void main()
    enable_interrupts(GLOBAL);
 
    output_high(ledSAFETY);
-   // checkSafetyFirst(15); // ~~ 6 seconds
    checkSafetyFirst(1500000); // ~~ 6 seconds
    output_low(ledSAFETY);
 

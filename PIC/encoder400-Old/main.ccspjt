@@ -113,8 +113,9 @@ D9_D=0
 D9_L6=[81963]Project Closed.
 D9_L7=[82517]Project Opened.
 D10=23-04-2020
-D10_L=1
-D10_L1=[2095]Project Closed.
+D10_L=2
+D10_L1=[2585]Project Opened.
+D10_L2=[2594]Project Closed.
 
 [Opened Files]
 1=main.c
@@ -123,7 +124,7 @@ D10_L1=[2095]Project Closed.
 4=
 [PROJECT]
 Target=main.hex
-Processor_Text=PIC16F887
+Processor_Text=PIC16F877A
 CCSVersion=5.025
 Compiler=PCM
 [Target Data]
