@@ -1,7 +1,7 @@
 D G "__PCM__" 0 0 ""5.025""
 D G "__DEVICE__" 0 0 ""
 D G "__DATE__" 0 0 ""23-Apr-20""
-D G "__TIME__" 0 0 ""01:10:31"" "#include <16F877A.h>"
+D G "__TIME__" 0 0 ""06:47:37"" "#include <16F877A.h>"
 c L "set_tris_a" 2 1 6 "FUNCTION"
 v L "value" 2 39 "int8" `54 
 f B "set_tris_a" 2 39 "void(int8 value)" `53 
@@ -954,10 +954,7 @@ C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
 C L "checkSafetyFirst" 0 4 1 "FUNCTION"
-V L "angleStarter" 0 216 "int32" `911 
-V L "angleRingTheBell" 0 216 "int32" `912 
-V L "ProtectRotate" 0 216 "sint16" `913 
-F G "initDipSwitchState" 0 217 "void(int32 angleStarter,int32 angleRingTheBell,sint16 ProtectRotate)" `910 
+F G "initDipSwitchState" 0 217 "void()" `910 
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
@@ -970,9 +967,10 @@ C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "initDipSwitchState" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
-F G "MAIN" 0 301 "void()" `914 
+F G "MAIN" 0 301 "void()" `912 
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 3 "FUNCTION"
+C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"
 C L "MAIN" 0 4 1 "FUNCTION"

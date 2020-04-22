@@ -213,7 +213,7 @@ void checkSafetyFirst(int32 sec)
    flagSTOP = false;
 }
 
-void initDipSwitchState(int32 &angleStarter, int32 &angleRingTheBell, signed int16 &ProtectRotate)
+void initDipSwitchState()
 {
    TRISB5 = TRISB4 = TRISB3 = TRISB2 = TRISB1 = TRISD6 = TRISD5 = 1;
 
@@ -306,7 +306,7 @@ void main()
    // TRISD0 = TRISD1 = 0;
    TRISC6 = TRISC7 = 0;
 
-   initDipSwitchState(angleStarter, angleRingTheBell, ProtectRotate);
+   initDipSwitchState();
    valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
    valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
 

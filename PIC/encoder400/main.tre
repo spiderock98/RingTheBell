@@ -1,7 +1,11 @@
 ÀÄmain
-   ÃÄMAIN  1/534  Ram=4
+   ÃÄMAIN  1/439  Ram=4
    ³  ÃÄ@cinit1  (Inline)  Ram=0
-   ³  ÃÄinitDipSwitchState  (Inline)  Ram=10
+   ³  ÃÄinitDipSwitchState  0/136  Ram=0
+   ³  ³  ÀÄ@goto10820  0/19  Ram=0
+   ³  ÃÄ@delay_ms1  0/20  Ram=1
+   ³  ÃÄ@delay_ms1  0/20  Ram=1
+   ³  ÃÄ@delay_ms1  0/20  Ram=1
    ³  ÃÄ@DTOF  0/27  Ram=4
    ³  ÃÄ@ADDFF  0/321  Ram=16
    ³  ÃÄ@DIVFF  0/202  Ram=14
