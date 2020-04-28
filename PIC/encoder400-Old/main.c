@@ -65,7 +65,7 @@ void timer2_isr()
 #INT_CCP1
 void ccp1_isr()
 {
-   if (RC1)
+   if (RC0)
       ++count;
    else
       --count;

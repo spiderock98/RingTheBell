@@ -1,6 +1,6 @@
-CCS PCM C Compiler, Version 5.025, 31658               23-Apr-20 01:10
+CCS PCM C Compiler, Version 5.025, 38816               28-Apr-20 03:11
 
-               Filename:   D:\Desktop\RingTheBell\PIC\encoder400-Old\main.lst
+               Filename:   E:\Desktop\RingTheBell\PIC\encoder400-Old\main.lst
 
                ROM used:   2127 words (26%)
                            Largest free fragment is 2048
@@ -1946,8 +1946,8 @@ CCS PCM C Compiler, Version 5.025, 31658               23-Apr-20 01:10
 .................... #INT_CCP1 
 .................... void ccp1_isr() 
 .................... { 
-....................    if (RC1) 
-00E9:  BTFSS  07.1
+....................    if (RC0) 
+00E9:  BTFSS  07.0
 00EA:  GOTO   0EF
 ....................       ++count; 
 00EB:  INCF   37,F

@@ -15,8 +15,8 @@ Lines Stmts  %   Files
 ----- ----- ---  -----
   231   114  82  main.c
    22     0   0  main.h
-  672     0   0  C:\Program Files (x86)\PICC\Devices\16F877A.h
-  337     0   0  C:\Program Files (x86)\PICC\Devices\def_16f877a.h
+  672     0   0  ..\..\..\..\Program Files (x86)\PICC\Devices\16F877A.h
+  337     0   0  ..\..\..\..\Program Files (x86)\PICC\Devices\def_16f877a.h
    45    25  18  floor.c
 ----- -----
  1307   139 Total

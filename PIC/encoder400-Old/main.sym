@@ -396,14 +396,14 @@ ROM Allocation:
 000904  @cinit2
 
 Project Directory:
-    D:\Desktop\RingTheBell\PIC\encoder400-Old\
+    E:\Desktop\RingTheBell\PIC\encoder400-Old\
 
 Project Files:
-    main.c                                                  [23-Apr-20 01:09  CRC=A6910948]
-    main.h                                                  [23-Apr-20 00:32  CRC=CD53B8E2]
-    C:\Program Files (x86)\PICC\Devices\16F877A.h           [19-Apr-14 06:56  CRC=4F277C97]
-    C:\Program Files (x86)\PICC\Devices\def_16f877a.h       [27-Apr-19 15:32  CRC=334B119E]
-    floor.c                                                 [05-Apr-20 03:53  CRC=4CF94BD1]
+    main.c                                                  [28-Apr-20 03:00  CRC=A6910948]
+    main.h                                                  [22-Apr-20 10:32  CRC=CD53B8E2]
+    ..\..\..\..\Program Files (x86)\PICC\Devices\16F877A.h  [18-Apr-14 16:56  CRC=4F277C97]
+    ..\..\..\..\Program Files (x86)\PICC\Devices\def_16f877a.h [27-Apr-19 01:32  CRC=334B119E]
+    floor.c                                                 [04-Apr-20 13:53  CRC=4CF94BD1]
 
 Source signature=9049E801
 
