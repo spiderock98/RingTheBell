@@ -1,35 +1,32 @@
 #include <main.h>
 #include "floor.c"
 
+#define angleStarter 4
+#define angleStarter_ 3
+#define angleStarter__ 2
+#define angleStarter___ 1
+
 //================================================== VARIABLES ==================================================
 
-// set angle (10 levels). more angle, weaker motor
-int32 angleStarter = 9;
 int32 angleRingTheBell = 9;
-// volatile int32 angleStarter = read_eeprom(0x00);
-// volatile int32 angleRingTheBell = read_eeprom(0x01);
 
-// int32 valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
-// int32 valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
+// khoi dong 100 xung dau tien
+int16 valEveryTurn = (int16)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
+// tiep theo
+int16 valEveryTurn_ = (int16)FLOOR((13.1072 - angleStarter_) / 0.0512) - 1;
+int16 valEveryTurn__ = (int16)FLOOR((13.1072 - angleStarter__) / 0.0512) - 1;
+int16 valEveryTurn___ = (int16)FLOOR((13.1072 - angleStarter___) / 0.0512) - 1;
 
-int32 valTimer0SetStarter = 0;     // init in DipSwitchState()
-int32 valTimer0SetRingTheBell = 0; // init in DipSwitchState()
+int16 valTimer0SetRingTheBell = 0; // init in DipSwitchState()
+int16 valTimer0SetStarter = valEveryTurn;
 
 volatile signed int16 count = 0;
-// volatile int16 iTimer2OverFlow;
+
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
 signed int16 ProtectRotate = 0; // init in DipSwitchState()
 
 //================================================== ISR Func() ==================================================
-
-// #INT_COMP
-// void isrComparator()
-// { // A mismatch condition will continue to set flag bit CMIF. Reading CMCON will end the mismatch condition and allow flag bit CMIF to be cleared
-//    char charas = CMCON;
-//    output_low(relayOut);   // safety switch
-//    output_high(PIN_RESET); // reset mcu
-// }
 
 #INT_EXT
 void ext_isr()
@@ -57,34 +54,23 @@ void timer0_isr()
    else if (!flagForward && !flagSTOP)
       output_high(triac2Out);
 
-   // set_timer0(200.00);
    disable_interrupts(INT_TIMER0);
 }
 
 #INT_TIMER2
 void timer2_isr()
 {
-   // --iTimer2OverFlow;
-   // if (!(--iTimer2OverFlow))
-   // if (!iTimer2OverFlow)
    {
-      // reset neu quay qua 4 vong
-      // if (flagForward)
-      // {
       if (count >= ProtectRotate) // (+)ProtectRotate rotate
       {
          output_low(relayOut); // safety switch
          reset_cpu();
       }
-      // }
-      //else
-      //{
       if (count <= -1 * ProtectRotate) // (-)ProtectRotate rotate
       {
          output_low(relayOut); // safety switch
          reset_cpu();
       }
-      //}
    }
 }
 
@@ -95,7 +81,6 @@ void ccp1_isr()
       ++count;
    else
       --count;
-   // clear_interrupt(INT_CCP1);
 }
 
 //================================================== Func() ==================================================
@@ -121,6 +106,7 @@ void STOP()
 
 void starter()
 {
+   // 1/8 rotate
    while (count <= 100)
    {
       if (count <= -100)
@@ -128,12 +114,12 @@ void starter()
       FORWARD();
    }
    STOP();
-   while (count >= 50)
+   while (count >= 12)
       STOP();
    while (count >= -100)
       REVERSE();
    STOP();
-   while (count <= -50)
+   while (count <= -12)
       STOP();
 
    for (signed int16 i = 100; i < 1100; i += 100)
@@ -148,6 +134,22 @@ void starter()
       STOP();
       while (count <= -i / 2)
          STOP();
+
+      switch (i)
+      {
+      case 100:
+         valTimer0SetStarter = valEveryTurn_;
+         break;
+      case 400:
+         valTimer0SetStarter = valEveryTurn__;
+         break;
+      case 800:
+         valTimer0SetStarter = valEveryTurn___;
+         break;
+
+      default:
+         break;
+      }
    }
 
    // 3 rotates 1 side
@@ -204,30 +206,6 @@ void checkSafetyFirst(int32 sec)
 void initDipSwitchState()
 {
    TRISB5 = TRISB4 = TRISB3 = TRISB2 = TRISB1 = TRISD6 = TRISD5 = 1;
-
-   // Dip swith Start
-   switch (PORTB & 0b00110000)
-   {
-   case 0:
-      angleStarter = 1;
-      // output_high(ledRINGING); // debug
-      // delay_ms(100);
-      // output_low(ledRINGING);
-      // delay_ms(100);
-      // output_high(ledRINGING);
-      // delay_ms(100);
-      // output_low(ledRINGING);
-      break;
-   case 0b00010000:
-      angleStarter = 2;
-      break;
-   case 0b00100000:
-      angleStarter = 3;
-      break;
-   case 0b00110000:
-      angleStarter = 4;
-      break;
-   }
 
    // Dip swith Ringing
    switch (PORTB & 0b00001110)
@@ -288,8 +266,7 @@ void main()
    TRISC6 = TRISC7 = 0;
 
    initDipSwitchState();
-   valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
-   valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
+   valTimer0SetRingTheBell = (int16)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
 
    output_low(ledSAFETY);   // CLEAR reset pin
    output_low(ledSTARTING); // CLEAR reset pin

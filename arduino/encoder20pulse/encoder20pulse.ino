@@ -2,7 +2,7 @@
 int count = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   // put your setup code here, to run once:
   pinMode(3, INPUT);
   pinMode(4, INPUT);
@@ -16,11 +16,36 @@ void loop() {
   //    if (
   //  }
   //Serial.println(count);
+  
+  for (int16_t i = 5;; i += 5)
+  {
+    while (count <= i)
+      FORWARD();
+    STOP();
+    while (count >= i / 2)
+      STOP();
+    while (count >= -i)
+      REVERSE();
+    STOP();
+    while (count <= -i / 2)
+      STOP();
+  }
 }
 
+void FORWARD() {
+  Serial.println("quay thuan");
+  delay(500);
+}
+void REVERSE() {
+  Serial.println("quay nghich");
+  delay(500);
+}
+void STOP() {
+  Serial.println("dung");
+  delay(500);
+}
 void ngatngoai()
 {
-  delayMicroseconds(20);
   noInterrupts();
   if (digitalRead(4))
   {
