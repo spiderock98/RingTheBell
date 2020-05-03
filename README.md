@@ -1,5 +1,8 @@
 # Hệ Thống Giật Chuông Tự Động Giáo Xứ Cao Mộc
 
+<p align="center">
+  <img src="resources/images/thumb.jpg">
+</p>
 
 ## Về Phía Người Sử Dụng
 ### Chức năng các phím nhấn
@@ -44,6 +47,11 @@
 - ô 1025, 1026, 1027 lưu 3 biến duration RF tương ứng 3 relay
 - biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
+
+## Actual Deployment
+https://www.youtube.com/watch?v=901YgAyc0Fk
+[![demo1](http://img.youtube.com/vi/KxrsKA5V2jA/0.jpg)](http://www.youtube.com/watch?v=KxrsKA5V2jA "Demo 17/04/2020")
+[![demo2](http://img.youtube.com/vi/901YgAyc0Fk/0.jpg)](http://www.youtube.com/watch?v=901YgAyc0Fk "Demo 03/05/2020")
 
 ## Contributors
 1. Giáo Xứ Cao Mộc - Quỳnh Phụ, Thái Bình - [Fanpage](https://www.facebook.com/Gi%C3%A1o-x%E1%BB%A9-Cao-M%E1%BB%99c-442991019215398)
