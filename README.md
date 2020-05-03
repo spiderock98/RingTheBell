@@ -49,7 +49,6 @@
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
 
 ## Actual Deployment
-https://www.youtube.com/watch?v=901YgAyc0Fk
 [![demo1](http://img.youtube.com/vi/KxrsKA5V2jA/0.jpg)](http://www.youtube.com/watch?v=KxrsKA5V2jA "Demo 17/04/2020")
 [![demo2](http://img.youtube.com/vi/901YgAyc0Fk/0.jpg)](http://www.youtube.com/watch?v=901YgAyc0Fk "Demo 03/05/2020")
 
