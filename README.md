@@ -49,8 +49,8 @@
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
 
 ## Actual Deployment
-[![demo1](http://img.youtube.com/vi/KxrsKA5V2jA/0.jpg)](http://www.youtube.com/watch?v=KxrsKA5V2jA "Demo 17/04/2020")
-[![demo2](http://img.youtube.com/vi/901YgAyc0Fk/0.jpg)](http://www.youtube.com/watch?v=901YgAyc0Fk "Demo 03/05/2020")
+[![demo2](http://img.youtube.com/vi/901YgAyc0Fk/0.jpg)](http://www.youtube.com/watch?v=901YgAyc0Fk "Demo 17/04/2020")
+[![demo1](http://img.youtube.com/vi/KxrsKA5V2jA/0.jpg)](http://www.youtube.com/watch?v=KxrsKA5V2jA "Demo 03/05/2020")
 
 ## Contributors
 1. Giáo Xứ Cao Mộc - Quỳnh Phụ, Thái Bình - [Fanpage](https://www.facebook.com/Gi%C3%A1o-x%E1%BB%A9-Cao-M%E1%BB%99c-442991019215398)
