@@ -28,10 +28,12 @@ void setup()
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
   pinMode(OUT4, OUTPUT); // pulse per hour
+  pinMode(OUT5, OUTPUT); // relay mass wire
   digitalWrite(OUT1, 0);
   digitalWrite(OUT2, 0);
   digitalWrite(OUT3, 0);
   digitalWrite(OUT4, 0);
+  digitalWrite(OUT5, 0); // relay OFF mass wire
 
   compareDuration1 = EEPROM.read(1025);
   compareDuration2 = EEPROM.read(1026);
@@ -58,6 +60,7 @@ void loop()
     digitalWrite(OUT1, 0);
     digitalWrite(OUT2, 0);
     digitalWrite(OUT3, 0);
+    digitalWrite(OUT5, 1); // relay ON mass wire
     // set to default for next RF control
     compareDuration1 = EEPROM.read(1025);
     compareDuration2 = EEPROM.read(1026);
@@ -68,18 +71,21 @@ void loop()
   if ((analogRead(RF1) > 612) && !flagEnRelay1)
   {
     digitalWrite(OUT1, 1);
+    digitalWrite(OUT5, 1); // relay ON mass wire
     flagEnRelay1 = true;
     lastDuration1 = t.min; // begin timer
   }
   else if ((analogRead(RF2) > 612) && !flagEnRelay2)
   {
     digitalWrite(OUT2, 1);
+    digitalWrite(OUT5, 1); // relay ON mass wire
     flagEnRelay2 = true;
     lastDuration2 = t.min; // begin timer
   }
   else if ((analogRead(RF3) > 612) && !flagEnRelay3)
   {
     digitalWrite(OUT3, 1);
+    digitalWrite(OUT5, 1); // relay ON mass wire
     flagEnRelay3 = true;
     lastDuration3 = t.min; // begin timer
   }
@@ -142,6 +148,8 @@ void loop()
     alarm();
     lastMinAlarm = t.min;
     lcd.noBacklight(); // off screen after 1 min no activity
+    if (!flagEnRelay1 && !flagEnRelay2 && !flagEnRelay3)
+      digitalWrite(OUT5, 0); // check relay OFF mass wire every 1 min
   }
 
   // init these value after 1 hours

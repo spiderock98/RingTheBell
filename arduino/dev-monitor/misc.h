@@ -6,16 +6,17 @@
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 
-#define RF0 A3
-#define RF1 A0
-#define RF2 A1
-#define RF3 A2
+#define RF0 A7
+#define RF1 A3
+#define RF2 A2
+#define RF3 A6
 // relay
-#define OUT1 11
-#define OUT2 12
-#define OUT3 13
+#define OUT1 A1
+#define OUT2 11
+#define OUT3 A0
 // pulse per hour
-#define OUT4 2
+#define OUT4 12
+#define OUT5 13
 // #define defaultDuration 5
 
 #if defined(ARDUINO) && ARDUINO >= 100

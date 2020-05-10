@@ -1,6 +1,7 @@
 #include <main.h>
 #include "floor.c"
 
+#define initFeedbackCount 10
 //================================================== VARIABLES ==================================================
 
 // set angle (10 levels). more angle, weaker motor
@@ -19,6 +20,9 @@ volatile signed int16 count = 0;
 // volatile int16 iTimer2OverFlow;
 int1 flagForward = true, flagStarter = true, flagSTOP = true;
 
+volatile int1 flagFbForward = true;
+volatile int8 countFbForward = initFeedbackCount, countFbReverse = initFeedbackCount; // reset after 10 pulse suddendly change direction
+
 signed int16 ProtectRotate = 0; // init in DipSwitchState()
 
 //================================================== ISR Func() ==================================================
@@ -34,7 +38,7 @@ signed int16 ProtectRotate = 0; // init in DipSwitchState()
 #INT_EXT
 void ext_isr()
 {
-   // cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighet
+   // cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighe
 
    output_low(triac1Out);
    output_low(triac2Out);
@@ -92,10 +96,16 @@ void timer2_isr()
 void ccp1_isr()
 {
    if (RC1)
+   {
       ++count;
+      flagFbForward = true;
+   }
+
    else
+   {
       --count;
-   // clear_interrupt(INT_CCP1);
+      flagFbForward = false;
+   }
 }
 
 //================================================== Func() ==================================================
@@ -106,11 +116,31 @@ void FORWARD()
 
    flagForward = true;
    flagSTOP = false;
+   countFbForward = initFeedbackCount; // ready for next change dir
+
+   if (!flagFbForward) // suddendly reverse for n pulses
+   {
+      if (!(--countFbReverse))
+         reset_cpu();
+
+      return;
+   }
+   countFbReverse = initFeedbackCount; // reset if not in 10 pulses series
 }
 void REVERSE()
 {
    output_low(triac1Out);
+
    flagForward = flagSTOP = false;
+   countFbReverse = initFeedbackCount; // ready for next change dir
+
+   if (flagFbForward) // suddendly forward for 10 pulses
+   {
+      if (!(--countFbForward))
+         reset_cpu();
+      return;
+   }
+   countFbForward = initFeedbackCount; // reset if not in 10 pulses series
 }
 void STOP()
 {
@@ -186,11 +216,11 @@ void checkSafetyFirst(int32 sec)
    signed int16 lastCount = count;
    for (int32 i = sec; --i;) // waitting steady
    {
-      if (count != lastCount)
+      if (((count - lastCount) > 10) || ((count - lastCount) < -10))
       {
          i = sec; // reset
          lastCount = count;
-         delay_ms(30); // pray for couting up
+         delay_ms(30); // pray for counting change
       }
    }
 
@@ -209,7 +239,7 @@ void initDipSwitchState()
    switch (PORTB & 0b00110000)
    {
    case 0:
-      angleStarter = 1;
+      angleStarter = 0;
       // output_high(ledRINGING); // debug
       // delay_ms(100);
       // output_low(ledRINGING);
@@ -219,13 +249,13 @@ void initDipSwitchState()
       // output_low(ledRINGING);
       break;
    case 0b00010000:
-      angleStarter = 2;
+      angleStarter = 1;
       break;
    case 0b00100000:
-      angleStarter = 3;
+      angleStarter = 2;
       break;
    case 0b00110000:
-      angleStarter = 4;
+      angleStarter = 3;
       break;
    }
 
@@ -291,6 +321,9 @@ void main()
    valTimer0SetStarter = (int32)FLOOR((13.1072 - angleStarter) / 0.0512) - 1;
    valTimer0SetRingTheBell = (int32)FLOOR((13.1072 - angleRingTheBell) / 0.0512) - 1;
 
+   output_low(triac1Out);
+   output_low(triac2Out);
+
    output_low(ledSAFETY);   // CLEAR reset pin
    output_low(ledSTARTING); // CLEAR reset pin
    output_low(ledRINGING);  // CLEAR reset pin
@@ -318,7 +351,7 @@ void main()
    enable_interrupts(GLOBAL);
 
    output_high(ledSAFETY);
-   checkSafetyFirst(1500000); // ~~ 6 seconds
+   checkSafetyFirst(1300000); // ~~ 6 seconds
    output_low(ledSAFETY);
 
    output_high(ledSTARTING);

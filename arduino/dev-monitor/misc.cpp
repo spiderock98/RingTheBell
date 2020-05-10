@@ -451,7 +451,10 @@ void lcdHomeScreen()
     lcd.print("Th");
     lcd.printByte(2);
     lcd.print(" ");
-    lcd.print(t.wday);
+    if (t.wday == 1)
+        lcd.print("CN");
+    else
+        lcd.print(t.wday);
     lcd.print(" ");
     lcd.print(t.mday);
     lcd.print("-");
@@ -496,6 +499,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -503,6 +507,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -510,6 +515,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -530,6 +536,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -537,6 +544,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -544,6 +552,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -564,6 +573,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -571,6 +581,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -578,6 +589,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -598,6 +610,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -605,6 +618,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -612,6 +626,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -632,6 +647,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -639,6 +655,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -646,6 +663,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -666,6 +684,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -673,6 +692,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -680,6 +700,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -700,6 +721,7 @@ void alarm()
                     {
                         flagEnRelay1 = true;
                         digitalWrite(OUT1, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration1 = t.min;
                         compareDuration1 = EEPROM.read(addr + 6); // update duration
                     }
@@ -707,6 +729,7 @@ void alarm()
                     {
                         flagEnRelay2 = true;
                         digitalWrite(OUT2, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration2 = t.min;
                         compareDuration2 = EEPROM.read(addr + 6); // update duration
                     }
@@ -714,6 +737,7 @@ void alarm()
                     {
                         flagEnRelay3 = true;
                         digitalWrite(OUT3, 1);
+                        digitalWrite(OUT5, 1); // relay ON mass wire
                         lastDuration3 = t.min;
                         compareDuration3 = EEPROM.read(addr + 6); // update duration
                     }
@@ -751,6 +775,7 @@ void alarm()
                                 {
                                     flagEnRelay1 = true;
                                     digitalWrite(OUT1, 1);
+                                    digitalWrite(OUT5, 1); // relay ON mass wire
                                     lastDuration1 = t.min;
                                     compareDuration1 = EEPROM.read(iCusAddr + 9); // update duration
                                 }
@@ -758,6 +783,7 @@ void alarm()
                                 {
                                     flagEnRelay2 = true;
                                     digitalWrite(OUT2, 1);
+                                    digitalWrite(OUT5, 1); // relay ON mass wire
                                     lastDuration2 = t.min;
                                     compareDuration2 = EEPROM.read(iCusAddr + 9); // update duration
                                 }
@@ -765,6 +791,7 @@ void alarm()
                                 {
                                     flagEnRelay3 = true;
                                     digitalWrite(OUT3, 1);
+                                    digitalWrite(OUT5, 1); // relay ON mass wire
                                     lastDuration3 = t.min;
                                     compareDuration3 = EEPROM.read(iCusAddr + 9); // update duration
                                 }
