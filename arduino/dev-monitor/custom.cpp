@@ -1,7 +1,7 @@
 #include "custom.h"
 
-extern byte arrTick[256], iCusEvents;
-extern volatile int16_t iCusAddressEEProm, numOfEvents;
+extern byte arrTick[1024], iCusEvents;
+extern volatile int16_t iCusAddressEEProm;
 extern bool flagCusSetting, flagCusView;
 
 void customDeleteValue()
@@ -29,14 +29,14 @@ lbReConfirm:
     {
         EEPROM.write(iCusAddressEEProm, 0);
         delay(4); // An EEPROM write takes 3.3 ms to complete
-        EEPROM.write(147, EEPROM.read(147) - 1);
+        EEPROM.write(196, EEPROM.read(196) - 1);
         delay(4); // An EEPROM write takes 3.3 ms to complete
     }
     else
         goto lbReConfirm;
 
-    iCusEvents = EEPROM.read(147);
-    iCusAddressEEProm = 138;
+    iCusEvents = EEPROM.read(196);
+    iCusAddressEEProm = 187;
     flagCusSetting = false;
     flagCusView = false;
     // return home screen
@@ -369,14 +369,14 @@ lbConfirm:
             delay(4);
             ++i;
         }
-        EEPROM.write(147, EEPROM.read(147) + 1);
+        EEPROM.write(196, EEPROM.read(196) + 1);
         delay(4); // An EEPROM write takes 3.3 ms to complete
     }
     else
         goto lbConfirm;
 
-    iCusAddressEEProm = 138;
-    iCusEvents = EEPROM.read(147);
+    iCusAddressEEProm = 187;
+    iCusEvents = EEPROM.read(196);
     flagCusSetting = false;
     // return home screen
     lcd.clear();

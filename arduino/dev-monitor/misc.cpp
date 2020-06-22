@@ -489,7 +489,7 @@ void alarm()
     switch (currentWeekDay)
     {
     case 2: // Mon
-        for (int addr = 0; 21 - addr;)
+        for (int addr = 0; 28 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -522,11 +522,11 @@ void alarm()
                     return;
                 }
             }
-            addr += 7; // Sáng -> Trưa -> Chiều
+            addr += 7; // Sáng -> Trưa -> Chiều -> Tối
         }
         break;
     case 3: // Tue
-        for (int addr = 21; 42 - addr;)
+        for (int addr = 28; 56 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -563,7 +563,7 @@ void alarm()
         }
         break;
     case 4: // Wed
-        for (int addr = 42; 63 - addr;)
+        for (int addr = 56; 84 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -600,7 +600,7 @@ void alarm()
         }
         break;
     case 5: // Thus
-        for (int addr = 63; 84 - addr;)
+        for (int addr = 84; 112 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -637,7 +637,7 @@ void alarm()
         }
         break;
     case 6: // Fri
-        for (int addr = 84; 105 - addr;)
+        for (int addr = 112; 140 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -674,7 +674,7 @@ void alarm()
         }
         break;
     case 7: // Sat
-        for (int addr = 105; 126 - addr;)
+        for (int addr = 140; 168 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -711,7 +711,7 @@ void alarm()
         }
         break;
     case 1: // Sun
-        for (int addr = 126; 147 - addr;)
+        for (int addr = 168; 196 - addr;)
         {
             if (currentHour == EEPROM.read(addr + 1))
             {
@@ -755,8 +755,8 @@ void alarm()
     }
 
     // alarm sự kiện 1 lần
-    int iCusAddr = 138;
-    for (int i = 0; EEPROM.read(147) - i;)
+    int iCusAddr = 187;
+    for (int i = 0; EEPROM.read(196) - i;)
     { // loop num of length times
         do
         { // pass null event to generate iCusAddr
@@ -799,10 +799,10 @@ void alarm()
                                 // delete this match events
                                 EEPROM.write(iCusAddr, 0);
                                 delay(4);
-                                EEPROM.write(147, EEPROM.read(147) - 1);
+                                EEPROM.write(196, EEPROM.read(196) - 1);
                                 delay(4); // An EEPROM write takes 3.3 ms to complete
-                                iCusEvents = EEPROM.read(147);
-                                iCusAddressEEProm = 138;
+                                iCusEvents = EEPROM.read(196);
+                                iCusAddressEEProm = 187;
 
                                 return; // exit right on match event every 1 minutes
                             }

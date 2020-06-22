@@ -37,20 +37,20 @@
 </p>
  
 ## Dev
-### Sự kiện mỗi ngày: 7 cells  X  3 buổi mỗi ngày  X  7 ngày trong tuần  =  147 cells. 0 -> 146
+### Sự kiện mỗi ngày: 7 cells  X  4 buổi mỗi ngày  X  7 ngày trong tuần  =  196 cells. 0 -> 195
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | ... |
 | - | - | - | - | - | - | - | --- |
 | WeekDay | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
 
-### Sự kiện tuỳ chỉnh: ô 147 *<số sự kiện tuỳ chỉnh hiện tại>*  +  10 cells  X  đến hết ô nhớ EEPr (1024 bytes). 147 | 148 -> 1023
-| 148 | 149 | 150 | 151 | 152 | 153 | 154 | 155 | 156 | 157 | ... |
+### Sự kiện tuỳ chỉnh: ô 196 *<số sự kiện tuỳ chỉnh hiện tại>*  +  10 cells  X  đến hết ô nhớ EEPr (1024 bytes). 196 | 197 -> 1023
+| 197 | 198 | 199 | 200 | 201 | 202 | 203 | 204 | 205 | 206 | ... |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | MonthDate | Month | Year1 *<hàng nghìn & hàng trăm>* | Year2 *<hàng chục & hàng đơn vị>* | Hour | Minute | Relay1 | Relay2 | Relay3 | Duration | *lặp lại* |
 
 ### Linh tinh
-- ô thứ *148 + 10n* là các ô MonthDate nếu về 0 thì khi duyệt qua các sự kiện sẽ dừng lại ở đó >> nếu #0 thì bỏ qua
+- ô thứ *197 + 10n* là các ô MonthDate nếu về 0 thì khi duyệt qua các sự kiện sẽ dừng lại ở đó >> nếu #0 thì bỏ qua
 - ô 1025, 1026, 1027 lưu 3 biến duration RF tương ứng 3 relay
-- biến *arrTick[256]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
+- biến *arrTick[1024]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
 
 ## Actual Deployment

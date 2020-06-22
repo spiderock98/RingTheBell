@@ -4,8 +4,9 @@
 
 //================================================== global variables ==================================================
 struct ts t;
-volatile int16_t chosenDayOfWeek = -1, iAddressEEProm = -7, iCusAddressEEProm = 138, numOfEvents = 0;
-byte arrTick[256], iCusEvents = EEPROM.read(147);
+volatile int16_t iAddressEEProm = -7, iCusAddressEEProm = 187;
+volatile int8_t chosenDayOfWeek = -1;
+byte arrTick[1024], iCusEvents = EEPROM.read(196);
 
 bool flagRepeatSetting = false, flagCusSetting = false, flagCusView = false, flagRepeatView = false, flagEnRelay1 = false, flagEnRelay2 = false, flagEnRelay3 = false, flagTickMinus1 = false, flagTickMinus2 = false, flagTickMinus3 = false, flagSetRTC = false, flagSetRfDuration = false, flagPulsePerHour = false;
 
@@ -239,7 +240,7 @@ void keypadEvent(KeypadEvent key)
     // duyệt custom events
     else if ((key == 'D') && !flagRepeatView && !flagCusSetting && !flagSetRTC && !flagSetRfDuration)
     {
-      if (EEPROM.read(147) == 0)
+      if (EEPROM.read(196) == 0)
       {
         lcd.clear();
         lcd.setCursor(0, 0);
@@ -258,8 +259,8 @@ void keypadEvent(KeypadEvent key)
 
       if (!iCusEvents)
       {
-        iCusEvents = EEPROM.read(147);
-        iCusAddressEEProm = 138;
+        iCusEvents = EEPROM.read(196);
+        iCusAddressEEProm = 187;
         flagCusView = false;
         lcd.clear();
         return;
@@ -278,7 +279,7 @@ void keypadEvent(KeypadEvent key)
       if (!flagCusSetting && !flagRepeatSetting && !flagRepeatView && !flagSetRTC && !flagSetRfDuration) // just in view can add event
       {
         // fix when hold d >> you must pass PRESSED D and get these stuff wrong
-        iCusAddressEEProm = 138;
+        iCusAddressEEProm = 187;
         ++iCusEvents;
         flagCusView = false;
 

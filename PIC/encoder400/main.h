@@ -39,5 +39,3 @@
 #define ledSTARTING PIN_D3
 #define ledRINGING PIN_C5
 // #define ledBUTTON PIN_D4
-
-#byte CMCON = 0x9C
