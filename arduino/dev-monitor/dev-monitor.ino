@@ -255,7 +255,7 @@ void keypadEvent(KeypadEvent key)
       do
       { // pass null event to generate iCusAddressEEProm
         iCusAddressEEProm += 10;
-      } while ((EEPROM.read(iCusAddressEEProm) == 0) && (iCusAddressEEProm < 1024) && iCusEvents);
+      } while ((EEPROM.read(iCusAddressEEProm) == 0) && (iCusAddressEEProm < 1017) && iCusEvents);
 
       if (!iCusEvents)
       {
@@ -286,7 +286,7 @@ void keypadEvent(KeypadEvent key)
         do
         { // find null event >> avoid EEProm diskfrag
           iCusAddressEEProm += 10;
-        } while ((EEPROM.read(iCusAddressEEProm) != 0) && (iCusAddressEEProm < 1024));
+        } while ((EEPROM.read(iCusAddressEEProm) != 0) && (iCusAddressEEProm < 1017));
 
         customSetValue();
       }

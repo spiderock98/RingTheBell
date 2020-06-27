@@ -176,11 +176,11 @@ lbConfirm:
         compareDuration2 = arrInfo[1];
         compareDuration3 = arrInfo[2];
         // save to eeprom
-        EEPROM.write(1025, compareDuration1);
+        EEPROM.write(1017, compareDuration1);
         delay(4);
-        EEPROM.write(1026, compareDuration2);
+        EEPROM.write(1018, compareDuration2);
         delay(4);
-        EEPROM.write(1027, compareDuration3);
+        EEPROM.write(1019, compareDuration3);
         delay(4);
     }
     else
@@ -761,7 +761,7 @@ void alarm()
         do
         { // pass null event to generate iCusAddr
             iCusAddr += 10;
-        } while ((EEPROM.read(iCusAddr) == 0) && (iCusAddr < 1024));
+        } while ((EEPROM.read(iCusAddr) == 0) && (iCusAddr < 1017));
 
         if (currentMinute == EEPROM.read(iCusAddr + 5))
             if (currentHour == EEPROM.read(iCusAddr + 4))
