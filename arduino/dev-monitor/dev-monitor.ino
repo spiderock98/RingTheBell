@@ -36,9 +36,9 @@ void setup()
   digitalWrite(OUT4, 0);
   digitalWrite(OUT5, 0); // relay OFF mass wire
 
-  compareDuration1 = EEPROM.read(1025);
-  compareDuration2 = EEPROM.read(1026);
-  compareDuration3 = EEPROM.read(1027);
+  compareDuration1 = EEPROM.read(1017);
+  compareDuration2 = EEPROM.read(1018);
+  compareDuration3 = EEPROM.read(1019);
 
   Wire.begin();
   DS3231_init(DS3231_CONTROL_INTCN);
