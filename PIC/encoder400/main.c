@@ -38,7 +38,7 @@ signed int16 ProtectRotate = 0; // init in DipSwitchState()
 #INT_EXT
 void ext_isr()
 {
-   // cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode brighe
+   // cross zero point detector 50Hz >> 1/50/2 sec per half pulse after diode bridge
 
    output_low(triac1Out);
    output_low(triac2Out);

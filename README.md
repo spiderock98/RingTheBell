@@ -83,10 +83,18 @@
 - biến *arrTick[1024]* map tạm thời toàn bộ EEPr cells để làm biến tạm set sự kiện trước khi trả về EEPr
 - khi bắt event: nhấn A để xác nhận sẽ trùng nhấn A duyệt daily events, nhấn giữ D để thêm custom events sẽ trùng với nhấn D duyệt custom events và nhấn D để huỷ thiết lập event. Do đó phải trả lại các biến khi xuyên qua pressed A và pressed D
 
-## Nghiệm Thu
+## Thư viện đa phương tiện
 
-[![demo2](http://img.youtube.com/vi/901YgAyc0Fk/0.jpg)](http://www.youtube.com/watch?v=901YgAyc0Fk "Demo 17/04/2020")
-[![demo1](http://img.youtube.com/vi/KxrsKA5V2jA/0.jpg)](http://www.youtube.com/watch?v=KxrsKA5V2jA "Demo 03/05/2020")
+### Videos Demo
+[<img title="" src="http://img.youtube.com/vi/901YgAyc0Fk/0.jpg" alt="demo2" data-align="center">](http://www.youtube.com/watch?v=901YgAyc0Fk "Demo 17/04/2020")
+[<img src="http://img.youtube.com/vi/KxrsKA5V2jA/0.jpg" title="" alt="demo1" data-align="center">](http://www.youtube.com/watch?v=KxrsKA5V2jA "Demo 03/05/2020")
+
+### Hình ảnh
+<img src="resources/images/95929284_236289081025758_8377429054827003904_n.jpg" width="45%"></img>
+<img src="resources/images/96001956_662530704540158_7036980086846783488_n.jpg" width="45%"></img>
+<img src="resources/images/96276823_577643162875470_682236652818530304_n.jpg" width="45%"></img>
+<img src="resources/images/IMAG0080.jpg" width="45%"></img>
+
 
 ## Contributors
 
